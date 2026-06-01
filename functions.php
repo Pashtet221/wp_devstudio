@@ -4,47 +4,68 @@
  * JS из исходного сайта убран, чтобы не вызывал client-side error.
  */
 
+function itb_company_asset_version($relative_path) {
+    $file_path = get_stylesheet_directory() . '/' . ltrim($relative_path, '/');
+
+    return file_exists($file_path) ? (string) filemtime($file_path) : null;
+}
+
 function itb_company_clean_enqueue_assets() {
-	$theme_uri = get_template_directory_uri();
+    $theme_uri = get_template_directory_uri();
 
-	// Стили из исходного index.html
-	wp_enqueue_style( 'itb-94e1dadf2106e4cc', $theme_uri . '/css/94e1dadf2106e4cc.css', array(), null );
-	wp_enqueue_style( 'itb-6c03dfe331e53e31', $theme_uri . '/css/6c03dfe331e53e31.css', array(), null );
-	wp_enqueue_style( 'itb-a7f7c406d0b944bc', $theme_uri . '/css/a7f7c406d0b944bc.css', array(), null );
-	wp_enqueue_style( 'itb-e91c5d28e481d74a', $theme_uri . '/css/e91c5d28e481d74a.css', array(), null );
-	wp_enqueue_style( 'itb-d39dc04b3f877cc1', $theme_uri . '/css/d39dc04b3f877cc1.css', array(), null );
-	wp_enqueue_style( 'itb-128003f9ca2ca265', $theme_uri . '/css/128003f9ca2ca265.css', array(), null );
-	wp_enqueue_style( 'itb-a75b29b020565b28', $theme_uri . '/css/a75b29b020565b28.css', array(), null );
-	wp_enqueue_style( 'itb-1fa3ea36f4a6032d', $theme_uri . '/css/1fa3ea36f4a6032d.css', array(), null );
-	wp_enqueue_style( 'itb-d3b2c8798c3c896b', $theme_uri . '/css/d3b2c8798c3c896b.css', array(), null );
-	wp_enqueue_style( 'itb-5dd23e6840adf311', $theme_uri . '/css/5dd23e6840adf311.css', array(), null );
-	wp_enqueue_style( 'itb-57c639a8883faf4a', $theme_uri . '/css/57c639a8883faf4a.css', array(), null );
-	wp_enqueue_style( 'itb-79d7aa296eba0789', $theme_uri . '/css/79d7aa296eba0789.css', array(), null );
-	wp_enqueue_style( 'itb-8ebba0db187e5949', $theme_uri . '/css/8ebba0db187e5949.css', array(), null );
-	wp_enqueue_style( 'itb-86af2410ea4762c9', $theme_uri . '/css/86af2410ea4762c9.css', array(), null );
+    $style_files = [
+        '94e1dadf2106e4cc.css',
+        '6c03dfe331e53e31.css',
+        'a7f7c406d0b944bc.css',
+        'e91c5d28e481d74a.css',
+        'd39dc04b3f877cc1.css',
+        '128003f9ca2ca265.css',
+        'a75b29b020565b28.css',
+        '1fa3ea36f4a6032d.css',
+        'd3b2c8798c3c896b.css',
+        '5dd23e6840adf311.css',
+        '57c639a8883faf4a.css',
+        '79d7aa296eba0789.css',
+        '8ebba0db187e5949.css',
+        '86af2410ea4762c9.css',
+    ];
 
-	// Никаких wp_enqueue_script здесь специально нет.
+    foreach ($style_files as $file_name) {
+        $relative_path = 'assets/css/' . $file_name;
+
+        wp_enqueue_style(
+            'itb-' . sanitize_title($file_name),
+            $theme_uri . '/' . $relative_path,
+            [],
+            itb_company_asset_version($relative_path)
+        );
+    }
+
+    wp_enqueue_style(
+        'itb-company-style',
+        get_stylesheet_directory_uri() . '/style.css',
+        [],
+        itb_company_asset_version('style.css')
+    );
 }
 
 add_action( 'wp_enqueue_scripts', 'itb_company_clean_enqueue_assets' );
 
 
 
+function itb_company_theme_setup() {
+    add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+    add_theme_support('post-thumbnails', ['post']);
 
-// Поддержка изображений записи
-add_theme_support('post-thumbnails');
-
-// Если нужно — только для записей
-add_theme_support('post-thumbnails', ['post']);
-
-
-
-add_theme_support('custom-logo', [
-  'height'      => 100,
-  'width'       => 300,
-  'flex-height' => true,
-  'flex-width'  => true,
-]);
+    add_theme_support('custom-logo', [
+        'height'      => 100,
+        'width'       => 300,
+        'flex-height' => true,
+        'flex-width'  => true,
+    ]);
+}
+add_action('after_setup_theme', 'itb_company_theme_setup');
 
 
 
@@ -74,39 +95,30 @@ add_filter('big_image_size_threshold', '__return_false');
 
 
 function itb_company_assets() {
-    // Swiper CSS
     wp_enqueue_style(
         'swiper',
         'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css',
-        array(),
-        null
+        [],
+        '9'
     );
 
-    // Твои стили темы
-    wp_enqueue_style(
-        'itb-company-style',
-        get_stylesheet_directory_uri() . '/style.css',
-        array('swiper'),
-        null
-    );
-
-    // Swiper JS
     wp_enqueue_script(
         'swiper',
         'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js',
-        array(),
-        null,
+        [],
+        '9',
         true
     );
 
-    // Скрипт инициализации слайдера
-    wp_enqueue_script(
-        'itb-main-services-slider',
-        get_stylesheet_directory_uri() . '/assets/js/main-services-slider.js',
-        array('swiper'),
-        null,
-        true
-    );
+    if (file_exists(get_stylesheet_directory() . '/assets/js/main-services-slider.js')) {
+        wp_enqueue_script(
+            'itb-main-services-slider',
+            get_stylesheet_directory_uri() . '/assets/js/main-services-slider.js',
+            ['swiper'],
+            itb_company_asset_version('assets/js/main-services-slider.js'),
+            true
+        );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'itb_company_assets' );
 
@@ -116,6 +128,142 @@ add_action( 'wp_enqueue_scripts', 'itb_company_assets' );
 
 
 
+
+
+function wpds_theme_seo_plugin_active() {
+    return defined('WPSEO_VERSION')
+        || defined('RANK_MATH_VERSION')
+        || defined('SEOPRESS_VERSION')
+        || defined('AIOSEO_VERSION');
+}
+
+function wpds_theme_get_meta_description() {
+    if (is_singular()) {
+        $post_id = get_queried_object_id();
+        $description = get_post_meta($post_id, '_yoast_wpseo_metadesc', true);
+
+        if (!$description) {
+            $description = get_post_meta($post_id, 'seo_description', true);
+        }
+
+        if (!$description && has_excerpt($post_id)) {
+            $description = get_the_excerpt($post_id);
+        }
+
+        if (!$description) {
+            $description = wp_strip_all_tags(get_post_field('post_content', $post_id));
+        }
+    } elseif (is_category() || is_tag() || is_tax()) {
+        $description = term_description();
+    } else {
+        $description = get_bloginfo('description');
+    }
+
+    if (!$description) {
+        $description = 'Разработка, поддержка и доработка сайтов на WordPress и WooCommerce: лендинги, интернет-магазины, плагины, интеграции и SEO-структура.';
+    }
+
+    return wp_trim_words(wp_strip_all_tags($description), 28, '');
+}
+
+function wpds_theme_get_share_image() {
+    if (is_singular() && has_post_thumbnail()) {
+        return get_the_post_thumbnail_url(get_queried_object_id(), 'large');
+    }
+
+    $custom_logo_id = get_theme_mod('custom_logo');
+    if ($custom_logo_id) {
+        return wp_get_attachment_image_url($custom_logo_id, 'full');
+    }
+
+    return get_template_directory_uri() . '/images/favicon.ico';
+}
+
+function wpds_theme_current_url() {
+    if (is_singular()) {
+        return get_permalink();
+    }
+
+    if (is_front_page() || is_home()) {
+        return home_url('/');
+    }
+
+    if (is_category() || is_tag() || is_tax()) {
+        $term = get_queried_object();
+        return ($term && !is_wp_error($term)) ? get_term_link($term) : home_url('/');
+    }
+
+    if (is_post_type_archive()) {
+        return get_post_type_archive_link(get_query_var('post_type'));
+    }
+
+    return home_url(add_query_arg([], $GLOBALS['wp']->request ?? ''));
+}
+
+function wpds_theme_output_seo_meta() {
+    if (wpds_theme_seo_plugin_active()) {
+        return;
+    }
+
+    $description = wpds_theme_get_meta_description();
+    $title = wp_get_document_title();
+    $url = wpds_theme_current_url();
+    $image = wpds_theme_get_share_image();
+    $type = is_singular('post') ? 'article' : 'website';
+
+    echo '<meta name="description" content="' . esc_attr($description) . '" />' . "\n";
+    echo '<meta property="og:locale" content="ru_RU" />' . "\n";
+    echo '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '" />' . "\n";
+    echo '<meta property="og:type" content="' . esc_attr($type) . '" />' . "\n";
+    echo '<meta property="og:title" content="' . esc_attr($title) . '" />' . "\n";
+    echo '<meta property="og:description" content="' . esc_attr($description) . '" />' . "\n";
+    echo '<meta property="og:url" content="' . esc_url($url) . '" />' . "\n";
+
+    if ($image) {
+        echo '<meta property="og:image" content="' . esc_url($image) . '" />' . "\n";
+        echo '<meta name="twitter:card" content="summary_large_image" />' . "\n";
+    } else {
+        echo '<meta name="twitter:card" content="summary" />' . "\n";
+    }
+
+    echo '<meta name="twitter:title" content="' . esc_attr($title) . '" />' . "\n";
+    echo '<meta name="twitter:description" content="' . esc_attr($description) . '" />' . "\n";
+
+    if (!is_singular()) {
+        echo '<link rel="canonical" href="' . esc_url($url) . '" />' . "\n";
+    }
+
+    if (is_front_page()) {
+        $organization_schema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'ProfessionalService',
+            'name' => get_bloginfo('name'),
+            'url' => home_url('/'),
+            'email' => 'info@wpdevstudio.ru',
+            'telephone' => '+7 925 040-41-89',
+            'areaServed' => 'RU',
+            'sameAs' => [
+                'https://t.me/+79250404189',
+                'https://wa.me/79250404189',
+            ],
+        ];
+
+        echo '<script type="application/ld+json">' . wp_json_encode($organization_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
+    }
+}
+add_action('wp_head', 'wpds_theme_output_seo_meta', 2);
+
+add_filter('wp_robots', function ($robots) {
+    $robots['max-image-preview'] = 'large';
+
+    if (is_search() || is_404()) {
+        unset($robots['index']);
+        $robots['noindex'] = true;
+        $robots['follow'] = true;
+    }
+
+    return $robots;
+});
 
 add_action('wp_head', function () {
   ?>
