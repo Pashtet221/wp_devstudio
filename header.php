@@ -34,28 +34,15 @@
 	
 
 <?php
-$theme_uri = get_template_directory_uri();
+/* CSS подключается через wp_enqueue_style() в functions.php,
+ * чтобы WordPress мог управлять порядком, версиями и дублями ресурсов. */
 ?>
-
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/94e1dadf2106e4cc.css">
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/6c03dfe331e53e31.css">
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/a7f7c406d0b944bc.css">
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/e91c5d28e481d74a.css">
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/d39dc04b3f877cc1.css">
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/128003f9ca2ca265.css">
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/a75b29b020565b28.css">
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/1fa3ea36f4a6032d.css">
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/d3b2c8798c3c896b.css">
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/5dd23e6840adf311.css">
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/57c639a8883faf4a.css">
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/79d7aa296eba0789.css">
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/8ebba0db187e5949.css">
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/86af2410ea4762c9.css">
 
 <?php wp_head(); ?>	
 </head>
 
-<body class="__variable_69a85b __variable_e2af37 __variable_64f3dc">
+<body <?php body_class("__variable_69a85b __variable_e2af37 __variable_64f3dc"); ?>>
+<?php wp_body_open(); ?>
 	
 	
 	
