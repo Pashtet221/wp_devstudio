@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "schema": "cases.seed.v1",
+    "section_id": "what-will-you-get",
+    "section_title": "Наши кейсы",
+    "cta_all_cases_url": "/cases",
+    "cta_all_cases_label": "Смотреть все кейсы"
+  },
+  "filters": [
+    { "key": "all", "label": "Все" },
+    { "key": "shop", "label": "Магазины" },
+    { "key": "corp", "label": "Корпоративные" },
+    { "key": "catalog", "label": "Каталоги / доски" }
+  ],
+  "tax_terms": [
+    { "taxonomy": "case_category", "slug": "shop", "name": "Магазины" },
+    { "taxonomy": "case_category", "slug": "corp", "name": "Корпоративные" },
+    { "taxonomy": "case_category", "slug": "catalog", "name": "Каталоги / доски" }
+  ],
+  "cases": [
+    {
+      "post_title": "Интернет-магазин мебели",
+      "post_name": "internet-magazin-mebeli",
+      "status": "publish",
+      "excerpt": "Тип проекта: интернет-магазин на WooCommerce",
+      "permalink": "/case/internet-magazin-mebeli",
+      "categories": ["shop"],
+      "card": {
+        "badge_text": "Интернет-магазин",
+        "badge_variant": "default",
+        "image": {
+          "src": "/wp-content/uploads/cases/case-shop-furniture.jpg",
+          "alt": "Интернет-магазин мебели на WooCommerce"
+        }
+      },
+      "results": [
+        { "label": "Скорость загрузки", "value": "0.8 сек" },
+        { "label": "Рост заявок", "value": "+120%" },
+        { "label": "Рост конверсии", "value": "в 2.3 раза" }
+      ],
+      "details": {
+        "platform": "WordPress + WooCommerce",
+        "project_type": "Интернет-магазин",
+        "stack": ["WooCommerce", "кастомная тема", "оптимизация скорости"],
+        "kpi": ["Скорость: 0.8 сек", "Заявки: +120%", "Конверсия: x2.3"]
+      }
+    },
+    {
+      "post_title": "Сайт IT-компании",
+      "post_name": "korporativnyy-sayt-it-kompanii",
+      "status": "publish",
+      "excerpt": "Тип проекта: корпоративный сайт на кастомной теме",
+      "permalink": "/case/korporativnyy-sayt-it-kompanii",
+      "categories": ["corp"],
+      "card": {
+        "badge_text": "Корпоративный сайт",
+        "badge_variant": "blue",
+        "image": {
+          "src": "/wp-content/uploads/cases/case-corp-it.jpg",
+          "alt": "Корпоративный сайт IT-компании на WordPress"
+        }
+      },
+      "results": [
+        { "label": "Скорость загрузки", "value": "0.9 сек" },
+        { "label": "Рост обращений", "value": "+87%" },
+        { "label": "Время на сайте", "value": "+35%" }
+      ],
+      "details": {
+        "platform": "WordPress",
+        "project_type": "Корпоративный сайт",
+        "stack": ["кастомная тема", "контентные блоки", "оптимизация"],
+        "kpi": ["Скорость: 0.9 сек", "Обращения: +87%", "Время: +35%"]
+      }
+    },
+    {
+      "post_title": "Платформа объявлений",
+      "post_name": "doska-obyavleniy",
+      "status": "publish",
+      "excerpt": "Тип проекта: доска объявлений с кастомным функционалом",
+      "permalink": "/case/doska-obyavleniy",
+      "categories": ["catalog"],
+      "card": {
+        "badge_text": "Доска объявлений",
+        "badge_variant": "green",
+        "image": {
+          "src": "/wp-content/uploads/cases/case-board-ads.jpg",
+          "alt": "Доска объявлений на WordPress"
+        }
+      },
+      "results": [
+        { "label": "Объявлений", "value": "50 000+" },
+        { "label": "Функционал", "value": "геопоиск, фильтры, метки" },
+        { "label": "Монетизация", "value": "платные опции размещения" }
+      ],
+      "details": {
+        "platform": "WordPress",
+        "project_type": "Каталог / доска",
+        "stack": ["кастомные типы", "фильтры", "геопоиск"],
+        "kpi": ["50 000+ объявлений", "Монетизация", "Фильтрация/гео"]
+      }
+    },
+    {
+      "post_title": "Магазин одежды",
+      "post_name": "magazin-odezhdy",
+      "status": "publish",
+      "excerpt": "Тип проекта: интернет-магазин с интеграцией складского учёта",
+      "permalink": "/case/magazin-odezhdy",
+      "categories": ["shop"],
+      "card": {
+        "badge_text": "Интернет-магазин",
+        "badge_variant": "default",
+        "image": {
+          "src": "/wp-content/uploads/cases/case-shop-clothes.jpg",
+          "alt": "Интернет-магазин одежды на WordPress"
+        }
+      },
+      "results": [
+        { "label": "Скорость", "value": "0.7 сек" },
+        { "label": "Рост продаж", "value": "+95%" },
+        { "label": "Интеграции", "value": "CRM, 1С, доставки" }
+      ],
+      "details": {
+        "platform": "WordPress + WooCommerce",
+        "project_type": "Интернет-магазин",
+        "stack": ["интеграция 1С", "CRM", "службы доставки"],
+        "kpi": ["Скорость: 0.7 сек", "Продажи: +95%", "Интеграции: 3+"]
+      }
+    }
+  ]
+}
