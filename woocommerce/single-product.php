@@ -109,15 +109,23 @@ if (!$product) return;
 
 $items = [];
 
-/** 1) Видео (если есть) — meta key: product_video */
-$video_url = trim((string) get_post_meta(get_the_ID(), 'product_video', true));
-// Если у тебя ACF: $video_url = (string) get_field('product_video');
+/** 1) Видео YouTube из ACF — field name: product_youtube_video */
+$video_url = '';
+if (function_exists('get_field')) {
+  $video_url = trim((string) get_field('product_youtube_video', get_the_ID()));
+}
+
+// Legacy fallback: поддерживаем старое meta-поле, если ACF ещё не заполнено.
+if (!$video_url) {
+  $video_url = trim((string) get_post_meta(get_the_ID(), 'product_video', true));
+}
+
 if ($video_url) {
   $items[] = [
     'type' => 'video',
     'url'  => $video_url,
-    'thumb'=> '', // заполню ниже
-    'title'=> 'Видео',
+    'thumb'=> function_exists('wpds_youtube_thumbnail_url') ? wpds_youtube_thumbnail_url($video_url) : '',
+    'title'=> 'Видео товара',
   ];
 }
 
@@ -191,14 +199,8 @@ if (!empty($items) && $items[0]['type'] === 'video' && empty($items[0]['thumb'])
               $embed_html = '';
 
               // YouTube
-              if (preg_match('~(youtube\.com/watch\?v=|youtu\.be/)~i', $url)) {
-                $yt_id = '';
-                if (preg_match('~youtu\.be/([A-Za-z0-9_-]+)~', $url, $m)) $yt_id = $m[1];
-                if (!$yt_id && preg_match('~v=([A-Za-z0-9_-]+)~', $url, $m2)) $yt_id = $m2[1];
-
-                if ($yt_id) {
-                  $embed_html = '<iframe loading="lazy" src="https://www.youtube.com/embed/' . esc_attr($yt_id) . '" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
-                }
+              if (function_exists('wpds_youtube_embed_url') && wpds_youtube_embed_url($url)) {
+                $embed_html = '<iframe loading="lazy" src="' . esc_url(wpds_youtube_embed_url($url)) . '" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
               }
               // Vimeo
               else if (preg_match('~vimeo\.com/(\d+)~i', $url, $m)) {
