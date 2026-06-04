@@ -4233,3 +4233,143 @@ function wpds_contractual_price_html($price_html, $product) {
 
 	return $price_html;
 }
+
+/**
+ * ACF fields and helpers for YouTube videos on the front page and products.
+ */
+if (!function_exists('wpds_youtube_video_id')) {
+	function wpds_youtube_video_id($url) {
+		$url = trim((string) $url);
+
+		if ($url === '') {
+			return '';
+		}
+
+		if (preg_match('~^[A-Za-z0-9_-]{11}$~', $url)) {
+			return $url;
+		}
+
+		$parts = wp_parse_url($url);
+		if (empty($parts['host'])) {
+			return '';
+		}
+
+		$host = strtolower(preg_replace('~^www\.~', '', $parts['host']));
+		$path = isset($parts['path']) ? trim($parts['path'], '/') : '';
+
+		if ($host === 'youtu.be' && $path !== '') {
+			$segments = explode('/', $path);
+			return preg_match('~^[A-Za-z0-9_-]{11}$~', $segments[0]) ? $segments[0] : '';
+		}
+
+		if (in_array($host, ['youtube.com', 'm.youtube.com', 'music.youtube.com', 'youtube-nocookie.com'], true)) {
+			if (!empty($parts['query'])) {
+				parse_str($parts['query'], $query);
+				if (!empty($query['v']) && preg_match('~^[A-Za-z0-9_-]{11}$~', $query['v'])) {
+					return $query['v'];
+				}
+			}
+
+			if (preg_match('~(?:embed|shorts|live)/([A-Za-z0-9_-]{11})~', $path, $matches)) {
+				return $matches[1];
+			}
+		}
+
+		return '';
+	}
+}
+
+if (!function_exists('wpds_youtube_embed_url')) {
+	function wpds_youtube_embed_url($url) {
+		$video_id = wpds_youtube_video_id($url);
+
+		return $video_id ? 'https://www.youtube-nocookie.com/embed/' . rawurlencode($video_id) : '';
+	}
+}
+
+if (!function_exists('wpds_youtube_thumbnail_url')) {
+	function wpds_youtube_thumbnail_url($url) {
+		$video_id = wpds_youtube_video_id($url);
+
+		return $video_id ? 'https://img.youtube.com/vi/' . rawurlencode($video_id) . '/hqdefault.jpg' : '';
+	}
+}
+
+add_action('acf/init', function () {
+	if (!function_exists('acf_add_local_field_group')) {
+		return;
+	}
+
+	acf_add_local_field_group([
+		'key' => 'group_wpds_youtube_videos',
+		'title' => 'YouTube видео',
+		'fields' => [
+			[
+				'key' => 'field_wpds_home_youtube_videos',
+				'label' => 'Видео для слайдера на главной',
+				'name' => 'home_youtube_videos',
+				'type' => 'repeater',
+				'instructions' => 'Добавьте ссылки на YouTube-ролики. Слайдер выводится на странице с шаблоном Front Page.',
+				'collapsed' => 'field_wpds_home_youtube_title',
+				'button_label' => 'Добавить видео',
+				'layout' => 'row',
+				'sub_fields' => [
+					[
+						'key' => 'field_wpds_home_youtube_title',
+						'label' => 'Заголовок',
+						'name' => 'title',
+						'type' => 'text',
+						'wrapper' => ['width' => '40'],
+					],
+					[
+						'key' => 'field_wpds_home_youtube_url',
+						'label' => 'Ссылка YouTube',
+						'name' => 'url',
+						'type' => 'url',
+						'required' => 1,
+						'wrapper' => ['width' => '60'],
+					],
+				],
+			],
+		],
+		'location' => [
+			[
+				[
+					'param' => 'page_template',
+					'operator' => '==',
+					'value' => 'template-front-page.php',
+				],
+			],
+			[
+				[
+					'param' => 'page_type',
+					'operator' => '==',
+					'value' => 'front_page',
+				],
+			],
+		],
+	]);
+
+	acf_add_local_field_group([
+		'key' => 'group_wpds_product_youtube_video',
+		'title' => 'Видео товара',
+		'fields' => [
+			[
+				'key' => 'field_wpds_product_youtube_video',
+				'label' => 'YouTube видео товара',
+				'name' => 'product_youtube_video',
+				'type' => 'url',
+				'instructions' => 'Укажите ссылку на одно видео YouTube. Оно появится первым слайдом в галерее товара.',
+			],
+		],
+		'location' => [
+			[
+				[
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'product',
+				],
+			],
+		],
+	]);
+});
