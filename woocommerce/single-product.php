@@ -109,7 +109,7 @@ if (!$product) return;
 
 $items = [];
 
-/** 1) Видео YouTube из ACF — field name: product_youtube_video */
+/** 1) Видео VK из ACF — field name: product_youtube_video */
 $video_url = '';
 if (function_exists('get_field')) {
   $video_url = trim((string) get_field('product_youtube_video', get_the_ID()));
@@ -124,7 +124,7 @@ if ($video_url) {
   $items[] = [
     'type' => 'video',
     'url'  => $video_url,
-    'thumb'=> function_exists('wpds_youtube_thumbnail_url') ? wpds_youtube_thumbnail_url($video_url) : '',
+    'thumb'=> '',
     'title'=> 'Видео товара',
   ];
 }
@@ -198,9 +198,9 @@ if (!empty($items) && $items[0]['type'] === 'video' && empty($items[0]['thumb'])
               $url = $it['url'];
               $embed_html = '';
 
-              // YouTube
-              if (function_exists('wpds_youtube_embed_url') && wpds_youtube_embed_url($url)) {
-                $embed_html = '<iframe loading="lazy" src="' . esc_url(wpds_youtube_embed_url($url)) . '" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+              // VK Video
+              if (function_exists('wpds_vk_video_embed_url') && wpds_vk_video_embed_url($url)) {
+                $embed_html = '<iframe loading="lazy" src="' . esc_url(wpds_vk_video_embed_url($url)) . '" title="VK video" frameborder="0" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" allowfullscreen></iframe>';
               }
               // Vimeo
               else if (preg_match('~vimeo\.com/(\d+)~i', $url, $m)) {

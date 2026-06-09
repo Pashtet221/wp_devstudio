@@ -1312,20 +1312,20 @@ get_header();
 
 
 <?php
-$home_youtube_videos = [];
+$home_vk_videos = [];
 
 if (function_exists('have_rows') && have_rows('home_youtube_videos')) {
   while (have_rows('home_youtube_videos')) {
     the_row();
 
     $video_url = trim((string) get_sub_field('url'));
-    $embed_url = function_exists('wpds_youtube_embed_url') ? wpds_youtube_embed_url($video_url) : '';
+    $embed_url = function_exists('wpds_vk_video_embed_url') ? wpds_vk_video_embed_url($video_url) : '';
 
     if (!$embed_url) {
       continue;
     }
 
-    $home_youtube_videos[] = [
+    $home_vk_videos[] = [
       'title' => trim((string) get_sub_field('title')),
       'embed' => $embed_url,
     ];
@@ -1333,23 +1333,23 @@ if (function_exists('have_rows') && have_rows('home_youtube_videos')) {
 }
 ?>
 
-<?php if (!empty($home_youtube_videos)) : ?>
+<?php if (!empty($home_vk_videos)) : ?>
 <section class="home-video-slider" aria-labelledby="home-video-slider-title">
   <div class="container">
     <div class="home-video-slider__header">
       <span class="home-video-slider__eyebrow">Видео</span>
       <h2 class="home-video-slider__title" id="home-video-slider-title">Посмотрите проекты и разборы в формате видео</h2>
-      <p class="home-video-slider__subtitle">Добавляйте ролики через ACF — блок автоматически соберёт их в удобный YouTube-слайдер на главной странице.</p>
+      <p class="home-video-slider__subtitle">Добавляйте ролики через ACF — блок автоматически соберёт их в удобный VK-слайдер на главной странице.</p>
     </div>
 
     <div class="swiper home-video-slider__swiper" data-home-video-slider>
       <div class="swiper-wrapper">
-        <?php foreach ($home_youtube_videos as $index => $video) : ?>
+        <?php foreach ($home_vk_videos as $index => $video) : ?>
           <article class="swiper-slide home-video-slider__slide">
             <div class="home-video-slider__frame">
               <iframe
                 src="<?php echo esc_url($video['embed']); ?>"
-                title="<?php echo esc_attr($video['title'] ?: 'YouTube видео ' . ($index + 1)); ?>"
+                title="<?php echo esc_attr($video['title'] ?: 'VK видео ' . ($index + 1)); ?>"
                 loading="lazy"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen></iframe>

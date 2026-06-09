@@ -4235,63 +4235,94 @@ function wpds_contractual_price_html($price_html, $product) {
 }
 
 /**
- * ACF fields and helpers for YouTube videos on the front page and products.
+ * ACF fields and helpers for VK videos on the front page and products.
  */
-if (!function_exists('wpds_youtube_video_id')) {
-	function wpds_youtube_video_id($url) {
+if (!function_exists('wpds_vk_video_data')) {
+	function wpds_vk_video_data($url) {
 		$url = trim((string) $url);
 
 		if ($url === '') {
-			return '';
+			return [];
 		}
 
-		if (preg_match('~^[A-Za-z0-9_-]{11}$~', $url)) {
-			return $url;
+		$data = [];
+
+		if (preg_match('~^(clip|video)(-?\d+)_(\d+)(?:_([A-Za-z0-9_-]+))?$~', $url, $matches)) {
+			$data = [
+				'oid' => $matches[2],
+				'id' => $matches[3],
+				'hash' => $matches[4] ?? '',
+			];
 		}
 
 		$parts = wp_parse_url($url);
-		if (empty($parts['host'])) {
+		if (empty($data) && !empty($parts['host'])) {
+			$host = strtolower(preg_replace('~^www\.~', '', $parts['host']));
+			$path = isset($parts['path']) ? trim($parts['path'], '/') : '';
+			$query = [];
+
+			if (!empty($parts['query'])) {
+				parse_str($parts['query'], $query);
+			}
+
+			if (in_array($host, ['vk.com', 'm.vk.com', 'vkvideo.ru', 'm.vkvideo.ru'], true)) {
+				if ($path === 'video_ext.php' && !empty($query['oid']) && !empty($query['id'])) {
+					$data = [
+						'oid' => (string) $query['oid'],
+						'id' => (string) $query['id'],
+						'hash' => isset($query['hash']) ? (string) $query['hash'] : '',
+					];
+				} elseif (preg_match('~(?:^|/)(?:clip|video)(-?\d+)_(\d+)(?:_([A-Za-z0-9_-]+))?~', $path, $matches)) {
+					$data = [
+						'oid' => $matches[1],
+						'id' => $matches[2],
+						'hash' => $matches[3] ?? '',
+					];
+				} elseif (!empty($query['z']) && preg_match('~(?:clip|video)(-?\d+)_(\d+)(?:_([A-Za-z0-9_-]+))?~', (string) $query['z'], $matches)) {
+					$data = [
+						'oid' => $matches[1],
+						'id' => $matches[2],
+						'hash' => $matches[3] ?? '',
+					];
+				}
+			}
+		}
+
+		if (empty($data['oid']) || empty($data['id'])) {
+			return [];
+		}
+
+		if (!preg_match('~^-?\d+$~', $data['oid']) || !preg_match('~^\d+$~', $data['id'])) {
+			return [];
+		}
+
+		return [
+			'oid' => $data['oid'],
+			'id' => $data['id'],
+			'hash' => $data['hash'] ?? '',
+		];
+	}
+}
+
+if (!function_exists('wpds_vk_video_embed_url')) {
+	function wpds_vk_video_embed_url($url) {
+		$data = wpds_vk_video_data($url);
+
+		if (empty($data)) {
 			return '';
 		}
 
-		$host = strtolower(preg_replace('~^www\.~', '', $parts['host']));
-		$path = isset($parts['path']) ? trim($parts['path'], '/') : '';
+		$args = [
+			'oid' => $data['oid'],
+			'id' => $data['id'],
+			'hd' => '2',
+		];
 
-		if ($host === 'youtu.be' && $path !== '') {
-			$segments = explode('/', $path);
-			return preg_match('~^[A-Za-z0-9_-]{11}$~', $segments[0]) ? $segments[0] : '';
+		if (!empty($data['hash'])) {
+			$args['hash'] = $data['hash'];
 		}
 
-		if (in_array($host, ['youtube.com', 'm.youtube.com', 'music.youtube.com', 'youtube-nocookie.com'], true)) {
-			if (!empty($parts['query'])) {
-				parse_str($parts['query'], $query);
-				if (!empty($query['v']) && preg_match('~^[A-Za-z0-9_-]{11}$~', $query['v'])) {
-					return $query['v'];
-				}
-			}
-
-			if (preg_match('~(?:embed|shorts|live)/([A-Za-z0-9_-]{11})~', $path, $matches)) {
-				return $matches[1];
-			}
-		}
-
-		return '';
-	}
-}
-
-if (!function_exists('wpds_youtube_embed_url')) {
-	function wpds_youtube_embed_url($url) {
-		$video_id = wpds_youtube_video_id($url);
-
-		return $video_id ? 'https://www.youtube-nocookie.com/embed/' . rawurlencode($video_id) : '';
-	}
-}
-
-if (!function_exists('wpds_youtube_thumbnail_url')) {
-	function wpds_youtube_thumbnail_url($url) {
-		$video_id = wpds_youtube_video_id($url);
-
-		return $video_id ? 'https://img.youtube.com/vi/' . rawurlencode($video_id) . '/hqdefault.jpg' : '';
+		return add_query_arg($args, 'https://vk.com/video_ext.php');
 	}
 }
 
@@ -4302,14 +4333,14 @@ add_action('acf/init', function () {
 
 	acf_add_local_field_group([
 		'key' => 'group_wpds_youtube_videos',
-		'title' => 'YouTube видео',
+		'title' => 'VK видео',
 		'fields' => [
 			[
 				'key' => 'field_wpds_home_youtube_videos',
 				'label' => 'Видео для слайдера на главной',
 				'name' => 'home_youtube_videos',
 				'type' => 'repeater',
-				'instructions' => 'Добавьте ссылки на YouTube-ролики. Слайдер выводится на странице с шаблоном Front Page.',
+				'instructions' => 'Добавьте ссылки на VK Видео. Слайдер выводится на странице с шаблоном Front Page.',
 				'collapsed' => 'field_wpds_home_youtube_title',
 				'button_label' => 'Добавить видео',
 				'layout' => 'row',
@@ -4323,7 +4354,7 @@ add_action('acf/init', function () {
 					],
 					[
 						'key' => 'field_wpds_home_youtube_url',
-						'label' => 'Ссылка YouTube',
+						'label' => 'Ссылка VK Видео',
 						'name' => 'url',
 						'type' => 'url',
 						'required' => 1,
@@ -4356,10 +4387,10 @@ add_action('acf/init', function () {
 		'fields' => [
 			[
 				'key' => 'field_wpds_product_youtube_video',
-				'label' => 'YouTube видео товара',
+				'label' => 'VK видео товара',
 				'name' => 'product_youtube_video',
 				'type' => 'url',
-				'instructions' => 'Укажите ссылку на одно видео YouTube. Оно появится первым слайдом в галерее товара.',
+				'instructions' => 'Укажите ссылку на одно видео VK. Оно появится первым слайдом в галерее товара.',
 			],
 		],
 		'location' => [
