@@ -4404,3 +4404,373 @@ add_action('acf/init', function () {
 		],
 	]);
 });
+
+/**
+ * Home services calculator: ACF data, defaults and lead delivery.
+ */
+function wpds_home_calculator_default_services() {
+	return [
+		[
+			'key' => 'business-card',
+			'title' => 'Сайт-визитка',
+			'description' => 'Быстрый запуск презентационного сайта для услуг, эксперта или компании.',
+			'base_price' => 45000,
+			'options' => [
+				['title' => 'Настройка SSL', 'price' => 3000],
+				['title' => 'Подключение домена', 'price' => 2500],
+				['title' => 'Индивидуальный дизайн', 'price' => 28000],
+				['title' => 'Адаптивная вёрстка', 'price' => 18000],
+				['title' => 'Натяжка на WordPress', 'price' => 22000],
+				['title' => 'Базовая SEO-структура', 'price' => 9000],
+			],
+		],
+		[
+			'key' => 'online-store',
+			'title' => 'Интернет-магазин',
+			'description' => 'WooCommerce-магазин с каталогом, корзиной, заказами и оплатой.',
+			'base_price' => 90000,
+			'options' => [
+				['title' => 'Страница оформления заказа', 'price' => 18000],
+				['title' => 'Умная корзина', 'price' => 22000],
+				['title' => 'Личный кабинет', 'price' => 26000],
+				['title' => 'Подключение платёжных плагинов', 'price' => 16000],
+				['title' => 'Интеграция доставки', 'price' => 18000],
+				['title' => 'Импорт товаров', 'price' => 14000],
+			],
+		],
+		[
+			'key' => 'classifieds',
+			'title' => 'Доска объявлений',
+			'description' => 'Площадка объявлений с категориями, кабинетами пользователей и монетизацией.',
+			'base_price' => 120000,
+			'options' => [
+				['title' => 'Геолокация и карта', 'price' => 30000],
+				['title' => 'Подача объявлений с фронтенда', 'price' => 26000],
+				['title' => 'Премиум-размещения', 'price' => 24000],
+				['title' => 'Модерация объявлений', 'price' => 16000],
+				['title' => 'Чаты или быстрые контакты', 'price' => 28000],
+				['title' => 'Расширенный поиск и фильтры', 'price' => 22000],
+			],
+		],
+	];
+}
+
+function wpds_home_calculator_normalize_price($price) {
+	return max(0, (int) preg_replace('/[^0-9]/', '', (string) $price));
+}
+
+add_filter('acf/load_value/name=home_calculator_services', function ($value, $post_id, $field) {
+	if (!empty($value)) {
+		return $value;
+	}
+
+	return wpds_home_calculator_default_services();
+}, 10, 3);
+
+function wpds_home_calculator_get_content($post_id = 0) {
+	$post_id = $post_id ?: get_queried_object_id();
+
+	$content = [
+		'eyebrow' => 'Калькулятор проекта',
+		'title' => 'Соберите сайт под свою задачу',
+		'text' => 'Выберите тип сайта, отметьте нужные услуги и сразу увидьте ориентировочную стоимость. После расчёта оставьте контакты — я пришлю точную смету и сроки.',
+		'button' => 'Получить точный расчёт',
+		'email' => get_option('admin_email'),
+		'services' => wpds_home_calculator_default_services(),
+	];
+
+	if (!function_exists('get_field')) {
+		return $content;
+	}
+
+	$content['eyebrow'] = get_field('home_calculator_eyebrow', $post_id) ?: $content['eyebrow'];
+	$content['title'] = get_field('home_calculator_title', $post_id) ?: $content['title'];
+	$content['text'] = get_field('home_calculator_text', $post_id) ?: $content['text'];
+	$content['button'] = get_field('home_calculator_button', $post_id) ?: $content['button'];
+	$content['email'] = sanitize_email(get_field('home_calculator_email', $post_id)) ?: $content['email'];
+
+	$acf_services = get_field('home_calculator_services', $post_id);
+	if (!empty($acf_services) && is_array($acf_services)) {
+		$services = [];
+
+		foreach ($acf_services as $index => $service) {
+			$title = isset($service['title']) ? sanitize_text_field($service['title']) : '';
+			if ($title === '') {
+				continue;
+			}
+
+			$options = [];
+			if (!empty($service['options']) && is_array($service['options'])) {
+				foreach ($service['options'] as $option) {
+					$option_title = isset($option['title']) ? sanitize_text_field($option['title']) : '';
+					if ($option_title === '') {
+						continue;
+					}
+
+					$options[] = [
+						'title' => $option_title,
+						'price' => wpds_home_calculator_normalize_price($option['price'] ?? 0),
+					];
+				}
+			}
+
+			$services[] = [
+				'key' => sanitize_title($service['key'] ?? $title) ?: 'service-' . $index,
+				'title' => $title,
+				'description' => isset($service['description']) ? wp_strip_all_tags($service['description']) : '',
+				'base_price' => wpds_home_calculator_normalize_price($service['base_price'] ?? 0),
+				'options' => $options,
+			];
+		}
+
+		if (!empty($services)) {
+			$content['services'] = $services;
+		}
+	}
+
+	return $content;
+}
+
+function wpds_home_calculator_process_submission($post) {
+	if (empty($post['_wpds_calc_nonce']) || !wp_verify_nonce($post['_wpds_calc_nonce'], 'wpds_home_calculator_submit')) {
+		return ['ok' => false, 'message' => 'Ошибка безопасности. Обновите страницу и попробуйте снова.'];
+	}
+
+	if (!empty($post['company_site'])) {
+		return ['ok' => false, 'message' => 'Заявка не отправлена.'];
+	}
+
+	$name = isset($post['calc_name']) ? sanitize_text_field(wp_unslash($post['calc_name'])) : '';
+	$phone = isset($post['calc_phone']) ? sanitize_text_field(wp_unslash($post['calc_phone'])) : '';
+	$payload_raw = isset($post['calc_payload']) ? wp_unslash($post['calc_payload']) : '';
+	$post_id = isset($post['calc_post_id']) ? absint($post['calc_post_id']) : 0;
+	$calculator_content = wpds_home_calculator_get_content($post_id);
+	$recipient = sanitize_email($calculator_content['email'] ?? '');
+
+	if ($name === '' || mb_strlen($name) < 2) {
+		return ['ok' => false, 'message' => 'Введите имя.'];
+	}
+
+	if ($phone === '' || mb_strlen($phone) < 5) {
+		return ['ok' => false, 'message' => 'Введите номер телефона.'];
+	}
+
+	$payload = json_decode($payload_raw, true);
+	if (!is_array($payload)) {
+		$payload = [];
+	}
+
+	$service_title = isset($payload['serviceTitle']) ? sanitize_text_field($payload['serviceTitle']) : 'Не выбран';
+	$base_price = wpds_home_calculator_normalize_price($payload['basePrice'] ?? 0);
+	$total = wpds_home_calculator_normalize_price($payload['total'] ?? $base_price);
+	$options = [];
+
+	if (!empty($payload['options']) && is_array($payload['options'])) {
+		foreach ($payload['options'] as $option) {
+			$option_title = isset($option['title']) ? sanitize_text_field($option['title']) : '';
+			if ($option_title === '') {
+				continue;
+			}
+			$options[] = [
+				'title' => $option_title,
+				'price' => wpds_home_calculator_normalize_price($option['price'] ?? 0),
+			];
+		}
+	}
+
+	$to = is_email($recipient) ? $recipient : get_option('admin_email');
+	$subject = 'Заявка из калькулятора сайта';
+	$referer = wp_get_referer();
+
+	$message = "Поступила заявка из калькулятора:\n\n";
+	$message .= "Имя: {$name}\n";
+	$message .= "Телефон: {$phone}\n\n";
+	$message .= "Тип сайта: {$service_title}\n";
+	$message .= "Базовая стоимость: " . number_format_i18n($base_price, 0) . " ₽\n";
+	$message .= "Выбранные услуги:\n";
+
+	if (!empty($options)) {
+		foreach ($options as $option) {
+			$message .= '- ' . $option['title'] . ': ' . number_format_i18n($option['price'], 0) . " ₽\n";
+		}
+	} else {
+		$message .= "—\n";
+	}
+
+	$message .= "\nИтого: " . number_format_i18n($total, 0) . " ₽\n";
+	$message .= "Страница: " . ($referer ?: '—') . "\n";
+	$message .= "Дата: " . current_time('Y-m-d H:i:s') . "\n";
+
+	$sent = wp_mail($to, $subject, $message, ['Content-Type: text/plain; charset=UTF-8']);
+
+	if (!$sent) {
+		return ['ok' => false, 'message' => 'Не удалось отправить заявку. Напишите мне в мессенджер или попробуйте позже.'];
+	}
+
+	return ['ok' => true, 'message' => 'Заявка отправлена! Я свяжусь с вами и уточню детали проекта.'];
+}
+
+add_action('admin_post_nopriv_wpds_home_calculator_submit', 'wpds_home_calculator_handle');
+add_action('admin_post_wpds_home_calculator_submit', 'wpds_home_calculator_handle');
+function wpds_home_calculator_handle() {
+	$result = wpds_home_calculator_process_submission($_POST);
+	$redirect = wp_get_referer() ?: home_url('/');
+	$redirect = add_query_arg('calculator', $result['ok'] ? 'success' : 'error', $redirect);
+
+	if (!$result['ok']) {
+		$redirect = add_query_arg('calculator_message', rawurlencode($result['message']), $redirect);
+	}
+
+	wp_safe_redirect($redirect);
+	exit;
+}
+
+add_action('wp_ajax_nopriv_wpds_home_calculator_submit', 'wpds_home_calculator_ajax_handle');
+add_action('wp_ajax_wpds_home_calculator_submit', 'wpds_home_calculator_ajax_handle');
+function wpds_home_calculator_ajax_handle() {
+	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+		wp_send_json_error(['message' => 'Invalid request method.'], 405);
+	}
+
+	$result = wpds_home_calculator_process_submission($_POST);
+
+	if ($result['ok']) {
+		wp_send_json_success(['message' => $result['message']]);
+	}
+
+	wp_send_json_error(['message' => $result['message']], 400);
+}
+
+add_action('acf/init', function () {
+	if (!function_exists('acf_add_local_field_group')) {
+		return;
+	}
+
+	acf_add_local_field_group([
+		'key' => 'group_wpds_home_calculator',
+		'title' => 'Калькулятор на главной',
+		'fields' => [
+			[
+				'key' => 'field_wpds_home_calculator_eyebrow',
+				'label' => 'Надзаголовок',
+				'name' => 'home_calculator_eyebrow',
+				'type' => 'text',
+				'default_value' => 'Калькулятор проекта',
+			],
+			[
+				'key' => 'field_wpds_home_calculator_title',
+				'label' => 'Заголовок',
+				'name' => 'home_calculator_title',
+				'type' => 'text',
+				'default_value' => 'Соберите сайт под свою задачу',
+			],
+			[
+				'key' => 'field_wpds_home_calculator_text',
+				'label' => 'Описание',
+				'name' => 'home_calculator_text',
+				'type' => 'textarea',
+				'rows' => 3,
+				'default_value' => 'Выберите тип сайта, отметьте нужные услуги и сразу увидьте ориентировочную стоимость. После расчёта оставьте контакты — я пришлю точную смету и сроки.',
+			],
+			[
+				'key' => 'field_wpds_home_calculator_button',
+				'label' => 'Текст кнопки',
+				'name' => 'home_calculator_button',
+				'type' => 'text',
+				'default_value' => 'Получить точный расчёт',
+			],
+			[
+				'key' => 'field_wpds_home_calculator_email',
+				'label' => 'E-mail для заявок',
+				'name' => 'home_calculator_email',
+				'type' => 'email',
+				'instructions' => 'Если поле пустое, заявка уйдёт на e-mail администратора сайта.',
+			],
+			[
+				'key' => 'field_wpds_home_calculator_services',
+				'label' => 'Типы сайтов и услуги',
+				'name' => 'home_calculator_services',
+				'type' => 'repeater',
+				'instructions' => 'Если список пустой, на сайте выводятся демо-данные. Добавьте свои строки, чтобы заменить демо-набор.',
+				'button_label' => 'Добавить тип сайта',
+				'layout' => 'block',
+				'collapsed' => 'field_wpds_home_calculator_service_title',
+				'sub_fields' => [
+					[
+						'key' => 'field_wpds_home_calculator_service_key',
+						'label' => 'Ключ',
+						'name' => 'key',
+						'type' => 'text',
+						'instructions' => 'Латиницей, например online-store. Можно оставить пустым.',
+						'wrapper' => ['width' => '20'],
+					],
+					[
+						'key' => 'field_wpds_home_calculator_service_title',
+						'label' => 'Название',
+						'name' => 'title',
+						'type' => 'text',
+						'required' => 1,
+						'wrapper' => ['width' => '35'],
+					],
+					[
+						'key' => 'field_wpds_home_calculator_service_base_price',
+						'label' => 'Базовая цена',
+						'name' => 'base_price',
+						'type' => 'number',
+						'min' => 0,
+						'prepend' => '₽',
+						'wrapper' => ['width' => '20'],
+					],
+					[
+						'key' => 'field_wpds_home_calculator_service_description',
+						'label' => 'Описание',
+						'name' => 'description',
+						'type' => 'textarea',
+						'rows' => 2,
+					],
+					[
+						'key' => 'field_wpds_home_calculator_service_options',
+						'label' => 'Услуги',
+						'name' => 'options',
+						'type' => 'repeater',
+						'button_label' => 'Добавить услугу',
+						'layout' => 'table',
+						'sub_fields' => [
+							[
+								'key' => 'field_wpds_home_calculator_option_title',
+								'label' => 'Услуга',
+								'name' => 'title',
+								'type' => 'text',
+								'required' => 1,
+							],
+							[
+								'key' => 'field_wpds_home_calculator_option_price',
+								'label' => 'Цена',
+								'name' => 'price',
+								'type' => 'number',
+								'min' => 0,
+								'prepend' => '₽',
+							],
+						],
+					],
+				],
+			],
+		],
+		'location' => [
+			[
+				[
+					'param' => 'page_template',
+					'operator' => '==',
+					'value' => 'template-front-page.php',
+				],
+			],
+			[
+				[
+					'param' => 'page_type',
+					'operator' => '==',
+					'value' => 'front_page',
+				],
+			],
+		],
+	]);
+});
