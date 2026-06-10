@@ -94,7 +94,15 @@ add_filter('big_image_size_threshold', '__return_false');
 
 
 
+function itb_company_page_has_swiper() {
+    return is_front_page() || is_page_template('template-front-page.php');
+}
+
 function itb_company_assets() {
+    if (! itb_company_page_has_swiper()) {
+        return;
+    }
+
     wp_enqueue_style(
         'swiper',
         'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css',

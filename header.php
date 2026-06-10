@@ -742,7 +742,7 @@ document.addEventListener('click', function (e) {
 
 						
 						
-						<a href="https://wpdevstudio.ru/#uslugi-wordpress" class="btnBlack Header_btn__uXKjs">Оставить заявку</a>
+						<a href="https://wpdevstudio.ru/#uslugi-wordpress" class="btnBlack Header_btn__uXKjs">Выбрать услугу</a>
                     </div>
                 </div>
             </div>
@@ -774,7 +774,7 @@ document.addEventListener('click', function (e) {
     </a>
   </address>
 
-  <a href="https://wpdevstudio.ru/#uslugi-wordpress" class="btnBlack Header_btn__uXKjs">Оставить заявку</a>
+  <a href="https://wpdevstudio.ru/#uslugi-wordpress" class="btnBlack Header_btn__uXKjs">Выбрать услугу</a>
 
   <button class="Header_burger__kctui" type="button" title="Меню" aria-label="Открыть меню" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -851,7 +851,7 @@ document.addEventListener('click', function(e){
     </nav>
 
     <div class="MobileMenu__footer">
-      <a class="MobileMenu__btn btnBlack" href="https://wpdevstudio.ru/#uslugi-wordpress" data-mobilemenu-close>Оставить заявку</a>
+      <a class="MobileMenu__btn btnBlack" href="https://wpdevstudio.ru/#uslugi-wordpress" data-mobilemenu-close>Выбрать услугу</a>
 
       <div class="MobileMenu__contacts">
         <a href="tel:+79250404189">+7 (925) 040-41-89</a>
