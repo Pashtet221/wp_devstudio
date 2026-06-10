@@ -1900,63 +1900,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			
 			
 	<!-- Кейсы		 -->
-<?php echo do_shortcode( '[cases_grid]' ); ?>		
-			
-			
-			
-			
-			
-			
-			
-			
-<section id="high-expertise" class="componentWrapper">
-  <div class="container">
-    <h2 class="pageTitle">Какие задачи решаем для бизнеса на WordPress и WooCommerce</h2>
+<?php echo do_shortcode( '[cases_grid]' ); ?>
 
-    <ul class="HighExpertise_navigation__JFd_m">
-      <li class="HighExpertise_active__mQF2v"></li>
-      <li class=""></li>
-      <li class=""></li>
-      <li class=""></li>
-      <li class=""></li>
-      <li class=""></li>
-      <li class=""></li>
-    </ul>
-
-    <div class="HighExpertise_itemsWrapper__A6Olb">
-      <div class="HighExpertise_itemsInner__bbT_4" style="--columns: 7;">
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/internet-magazin-na-woocommerce/">интернет-магазина на WooCommerce</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/lending-sajt-vizitka-na-wordpress/">лендинга и сайта-визитки</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/sajt-doska-obyavlenij-katalog/">каталога и доски объявлений</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/razrabotka-plaginov-pod-vashi-zadachi/">разработки плагинов под задачи бизнеса</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/eksport-import-tovarov-i-integraczii/">импорта товаров и интеграций</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/podderzhka-i-dorabotki-wordpress-sajtov/">поддержки и доработки WordPress-сайтов</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/internet-magazin-na-woocommerce/">магазина с корзиной и оформлением заказа</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/razrabotka-plaginov-pod-vashi-zadachi/">кастомного функционала для WordPress</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/eksport-import-tovarov-i-integraczii/">API-интеграций и автоматизации</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/podderzhka-i-dorabotki-wordpress-sajtov/">исправления ошибок и ускорения сайта</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/lending-sajt-vizitka-na-wordpress/">сайта услуг для рекламы и заявок</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/sajt-doska-obyavlenij-katalog/">сайта с фильтрами, категориями и картой</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/razrabotka-plaginov-pod-vashi-zadachi/">WooCommerce-доработок под бизнес-логику</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/eksport-import-tovarov-i-integraczii/">синхронизации с CRM и прайсами поставщиков</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/podderzhka-i-dorabotki-wordpress-sajtov/">развития существующего проекта</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/internet-magazin-na-woocommerce/">карточек товаров, оплаты и доставки</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/lending-sajt-vizitka-na-wordpress/">корпоративного сайта на WordPress</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/sajt-doska-obyavlenij-katalog/">маркетплейса или сервиса объявлений</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/razrabotka-plaginov-pod-vashi-zadachi/">форм, калькуляторов и нестандартных модулей</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/eksport-import-tovarov-i-integraczii/">экспорта, импорта и обработки данных</a>
-        <a class="HighExpertise_item__0LtXP" href="/uslugi/podderzhka-i-dorabotki-wordpress-sajtov/">технической поддержки после запуска</a>
-      </div>
-    </div>
-  </div>
-</section>			
-			
-
-			
-			
-
-			
-			
            <section class="Blocks__wrapper componentWrapper" id="plugins">
     <div class="container">
         <div class="Blocks">
@@ -3895,18 +3840,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             </section>
-	
-	
-	
-	
-	
 
-<?php echo do_shortcode( '[ds_bottom_form]' ); ?>
-
-
-
-			
-			
 <style>
 	/* Отступы между полями */
 .ContactForm_fields__BgVRS .col-12,

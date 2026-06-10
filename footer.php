@@ -135,44 +135,8 @@ $reviews_count  = 65;
         </section>
       </div>
 
-      <!-- MENU: SOLUTIONS -->
-      <div class="Footer_menu__cXTii">
-        <span>Решения</span>
-
-        <nav aria-label="Подбор решений">
-          <a href="<?php echo esc_url('https://themeforest.net/category/wordpress/ecommerce'); ?>"
-             target="_blank"
-             rel="nofollow noopener noreferrer"
-             title="Современные темы и шаблоны для WordPress и eCommerce">
-            Современные шаблоны
-          </a>
-
-          <a href="<?php echo esc_url('https://listinghive.hivepress.io'); ?>"
-             target="_blank"
-             rel="nofollow noopener noreferrer"
-             title="Демо каталогов и досок объявлений на HivePress">
-            Каталоги и доски объявлений
-          </a>
-
-          <a href="<?php echo esc_url('https://crocoblock.com/'); ?>"
-             target="_blank"
-             rel="nofollow noopener noreferrer"
-             title="Интеграции и автоматизация (JetEngine/ACF и т.п.)">
-            Интеграции и автоматизация
-          </a>
-
-          <a href="<?php echo esc_url('https://wp-rocket.me/'); ?>"
-             target="_blank"
-             rel="nofollow noopener noreferrer"
-             title="Оптимизация скорости WordPress (кэш, CWV, аудит)">
-            Оптимизация скорости и аудит
-          </a>
-        </nav>
-		  
-		  
-		  <?php echo do_shortcode('[wpds_subscribe title="Подписка" desc="" btn="Ок" class="wpds-footer-mini" consent="Согласен(на) с политикой и условиями." ]'); ?>
-		  
-		  
+      <div class="Footer_subscribeGroup" aria-label="Подписка на обновления">
+        <?php echo do_shortcode('[wpds_subscribe title="Подписка" desc="" btn="Ок" class="wpds-footer-mini" consent="Согласен(на) с политикой и условиями." ]'); ?>
       </div>
 
     </div>
@@ -292,6 +256,11 @@ $reviews_count  = 65;
 .Footer_logo__txlnn { display:flex; justify-content:center; align-items:center; width:100%; max-width:100%; overflow:hidden; }
 .Footer_logo__txlnn img { width:200px; max-width:100%; height:auto; display:block; }
 
+.Footer_top__ABIpX { align-items:flex-start; gap:32px; }
+.Footer_menu__cXTii nav { display:flex; flex-direction:column; gap:10px; }
+.Footer_subscribeGroup { min-width:260px; max-width:360px; }
+.Footer_subscribeGroup .wpds-footer-mini { margin:0; }
+
 .Footer_legal { margin-top: 14px; display:flex; flex-wrap:wrap; gap:12px; font-size: 13px; }
 .Footer_legal a { opacity:.9; text-decoration:none; }
 .Footer_legal a:hover { opacity:1; text-decoration:underline; }
@@ -320,6 +289,11 @@ $reviews_count  = 65;
 
 .Footer_infoCall__ShIDF{
 	display: block;
+}
+
+@media (max-width: 991px){
+  .Footer_top__ABIpX { gap:24px; }
+  .Footer_subscribeGroup { max-width:100%; width:100%; }
 }
 
 </style>
@@ -631,6 +605,5 @@ document.addEventListener('DOMContentLoaded', function () {
 <?php wp_footer(); ?>
 </body>
 </html>
-
 
 
