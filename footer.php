@@ -14,8 +14,8 @@ $tg_url      = 'https://t.me/+79250404189';
 $wa_url      = 'https://wa.me/79250404189';
 $li_url      = 'https://www.linkedin.com/in/pavel-damut-142181288';
 
-// если есть реальная ссылка на профиль с отзывами — вставь сюда:
-$profi_url   = '#';
+// Ссылка на собственный блок отзывов вместо внешней платформы без подтверждённого профиля.
+$reviews_url = home_url('/#text-reviews');
 
 // синхронизируем цифры (не должно быть 6 и 65 одновременно)
 $reviews_rating = '5.0';
@@ -101,13 +101,11 @@ $reviews_count  = 65;
         <span>Услуги</span>
 
         <nav aria-label="Услуги WordPress">
-          <a href="<?php echo esc_url(home_url('/uslugi/')); ?>" title="Услуги WordPress и WooCommerce">Все услуги</a>
-          <a href="<?php echo esc_url('https://wpdevstudio.ru/uslugi/lending-sajt-vizitka-na-wordpress/'); ?>" title="Лендинги и сайты-визитки на WordPress">Лендинги / сайты-визитки</a>
-          <a href="<?php echo esc_url('https://wpdevstudio.ru/uslugi/internet-magazin-na-woocommerce/'); ?>" title="Интернет-магазины на WooCommerce">Интернет-магазины на WooCommerce</a>
-          <a href="<?php echo esc_url('https://wpdevstudio.ru/uslugi/sajt-doska-obyavlenij-katalog/'); ?>" title="Каталоги и доски объявлений на WordPress">Каталоги / доски объявлений</a>
-          <a href="<?php echo esc_url('https://wpdevstudio.ru/uslugi/razrabotka-plaginov-pod-vashi-zadachi/'); ?>" title="Разработка плагинов WordPress">Разработка плагинов</a>
-          <a href="<?php echo esc_url('https://wpdevstudio.ru/uslugi/eksport-import-tovarov-i-integraczii/'); ?>" title="Импорт и интеграции WooCommerce">Импорт / интеграции</a>
-          <a href="<?php echo esc_url('https://wpdevstudio.ru/uslugi/podderzhka-i-dorabotki-wordpress-sajtov/'); ?>" title="Поддержка и доработка WordPress сайтов">Поддержка и доработки</a>
+          <a href="<?php echo esc_url(home_url('/services/')); ?>" title="Услуги WordPress и WooCommerce">Все услуги</a>
+          <a href="<?php echo esc_url(home_url('/services/razrabotka-sajta-vizitki-kotoryj-vyzyvaet-doverie-i-privodit-zayavki/')); ?>" title="Лендинги и сайты-визитки на WordPress">Лендинги / сайты-визитки</a>
+          <a href="<?php echo esc_url(home_url('/services/razrabotka-internet-magazina-na-wordpress-i-woocommerce-pod-vash-biznes/')); ?>" title="Интернет-магазины на WooCommerce">Интернет-магазины на WooCommerce</a>
+          <a href="<?php echo esc_url(home_url('/services/razrabotka-marketplejsa-na-wordpress-pod-vashu-biznes-model/')); ?>" title="Маркетплейсы, каталоги и доски объявлений на WordPress">Каталоги / маркетплейсы</a>
+          <a href="<?php echo esc_url(home_url('/services/dorabotka-sajta-na-wordpress-i-woocommerce-pravki-dorabotka-funkczionala/')); ?>" title="Доработка, поддержка и развитие WordPress сайтов">Поддержка и доработки</a>
         </nav>
 
         <!-- Reviews proof block -->
@@ -116,13 +114,11 @@ $reviews_count  = 65;
             <div class="reviewsProof__left">
               <div class="reviewsProof__label">Отзывы клиентов</div>
               <div class="reviewsProof__sub">
-                Подтверждено внешней платформой
+                Собраны после завершённых проектов —
                 <a class="reviewsProof__source"
-                   href="<?php echo esc_url($profi_url); ?>"
-                   target="_blank"
-                   rel="nofollow noopener noreferrer"
-                   aria-label="Открыть отзывы на внешней платформе">
-                  Profi.ru
+                   href="<?php echo esc_url($reviews_url); ?>"
+                   aria-label="Перейти к отзывам клиентов на сайте">
+                  смотреть отзывы
                 </a>
               </div>
             </div>

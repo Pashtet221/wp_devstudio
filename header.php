@@ -786,6 +786,10 @@ document.addEventListener('click', function(e){
   const burger = e.target.closest('.Header_burger__kctui');
   if(!burger) return;
 
+  // Если подключено offcanvas-меню, не открываем параллельно скрытое
+  // десктопное меню: двойная обработка клика мешала переходам по якорям.
+  if(document.getElementById('mobileMenu')) return;
+
   const header = document.querySelector('#header');
   const menuWrap = header ? header.querySelector('.HeaderBottomMenu__wrapper') : null;
 
@@ -1114,7 +1118,8 @@ body.is-mobilemenu-open{
     document.addEventListener('keydown', onKeyDown);
   }
 
-  function closeMenu(){
+  function closeMenu(options){
+    const shouldRestoreFocus = !options || options.restoreFocus !== false;
     clearTimeout(timer);
 
     // если уже закрыто — ничего
@@ -1135,7 +1140,7 @@ body.is-mobilemenu-open{
     timer = setTimeout(() => {
       menu.classList.remove('is-closing');
 
-      if(lastFocus && typeof lastFocus.focus === 'function'){
+      if(shouldRestoreFocus && lastFocus && typeof lastFocus.focus === 'function'){
         lastFocus.focus();
       }
     }, ANIM_MS);
@@ -1161,12 +1166,14 @@ body.is-mobilemenu-open{
     closeMenu();
   }));
 
-  // закрывать по клику на ссылку внутри панели (но не по клику в overlay)
+  // закрывать по клику на ссылку внутри панели (но не по клику в overlay).
+  // Для якорных ссылок не возвращаем фокус на бургер после анимации: иначе
+  // браузер может прокрутить страницу обратно к шапке и переход выглядит «лагучим».
   if(panel){
     panel.addEventListener('click', function(e){
       const a = e.target.closest('a');
       if(!a) return;
-      closeMenu();
+      closeMenu({ restoreFocus: false });
     });
   }
 })();
