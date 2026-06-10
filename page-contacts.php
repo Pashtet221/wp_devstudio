@@ -19,13 +19,6 @@ $ds_whats   = 'https://wa.me/79250404189';     // замени при необх
 $ds_site    = home_url('/');
 
 /**
- * Форма (любой шорткод)
- * В исходнике у тебя был [smart_contact_form], оставлю его как дефолт.
- * Если хочешь CF7 — просто поменяй строку.
- */
-$ds_form_sc = '[smart_contact_form]';
-
-/**
  * Карта (опционально) — если вставляешь iframe, ОБЯЗАТЕЛЬНО через wp_kses
  */
 $ds_map_iframe = ''; // '<iframe ...></iframe>';
@@ -53,7 +46,7 @@ add_action('wp_head', function() use (
 
   // OpenGraph (легкий минимум — полезно, если нет SEO-плагина)
   $title = wp_strip_all_tags(get_the_title());
-  $desc  = 'Контакты WP Dev Studio: напишите в Telegram/WhatsApp или оставьте заявку через форму.';
+  $desc  = 'Контакты WP Dev Studio: напишите в Telegram, WhatsApp или на email — отвечу и уточню детали проекта.';
 
   echo '<meta property="og:type" content="website" />' . "\n";
   echo '<meta property="og:title" content="' . esc_attr($title) . "\" />\n";
@@ -135,9 +128,10 @@ function wpds_tel_href(string $e164): string {
             Напишите мне — отвечу, уточню задачу и предложу оптимальный вариант реализации.
           </p>
 
-          <div class="ds-actions">
-            <a class="ds-btn ds-btn--primary" href="#contact-form">Написать</a>
-            <a class="ds-btn ds-btn--ghost" href="<?php echo esc_url($ds_site); ?>">На главную</a>
+          <div class="ds-actions" aria-label="Быстрые контакты">
+            <a class="ds-btn ds-btn--soft" href="<?php echo esc_url($ds_tg); ?>" target="_blank" rel="noopener noreferrer">Telegram</a>
+            <a class="ds-btn ds-btn--soft" href="<?php echo esc_url($ds_whats); ?>" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a class="ds-btn ds-btn--ghost" href="mailto:<?php echo esc_attr($ds_email); ?>">Email</a>
           </div>
 
           <div class="ds-chips" aria-label="Темы">
@@ -187,7 +181,7 @@ function wpds_tel_href(string $e164): string {
               <div class="ds-kv__k">WhatsApp</div>
               <div class="ds-kv__v">
                 <a href="<?php echo esc_url($ds_whats); ?>" target="_blank" rel="noopener noreferrer">
-                  Написать
+                  Открыть чат
                 </a>
               </div>
             </div>
@@ -216,42 +210,75 @@ function wpds_tel_href(string $e164): string {
       </div>
 
       <div class="ds-card">
-  <div class="ds-card__title">Формат работы</div>
-  <ul class="ds-list">
-    <li>Работаем полностью онлайн — без привязки к офису</li>
-    <li>Сотрудничаем с клиентами из России, Беларуси и Европы</li>
-    <li>Оцениваю задачу и предлагаю понятный план работ</li>
-    <li>Аккуратная реализация без «ломающих» правок</li>
-    <li>Тестирование и короткая инструкция по результату</li>
-    <li>Поддержка после внедрения</li>
-  </ul>
-</div>
-		
-		
+        <div class="ds-card__title">Формат работы</div>
+        <ul class="ds-list">
+          <li>Работаем полностью онлайн — без привязки к офису</li>
+          <li>Сотрудничаем с клиентами из России, Беларуси и Европы</li>
+          <li>Оцениваю задачу и предлагаю понятный план работ</li>
+          <li>Аккуратная реализация без «ломающих» правок</li>
+          <li>Тестирование и короткая инструкция по результату</li>
+          <li>Поддержка после внедрения</li>
+        </ul>
+      </div>
+
     </div>
   </section>
 
-  <section class="ds-section" id="contact-form">
+  <section class="ds-section ds-section--connect" aria-labelledby="contacts-connect-title">
     <div class="ds-container">
 
-      <div class="ds-section__head">
-        <h2 class="ds-h2">Связаться</h2>
-        <p class="ds-muted">Заполните форму — отвечу и уточню детали.</p>
+      <div class="ds-section__head ds-section__head--center">
+        <span class="ds-eyebrow">Без форм и лишних шагов</span>
+        <h2 class="ds-h2" id="contacts-connect-title">Выберите удобный способ связи</h2>
+        <p class="ds-muted">Сразу напишите в мессенджер или на почту — так быстрее обсудим задачу, сроки и бюджет.</p>
       </div>
 
-      <div class="ds-card ds-formCard" style="max-width: 550px;">
-        <?php echo do_shortcode($ds_form_sc); ?>
+      <div class="ds-contactGrid">
+        <a class="ds-contactTile" href="<?php echo esc_url($ds_tg); ?>" target="_blank" rel="noopener noreferrer">
+          <span class="ds-contactTile__icon" aria-hidden="true">✈</span>
+          <span class="ds-contactTile__body">
+            <strong>Telegram</strong>
+            <small>Для быстрых вопросов, голосовых и файлов</small>
+          </span>
+          <span class="ds-contactTile__arrow" aria-hidden="true">→</span>
+        </a>
 
-        <div class="ds-formHint">
-          Или напишите в
-          <a href="<?php echo esc_url($ds_tg); ?>" target="_blank" rel="noopener noreferrer">Telegram</a>
-          / <a href="<?php echo esc_url($ds_whats); ?>" target="_blank" rel="noopener noreferrer">WhatsApp</a>.
+        <a class="ds-contactTile" href="<?php echo esc_url($ds_whats); ?>" target="_blank" rel="noopener noreferrer">
+          <span class="ds-contactTile__icon" aria-hidden="true">☘</span>
+          <span class="ds-contactTile__body">
+            <strong>WhatsApp</strong>
+            <small>Удобно для короткого брифа и созвона</small>
+          </span>
+          <span class="ds-contactTile__arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a class="ds-contactTile" href="mailto:<?php echo esc_attr($ds_email); ?>">
+          <span class="ds-contactTile__icon" aria-hidden="true">@</span>
+          <span class="ds-contactTile__body">
+            <strong>Email</strong>
+            <small><?php echo esc_html($ds_email); ?></small>
+          </span>
+          <span class="ds-contactTile__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="ds-timeline" aria-label="Как проходит общение">
+        <div class="ds-step">
+          <span class="ds-step__num">01</span>
+          <strong>Вы описываете задачу</strong>
+          <p>Можно коротко: ссылка на сайт, что не работает или что нужно добавить.</p>
+        </div>
+        <div class="ds-step">
+          <span class="ds-step__num">02</span>
+          <strong>Я задаю уточняющие вопросы</strong>
+          <p>Разбираю ограничения, доступы, интеграции и приоритеты.</p>
+        </div>
+        <div class="ds-step">
+          <span class="ds-step__num">03</span>
+          <strong>Вы получаете план</strong>
+          <p>Предлагаю понятный вариант реализации, сроки и следующий шаг.</p>
         </div>
       </div>
-
-      <p class="ds-muted" style="margin-top:14px;">
-        Нажимая «Отправить», вы соглашаетесь с обработкой персональных данных.
-      </p>
 
     </div>
   </section>
@@ -298,14 +325,23 @@ function wpds_tel_href(string $e164): string {
 <style>
   :root{
     --ds-accent:#cc1616;
+    --ds-accent-soft:rgba(204,22,22,.12);
     --ds-bg:#0f1216;
     --ds-card:#121722;
+    --ds-card-2:#151c29;
     --ds-text:#e9eef6;
     --ds-muted:rgba(233,238,246,.72);
     --ds-border:rgba(255,255,255,.08);
   }
 
-  .ds-contacts{background:var(--ds-bg); color:var(--ds-text); min-height:60vh}
+  .ds-contacts{
+    background:
+      radial-gradient(circle at 12% 0%, rgba(204,22,22,.16), transparent 32%),
+      radial-gradient(circle at 90% 18%, rgba(80,126,255,.10), transparent 28%),
+      var(--ds-bg);
+    color:var(--ds-text);
+    min-height:60vh;
+  }
   .ds-container{max-width:1140px; margin:0 auto; padding:0 18px}
   .ds-section{padding:44px 0}
   .ds-hero{padding:54px 0 26px; border-bottom:1px solid var(--ds-border)}
@@ -325,13 +361,8 @@ function wpds_tel_href(string $e164): string {
     transition: transform .12s ease, border-color .12s ease, background .12s ease;
   }
   .ds-btn:hover{transform:translateY(-1px); border-color:rgba(204,22,22,.35)}
-  .ds-btn--primary{
-    background:var(--ds-accent);
-    border-color:rgba(204,22,22,.55);
-    color:#fff;
-  }
-  .ds-btn--primary:hover{border-color:rgba(204,22,22,.85)}
-  .ds-btn--ghost{background:transparent}
+  .ds-btn--soft{background:var(--ds-accent-soft); border-color:rgba(204,22,22,.24)}
+  .ds-btn--ghost{background:rgba(255,255,255,.03)}
 
   .ds-chips{display:flex; gap:10px; flex-wrap:wrap}
   .ds-chip{
@@ -367,24 +398,59 @@ function wpds_tel_href(string $e164): string {
   .ds-list{margin:0; padding-left:18px; color:var(--ds-muted); line-height:1.65}
   .ds-list li{margin:6px 0}
 
+  .ds-section--connect{padding-top:28px}
   .ds-section__head{margin-bottom:16px}
-
-  .ds-formCard :where(input, textarea, select){
-    width:100%;
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.10);
+  .ds-section__head--center{max-width:720px; margin:0 auto 22px; text-align:center}
+  .ds-eyebrow{
+    display:inline-flex;
+    margin-bottom:10px;
+    border:1px solid rgba(204,22,22,.24);
+    background:var(--ds-accent-soft);
+    border-radius:999px;
+    padding:7px 12px;
+    color:rgba(255,255,255,.86);
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+  }
+  .ds-contactGrid{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:16px; margin-top:20px}
+  .ds-contactTile{
+    display:grid;
+    grid-template-columns:48px 1fr auto;
+    gap:14px;
+    align-items:center;
+    min-height:118px;
+    padding:18px;
+    border:1px solid var(--ds-border);
+    border-radius:18px;
+    background:linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
     color:var(--ds-text);
-    border-radius:12px;
-    padding:12px 12px;
-    outline:none;
+    text-decoration:none;
+    box-shadow:0 16px 42px rgba(0,0,0,.22);
+    transition:transform .16s ease, border-color .16s ease, background .16s ease;
   }
-  .ds-formCard :where(input, textarea, select):focus{
-    border-color:rgba(204,22,22,.55);
-    box-shadow:0 0 0 4px rgba(204,22,22,.10);
+  .ds-contactTile:hover{transform:translateY(-3px); border-color:rgba(204,22,22,.34); background:linear-gradient(145deg, rgba(204,22,22,.12), rgba(255,255,255,.026))}
+  .ds-contactTile__icon{
+    display:grid;
+    place-items:center;
+    width:48px;
+    height:48px;
+    border-radius:15px;
+    background:var(--ds-card-2);
+    border:1px solid rgba(255,255,255,.08);
+    color:#fff;
+    font-weight:900;
   }
-  .ds-formHint{margin-top:12px; color:var(--ds-muted); font-size:13px}
-  .ds-formHint a{color:#fff; border-bottom:1px dashed rgba(204,22,22,.55); text-decoration:none}
-  .ds-formHint a:hover{border-bottom-color:rgba(204,22,22,.95)}
+  .ds-contactTile__body{display:grid; gap:5px}
+  .ds-contactTile__body strong{font-size:17px}
+  .ds-contactTile__body small{color:var(--ds-muted); line-height:1.45}
+  .ds-contactTile__arrow{color:rgba(255,255,255,.62); font-size:22px}
+  .ds-timeline{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:16px; margin-top:18px}
+  .ds-step{position:relative; padding:18px; border:1px solid var(--ds-border); border-radius:16px; background:rgba(255,255,255,.025)}
+  .ds-step__num{display:block; margin-bottom:12px; color:rgba(204,22,22,.95); font-weight:900; letter-spacing:.8px}
+  .ds-step strong{display:block; margin-bottom:7px; color:#fff}
+  .ds-step p{margin:0; color:var(--ds-muted); line-height:1.55; font-size:14px}
 
   .ds-map{padding:0; overflow:hidden}
   .ds-map iframe{display:block; width:100%; height:360px; border:0}
@@ -393,6 +459,7 @@ function wpds_tel_href(string $e164): string {
     .ds-hero__grid{grid-template-columns:1fr; }
     .ds-h1{font-size:34px}
     .ds-grid2{grid-template-columns:1fr}
+    .ds-contactGrid, .ds-timeline{grid-template-columns:1fr}
   }
 </style>
 
