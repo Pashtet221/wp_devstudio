@@ -67,10 +67,13 @@ get_header();
 </h1>
 
 <div class="hero__bottom">
-  <p class="hero__desc">
-    Проектируем и разрабатываем WordPress-решения под бизнес-задачи:
-    сайты, WooCommerce-магазины, плагины, интеграции и автоматизацию.
-  </p>
+  <div class="hero__lead">
+    <p class="hero__desc">
+      Проектируем и разрабатываем WordPress-решения под бизнес-задачи:
+      сайты, WooCommerce-магазины, плагины, интеграции и автоматизацию.
+    </p>
+    <a class="hero__cta" href="#contact-form">Оставить заявку</a>
+  </div>
 
 
           <!-- Rotator -->
@@ -262,6 +265,13 @@ get_header();
     }
   }
 
+  .hero__lead{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+  }
+
   .hero__desc{
     margin: 0;
     max-width: 440px;
@@ -269,8 +279,32 @@ get_header();
     color: var(--text);
   }
 
+  .hero__cta{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    background: #dc2626;
+    color: #fff;
+    font: 600 16px/1.2 "Wix Madefor Text", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    text-decoration: none;
+    box-shadow: 0 16px 34px rgba(220,38,38,.28);
+    transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+  }
+
+  .hero__cta:hover{
+    background: #b91c1c;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 18px 38px rgba(185,28,28,.34);
+  }
+
   @media (max-width: 1199px){
+    .hero__lead{ gap: 18px; }
     .hero__desc{ font-size: 16px; line-height: 22px; max-width: 490px; }
+    .hero__cta{ min-height: 48px; padding: 13px 22px; font-size: 15px; }
   }
 
   /* Rotator */
@@ -1906,7 +1940,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="container">
         <div class="Blocks">
 			<h2 class="pageTitle Blocks__title">Наши плагины</h2>
-            <?php echo do_shortcode( '[ds_product_cards limit="10" columns="4" mode="carousel"]' ); ?>			
+            <?php echo do_shortcode( '[ds_product_cards limit="10" columns="3" mode="carousel"]' ); ?>
         </div>
     </div>
 </section>
