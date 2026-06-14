@@ -605,5 +605,3 @@ document.addEventListener('DOMContentLoaded', function () {
 <?php wp_footer(); ?>
 </body>
 </html>
-
-
