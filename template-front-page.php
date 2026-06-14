@@ -35,17 +35,11 @@ get_header();
   <div class="container">
     <div class="hero__card">
       <!-- Background media -->
-      <video
-        class="hero__media"
-        autoplay
-        loop
-        muted
-        playsinline
-        preload="metadata"
-        poster="/upload/iblock/d82/o45ep3y74cg2zpoveibch37dbt09kdbp/first%201.jpg"
-      >
-        <source src="/wp-content/uploads/2025/12/3129671-hd_1920_1080_30fps.mp4" type="video/mp4" />
-      </video>
+      <div
+        class="hero__media hero__media--static"
+        role="img"
+        aria-label="WordPress и WooCommerce разработка для бизнеса"
+      ></div>
 
       <div class="hero__gradient" aria-hidden="true"></div>
 
@@ -62,17 +56,17 @@ get_header();
         </div>
 
         <h1 class="hero__title">
-  Разработка сайтов и интернет-магазинов<br>
-  на WordPress и WooCommerce
+  Запускаем WordPress-магазины,<br>
+  которые продают — от 30 дней
 </h1>
 
 <div class="hero__bottom">
   <div class="hero__lead">
     <p class="hero__desc">
-      Проектируем и разрабатываем WordPress-решения под бизнес-задачи:
-      сайты, WooCommerce-магазины, плагины, интеграции и автоматизацию.
+      Без шаблонов и исчезновений после оплаты: проектируем структуру, собираем WooCommerce, интегрируем CRM и остаёмся на поддержке.
     </p>
-    <a class="hero__cta" href="#contact-form">Оставить заявку</a>
+    <a class="hero__cta" href="#uslugi-wordpress">Узнать стоимость</a>
+    <span class="hero__microcopy">Бесплатный расчёт за 1 день · WordPress · WooCommerce</span>
   </div>
 
 
@@ -872,7 +866,7 @@ $calculator_services = $calculator['services'];
 
       <!-- SEO: более “коммерческий” H2 + расширение семантики -->
       <h2 class="pageTitle TariffsWithForm__title TariffsWithForm_title__tIui5" itemprop="name">
-        Услуги WordPress и WooCommerce под ключ — цены и сроки
+        Выберите формат разработки — цены и сроки понятны до старта
       </h2>
 
       <!-- SEO: краткий интро-абзац с ключевыми фразами без спама -->
@@ -884,7 +878,7 @@ $calculator_services = $calculator['services'];
       </p>
 
       <!-- Лендинги / сайты-визитки -->
-      <a class="TariffsWithForm_item__H3khh"
+      <a class="TariffsWithForm_item__H3khh TariffsWithForm_item__H3khh--featured"
          href="https://wpdevstudio.ru/services/razrabotka-sajta-vizitki-kotoryj-vyzyvaet-doverie-i-privodit-zayavki/"
          itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer"
          aria-label="Разработка лендинга на WordPress — цены и описание">
@@ -903,10 +897,12 @@ $calculator_services = $calculator['services'];
           <meta itemprop="price" content="45000" />
           <meta itemprop="priceCurrency" content="RUB" />
         </h3>
+        <span class="TariffsWithForm_result">✓ Запуск за 14–21 день · базовая SEO-структура</span>
+        <span class="TariffsWithForm_cta">Узнать детали →</span>
       </a>
 
       <!-- Интернет-магазины -->
-      <a class="TariffsWithForm_item__H3khh"
+      <a class="TariffsWithForm_item__H3khh TariffsWithForm_item__H3khh--featured"
          href="https://wpdevstudio.ru/services/razrabotka-internet-magazina-na-wordpress-i-woocommerce-pod-vash-biznes/"
          itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer"
          aria-label="Разработка интернет-магазина на WooCommerce — цены и описание">
@@ -925,6 +921,8 @@ $calculator_services = $calculator['services'];
           <meta itemprop="price" content="120000" />
           <meta itemprop="priceCurrency" content="RUB" />
         </h3>
+        <span class="TariffsWithForm_result">✓ Готовый к продажам за месяц · PageSpeed 90+ · CRM</span>
+        <span class="TariffsWithForm_cta">Узнать детали →</span>
       </a>
 
       <!-- Доски объявлений / каталоги -->
@@ -1019,11 +1017,10 @@ $calculator_services = $calculator['services'];
     <!-- Форма заявки -->
     <div class="TariffsWithForm_formWrapper__5qdfc" aria-label="Форма заявки на расчет стоимости">
       <strong class="TariffsWithForm_formTitle__rWWca">
-        Нужна разработка на WordPress под вашу задачу?
+        Рассчитаем стоимость за 1 день
       </strong>
       <p class="TariffsWithForm_formSubtitle__dJAkn">
-        Опишите проект: тип сайта, сроки и желаемый функционал — подберём решение,
-        уточним требования и рассчитаем стоимость разработки.
+        Оставьте телефон или Telegram — вернёмся с вопросами, сроками и вилкой бюджета без длинного брифа.
       </p>
 
       <aside class="sticky-form" aria-label="Контактная форма">
@@ -1934,7 +1931,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			
 			
 	<!-- Кейсы		 -->
-<?php echo do_shortcode( '[cases_grid]' ); ?>
+<?php echo do_shortcode( '[cases_grid per_page=3 more_label="Смотреть все кейсы" more_url="/cases/"]' ); ?>
 
            <section class="Blocks__wrapper componentWrapper" id="plugins">
     <div class="container">
@@ -3895,5 +3892,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+<style id="wpds-conversion-audit-overrides">
+/* Conversion audit changes: shorter first screen, clearer decision points and lower page noise. */
+.hero__media--static{background:linear-gradient(135deg,rgba(17,24,39,.72),rgba(18,212,87,.22)),url('/upload/iblock/d82/o45ep3y74cg2zpoveibch37dbt09kdbp/first%201.jpg') center/cover no-repeat;}
+.hero__microcopy{display:block;margin-top:10px;color:rgba(255,255,255,.82);font-size:14px;line-height:1.4;}
+.hero__rotator{display:none!important;}
+.TariffsWithForm_item__H3khh{display:flex;flex-direction:column;gap:12px;}
+.TariffsWithForm_item__H3khh--featured{border-color:#12D457!important;box-shadow:0 24px 70px rgba(18,212,87,.18)!important;transform:translateY(-4px);}
+.TariffsWithForm_result{display:block;color:rgba(255,255,255,.82);font-size:15px;line-height:1.45;}
+.TariffsWithForm_cta{display:inline-flex;width:max-content;margin-top:auto;border-radius:999px;background:#12D457;color:#111827;padding:10px 16px;font-weight:700;}
+.ds-fit__grid{grid-template-columns:repeat(3,minmax(0,1fr));}
+.ds-fit__card:nth-child(n+4){display:none;}
+.ds-fit__card:nth-child(1)::after{content:'Рассчитать стоимость';}
+.ds-fit__card:nth-child(2)::after{content:'Обсудить аутсорс';}
+.ds-fit__card:nth-child(3)::after{content:'Отправить сайт на аудит';}
+.ds-fit__card::after{margin-top:auto;color:#12D457;font-weight:700;}
+#plugins,#blocks,.articles-section,.home-video-slider{display:none!important;}
+.TextReviews__wrapper{order:5;}
+@media(max-width:991px){.ds-fit__grid{grid-template-columns:1fr;}.TariffsWithForm_item__H3khh--featured{transform:none;}}
+</style>
 
 <?php get_footer(); ?>
