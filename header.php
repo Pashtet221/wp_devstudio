@@ -50,139 +50,6 @@
 	
 	
 	
-<section class="wps-marquee" aria-label="Преимущества и акции">
-	<div class="wps-marquee__track">
-		<div class="wps-marquee__line">
-
-			<!-- ОФФЕР (главный акцент) -->
-			<span class="wps-marquee__promo">
-				Есть готовая верстка? Дам −15% на разработку и полностью возьму на себя функционал
-			</span>
-
-			<!-- Обычные пункты -->
-			<span>WordPress под ключ</span>
-			<span>WooCommerce-магазины</span>
-			<span>Кастомные плагины</span>
-			<span>Интеграции API и CRM</span>
-			<span>SEO-структура</span>
-			<span>Поддержка после запуска</span>
-
-			<!-- Дублируем для бесконечного скролла -->
-			<span class="wps-marquee__promo">
-				Есть готовая верстка? Дам −15% на разработку и полностью возьму на себя функционал
-			</span>
-
-			<span>WordPress под ключ</span>
-			<span>WooCommerce-магазины</span>
-			<span>Кастомные плагины</span>
-			<span>Интеграции API и CRM</span>
-			<span>SEO-структура</span>
-			<span>Поддержка после запуска</span>
-
-		</div>
-	</div>
-</section>
-		
-<style>
-
-body{
-	
-}	
-.wps-marquee {
-	position: relative;
-	overflow: hidden;
-	padding: 18px 0;
-	background: #f6faf7;
-	border-top: 1px solid rgba(18, 212, 87, 0.14);
-	border-bottom: 1px solid rgba(18, 212, 87, 0.14);
-}
-
-.wps-marquee__track {
-	overflow: hidden;
-	white-space: nowrap;
-}
-
-.wps-marquee__line {
-	display: inline-flex;
-	align-items: center;
-	gap: 14px;
-	min-width: max-content;
-	animation: wpsMarquee 28s linear infinite;
-}
-
-.wps-marquee:hover .wps-marquee__line {
-	animation-play-state: paused;
-}
-
-/* обычные пункты */
-.wps-marquee__line span {
-	display: inline-flex;
-	align-items: center;
-	padding: 10px 18px;
-	border-radius: 999px;
-	background: #ffffff;
-	border: 1px solid rgba(18, 212, 87, 0.18);
-	box-shadow: 0 8px 24px rgba(16, 24, 40, 0.04);
-	color: #1A1A1A !important;
-	font-size: 15px;
-	font-weight: 600;
-	line-height: 1;
-}
-
-.wps-marquee__line span::before {
-	content: "";
-	width: 7px;
-	height: 7px;
-	margin-right: 10px;
-	border-radius: 50%;
-	background: #12D457;
-	box-shadow: 0 0 0 4px rgba(18, 212, 87, 0.12);
-}
-
-/* 🔥 ОФФЕР */
-.wps-marquee__promo {
-	background: linear-gradient(135deg, #12D457, #0fb94a);
-	color: #fff !important;
-	border: none;
-	font-weight: 700;
-	padding: 12px 22px;
-	box-shadow: 0 12px 32px rgba(18, 212, 87, 0.25);
-}
-
-.wps-marquee__promo::before {
-	display: none;
-}
-
-@keyframes wpsMarquee {
-	from {
-		transform: translateX(0);
-	}
-	to {
-		transform: translateX(-50%);
-	}
-}
-
-/* мобилка */
-@media (max-width: 767px) {
-	.wps-marquee {
-		padding: 14px 0;
-	}
-
-	.wps-marquee__line {
-		animation-duration: 22s;
-		gap: 10px;
-	}
-
-	.wps-marquee__line span {
-		padding: 9px 14px;
-		font-size: 13px;
-	}
-}
-</style>
-	
-	
-	
-	
     <header class="Header_wrapper__SrnCi" id="header" style="background-color: #1a2028; background-image: none;">
 			
         <div class="container">
@@ -557,20 +424,71 @@ body{
 						
 						
 						
-						<nav class="HeaderBottomMenu__wrapper Header_menu__oVirN">
-    <?php
-    wp_nav_menu( [
-        'theme_location' => 'header_bottom_menu',
-        'container'      => false,
-        'menu_class'     => 'HeaderBottomMenu BottomMenu_menu___1ce2',
-        'depth'          => 3, // нам достаточно 2х уровней для мегаменю
-        'fallback_cb'    => false,
-        'walker'         => new DevStudio_Header_Bottom_Walker(),
-    ] );
-    ?>
+						<nav class="HeaderBottomMenu__wrapper Header_menu__oVirN wpds-mega-nav" aria-label="Основное меню">
+  <ul class="HeaderBottomMenu BottomMenu_menu___1ce2 wpds-mega-nav__list">
+    <li class="wpds-mega-nav__item wpds-mega-nav__item--services">
+      <a href="<?php echo esc_url(home_url('/services/')); ?>" class="wpds-mega-nav__link" aria-expanded="false">Услуги</a>
+      <div class="wpds-mega" aria-label="Категории услуг WordPress и WooCommerce">
+        <div class="wpds-mega__grid">
+          <section class="wpds-mega__col">
+            <h3><span aria-hidden="true">⌘</span> Разработка сайтов</h3>
+            <a href="<?php echo esc_url(home_url('/services/razrabotka-sajta-vizitki-kotoryj-vyzyvaet-doverie-i-privodit-zayavki/')); ?>">Лендинг / сайт-визитка <b>хит</b></a>
+            <a href="<?php echo esc_url(home_url('/services/razrabotka-internet-magazina-na-wordpress-i-woocommerce-pod-vash-biznes/')); ?>">Интернет-магазин WooCommerce</a>
+            <a href="<?php echo esc_url(home_url('/services/')); ?>">Корпоративный сайт</a>
+            <a href="<?php echo esc_url(home_url('/services/')); ?>">Каталог на WordPress</a>
+          </section>
+          <section class="wpds-mega__col">
+            <h3><span aria-hidden="true">⚙</span> Доработки и плагины</h3>
+            <a href="<?php echo esc_url(home_url('/uslugi/razrabotka-plaginov-pod-vashi-zadachi/')); ?>">Разработка плагинов</a>
+            <a href="<?php echo esc_url(home_url('/services/dorabotka-sajta-na-wordpress-i-woocommerce-pravki-dorabotka-funkczionala/')); ?>">Доработка WordPress</a>
+            <a href="<?php echo esc_url(home_url('/uslugi/eksport-import-tovarov-i-integraczii/')); ?>">CRM, API и импорт товаров</a>
+            <a href="<?php echo esc_url(home_url('/services/')); ?>">Оплата, доставка, уведомления</a>
+          </section>
+          <section class="wpds-mega__col">
+            <h3><span aria-hidden="true">↗</span> Продвижение и скорость</h3>
+            <a href="<?php echo esc_url(home_url('/services/')); ?>">SEO-структура магазина</a>
+            <a href="<?php echo esc_url(home_url('/services/')); ?>">PageSpeed 90+</a>
+            <a href="<?php echo esc_url(home_url('/services/')); ?>">Технический аудит</a>
+            <a href="<?php echo esc_url(home_url('/services/')); ?>">Поддержка после запуска</a>
+          </section>
+          <aside class="wpds-mega__cta">
+            <strong>Открыты к проектам</strong>
+            <p>Подберём формат запуска и рассчитаем стоимость за 1 день.</p>
+            <a class="wpds-mega__btn" href="<?php echo esc_url(home_url('/#pricing')); ?>">Узнать стоимость</a>
+            <a class="wpds-mega__btn wpds-mega__btn--ghost" href="<?php echo esc_url(home_url('/contacts/')); ?>">Обсудить проект</a>
+          </aside>
+        </div>
+      </div>
+    </li>
+    <li><a href="<?php echo esc_url(home_url('/about/')); ?>">О компании</a></li>
+    <li><a href="<?php echo esc_url(home_url('/cases/')); ?>">Портфолио</a></li>
+    <li><a href="<?php echo esc_url(home_url('/#pricing')); ?>">Цены</a></li>
+    <li><a href="<?php echo esc_url(home_url('/contacts/')); ?>">Контакты</a></li>
+  </ul>
 </nav>
 						
 						
+<style>
+.wpds-mega-nav{position:relative;}
+.wpds-mega-nav__list{display:flex;align-items:center;gap:28px;margin:0;padding:0;list-style:none;}
+.wpds-mega-nav__list>li>a,.wpds-mega-nav__link{color:#fff!important;text-decoration:none;font-weight:800;letter-spacing:.02em;text-transform:uppercase;}
+.wpds-mega-nav__item--services:hover .wpds-mega,.wpds-mega-nav__item--services:focus-within .wpds-mega{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto;}
+.wpds-mega{position:absolute;left:50%;top:calc(100% + 22px);width:min(1180px,calc(100vw - 48px));transform:translate(-50%,14px);opacity:0;visibility:hidden;pointer-events:none;z-index:1000;transition:opacity .2s ease,transform .2s ease,visibility .2s ease;}
+.wpds-mega::before{content:"";position:absolute;left:0;right:0;top:-24px;height:24px;}
+.wpds-mega__grid{display:grid;grid-template-columns:repeat(3,minmax(180px,1fr)) 270px;gap:34px;padding:34px;border-radius:28px;background:#fff;box-shadow:0 28px 70px rgba(5,16,35,.22);border:1px solid rgba(49,91,216,.14);}
+.wpds-mega__col h3{margin:0 0 18px;color:#0b1f36;font-size:16px;line-height:1.25;text-transform:uppercase;font-weight:900;display:flex;gap:10px;align-items:center;}
+.wpds-mega__col h3 span{color:#315bd8;font-size:20px;}
+.wpds-mega__col a{display:block;padding:10px 12px;margin:0 -12px 6px;border-radius:12px;color:#53607c!important;text-decoration:none;font-size:16px;font-weight:600;text-transform:none;letter-spacing:0;transition:background .16s ease,color .16s ease,transform .16s ease;}
+.wpds-mega__col a:hover{background:#f3f6ff;color:#315bd8!important;transform:translateX(3px);}
+.wpds-mega__col b{display:inline-flex;margin-left:6px;padding:3px 7px;border-radius:6px;background:#315bd8;color:#fff;font-size:11px;text-transform:uppercase;vertical-align:middle;}
+.wpds-mega__cta{padding:26px;border-radius:24px;background:linear-gradient(150deg,#f3f6ff,#fff);border:1px solid rgba(49,91,216,.16);}
+.wpds-mega__cta strong{display:block;margin-bottom:14px;color:#0b1f36;font-size:18px;text-transform:uppercase;}
+.wpds-mega__cta p{margin:0 0 24px;color:#53607c;font-size:15px;line-height:1.5;}
+.wpds-mega__btn{display:flex;justify-content:center;align-items:center;min-height:54px;margin-top:12px;border-radius:999px;background:#315bd8;color:#fff!important;text-decoration:none;font-weight:800;}
+.wpds-mega__btn--ghost{background:#fff;color:#315bd8!important;border:2px solid #315bd8;}
+@media(max-width:1199px){.wpds-mega{display:none}.wpds-mega-nav__list{gap:16px;flex-wrap:wrap}.wpds-mega-nav__list>li>a{font-size:13px}}
+</style>
+
 <style>
 /* =========================================================
    ОБЩЕЕ
@@ -742,7 +660,7 @@ document.addEventListener('click', function (e) {
 
 						
 						
-						<a href="https://wpdevstudio.ru/#uslugi-wordpress" class="btnBlack Header_btn__uXKjs">Выбрать услугу</a>
+						<a href="https://wpdevstudio.ru/#pricing" class="btnBlack Header_btn__uXKjs">Выбрать услугу</a>
                     </div>
                 </div>
             </div>
@@ -774,7 +692,7 @@ document.addEventListener('click', function (e) {
     </a>
   </address>
 
-  <a href="https://wpdevstudio.ru/#uslugi-wordpress" class="btnBlack Header_btn__uXKjs">Выбрать услугу</a>
+  <a href="https://wpdevstudio.ru/#pricing" class="btnBlack Header_btn__uXKjs">Выбрать услугу</a>
 
   <button class="Header_burger__kctui" type="button" title="Меню" aria-label="Открыть меню" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -851,7 +769,7 @@ document.addEventListener('click', function(e){
     </nav>
 
     <div class="MobileMenu__footer">
-      <a class="MobileMenu__btn btnBlack" href="https://wpdevstudio.ru/#uslugi-wordpress" data-mobilemenu-close>Выбрать услугу</a>
+      <a class="MobileMenu__btn btnBlack" href="https://wpdevstudio.ru/#pricing" data-mobilemenu-close>Выбрать услугу</a>
 
       <div class="MobileMenu__contacts">
         <a href="tel:+79250404189">+7 (925) 040-41-89</a>

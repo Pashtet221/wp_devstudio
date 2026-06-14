@@ -31,57 +31,21 @@ get_header();
 			
 			
 			
-<section class="hero hero--compact" aria-label="Интегратор цифровых решений">
+<section class="hero hero--compact" aria-label="Запуск WordPress-магазинов">
   <div class="container">
     <div class="hero__card">
-      <!-- Background media -->
-      <video
-        class="hero__media"
-        autoplay
-        loop
-        muted
-        playsinline
-        preload="metadata"
-        poster="/upload/iblock/d82/o45ep3y74cg2zpoveibch37dbt09kdbp/first%201.jpg"
-      >
-        <source src="/wp-content/uploads/2025/12/3129671-hd_1920_1080_30fps.mp4" type="video/mp4" />
-      </video>
-
       <div class="hero__gradient" aria-hidden="true"></div>
-
-      <!-- Content -->
       <div class="hero__content">
-        <div class="hero__kicker">
-          <img
-            class="hero__kicker-icon"
-            src="/upload/iblock/61d/szcti68nziwyelwqar0k5r3zkg0vgzm7/Logo%20tagline.svg"
-            alt=""
-            aria-hidden="true"
-          />
-          <span class="hero__kicker-line" aria-hidden="true"></span>
+        <p class="hero__eyebrow">WordPress · WooCommerce · запуск под ключ</p>
+        <h1 class="hero__title">Запускаем WordPress-магазины, которые продают — от 30 дней</h1>
+        <p class="hero__desc">Без шаблонов, без исчезновений после оплаты</p>
+        <div class="hero__actions">
+          <a class="hero__cta" href="#pricing">Узнать стоимость</a>
+          <span class="hero__microtext">Бесплатный расчёт за 1 день</span>
         </div>
-
-        <h1 class="hero__title">
-  Разработка сайтов и интернет-магазинов<br>
-  на WordPress и WooCommerce
-</h1>
-
-<div class="hero__bottom">
-  <div class="hero__lead">
-    <p class="hero__desc">
-      Проектируем и разрабатываем WordPress-решения под бизнес-задачи:
-      сайты, WooCommerce-магазины, плагины, интеграции и автоматизацию.
-    </p>
-    <a class="hero__cta" href="#contact-form">Оставить заявку</a>
-  </div>
-
-
-          <!-- Rotator -->
-          <div class="hero__rotator" aria-live="polite">
-            <span class="hero__rotator-prefix">Мы</span>
-            <span class="hero__rotator-text is-show" data-hero-rotator></span>
-            <span class="hero__rotator-caret" aria-hidden="true"></span>
-          </div>
+        <div class="hero__tech" aria-label="Технологии">
+          <span>WordPress</span>
+          <span>WooCommerce</span>
         </div>
       </div>
     </div>
@@ -94,334 +58,30 @@ get_header();
     --pad-desktop: 72px;
     --pad-tablet: 36px;
     --pad-mobile: 16px;
-
-    --radius-lg: 48px;
+    --radius-lg: 36px;
     --radius-md: 24px;
-
     --text: #fff;
     --muted: rgba(255,255,255,.84);
-    --line: #9395A0;
   }
-
-  /* Container */
-  .container{
-    margin-inline: auto;
-    max-width: var(--container);
-    padding-inline: var(--pad-desktop);
-  }
-  @media (max-width: 1199px){
-    .container{ max-width: 768px; padding-inline: var(--pad-tablet); }
-  }
-  @media (max-width: 767px){
-    .container{ max-width: 100%; padding-inline: var(--pad-mobile); }
-  }
-
-  /* Hero */
-  .hero{
-    background: #fff;
-    padding: 16px 0 0;
-  }
-
-  .hero__card{
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius-lg);
-    padding: 56px 48px 80px;
-
-    /* выше по высоте */
-    min-height: clamp(420px, 52vw, 600px);
-
-    display: flex;
-    align-items: flex-start;
-  }
-
-  @media (max-width: 1199px){
-    .hero__card{
-      padding: 48px 48px 64px;
-      border-radius: 36px;
-      min-height: 560px;
-    }
-  }
-
-  @media (max-width: 767px){
-    .hero__card{
-      padding: 24px;
-      border-radius: var(--radius-md);
-      min-height: 530px;
-    }
-  }
-
-  .hero__media{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    z-index: 0;
-  }
-
-  /* сильнее затемнение для читаемости */
-  .hero__gradient{
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,.18) 0%, rgba(0,0,0,.62) 100%);
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  /* подняли контент выше */
-  .hero__content{
-    position: relative;
-    z-index: 5;
-    width: 100%;
-    color: var(--text);
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-	padding-left: 50px;
-  }
-
-  /* Kicker */
-  .hero__kicker{
-	visibility: hidden;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font: 400 16px/1.3 "Wix Madefor Text", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    color: var(--muted);
-    margin-bottom: clamp(48px, 10vw, 180px);
-  }
-  @media (max-width: 1199px){
-    .hero__kicker{
-      font-size: 12px;
-      margin-bottom: 110px;
-    }
-  }
-  @media (max-width: 767px){
-	.hero__content{
-		padding-left: 0px;
-	}
-    .hero__kicker{
-      font-size: 12px;
-      margin-bottom: 74px;
-    }
-  }
-
-  .hero__kicker-icon{
-    width: 16px;
-    height: 16px;
-    object-fit: contain;
-    flex: 0 0 auto;
-  }
-
-  .hero__kicker-line{
-    height: 22px;
-    width: 1px;
-    background: var(--line);
-    flex: 0 0 auto;
-    opacity: .9;
-  }
-
-  /* Title */
-  .hero__title{
-    margin: 0 0 8px;
-    font-family: "Wix Madefor Text", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    font-size: clamp(36px, 4.2vw, 120px);
-    line-height: 1;
-  }
-  @media (max-width: 1199px){
-    .hero__title{ font-size: 48px; line-height: 1; }
-  }
-  @media (max-width: 767px){
-    .hero__title{ font-size: 36px; }
-  }
-
-  /* Bottom row */
-  .hero__bottom{
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr minmax(0, 440px) auto;
-    gap: 16px clamp(24px, 8vw, 226px);
-    align-items: end;
-  }
-
-  @media (max-width: 1199px){
-    .hero__bottom{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 56px;
-    }
-  }
-
-  @media (max-width: 767px){
-    .hero__bottom{
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 24px;
-    }
-  }
-
-  .hero__lead{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 22px;
-  }
-
-  .hero__desc{
-    margin: 0;
-    max-width: 440px;
-    font: 400 20px/28px "Wix Madefor Text", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    color: var(--text);
-  }
-
-  .hero__cta{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 52px;
-    padding: 14px 24px;
-    border-radius: 999px;
-    background: #dc2626;
-    color: #fff;
-    font: 600 16px/1.2 "Wix Madefor Text", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    text-decoration: none;
-    box-shadow: 0 16px 34px rgba(220,38,38,.28);
-    transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
-  }
-
-  .hero__cta:hover{
-    background: #b91c1c;
-    color: #fff;
-    transform: translateY(-1px);
-    box-shadow: 0 18px 38px rgba(185,28,28,.34);
-  }
-
-  @media (max-width: 1199px){
-    .hero__lead{ gap: 18px; }
-    .hero__desc{ font-size: 16px; line-height: 22px; max-width: 490px; }
-    .hero__cta{ min-height: 48px; padding: 13px 22px; font-size: 15px; }
-  }
-
-  /* Rotator */
-  .hero__rotator{
-    display: inline-flex;
-    align-items: baseline;
-    gap: 5px;
-    padding: 12px 14px;
-    border-radius: 999px;
-    background: rgba(255,255,255,.18);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    max-width: 520px;
-	height: 70px;
-  }
-
-  .hero__rotator-prefix{
-    font: 500 16px/1.2 "Wix Madefor Text", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    color: rgba(255,255,255,.92);
-    white-space: nowrap;
-  }
-
-  .hero__rotator-text{
-    font: 400 18px/1.35 "Wix Madefor Text", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    color: rgba(255,255,255,.92);
-    transition: opacity .18s ease, transform .18s ease;
-    will-change: opacity, transform;
-  }
-
-  .hero__rotator-text.is-hide{
-    opacity: 0;
-    transform: translateY(2px);
-  }
-
-  .hero__rotator-text.is-show{
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .hero__rotator-caret{
-    width: 10px;
-    height: 18px;
-    border-left: 2px solid rgba(255,255,255,.9);
-    animation: heroCaret 1s steps(1) infinite;
-  }
-
-  @keyframes heroCaret{
-    50%{ opacity: 0; }
-  }
-
-  @media (max-width: 1199px){
-    .hero__rotator{ max-width: 560px; }
-  }
-  @media (max-width: 767px){
-    .hero__rotator{ width: auto; max-width: 100%; }
-    .hero__rotator-text{ font-size: 16px; }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .hero__rotator-text{ transition: none; }
-    .hero__rotator-caret{ animation: none; opacity: 1; }
-  }
+  .container{margin-inline:auto;max-width:var(--container);padding-inline:var(--pad-desktop);}
+  @media (max-width:1199px){.container{max-width:768px;padding-inline:var(--pad-tablet);}}
+  @media (max-width:767px){.container{max-width:100%;padding-inline:var(--pad-mobile);}}
+  .hero{background:#fff;padding:16px 0 0;}
+  .hero__card{position:relative;overflow:hidden;border-radius:var(--radius-lg);min-height:clamp(360px,38vw,520px);display:flex;align-items:center;padding:54px 58px;background:linear-gradient(135deg,rgba(9,20,39,.96),rgba(28,58,138,.78)),url('/upload/iblock/d82/o45ep3y74cg2zpoveibch37dbt09kdbp/first%201.jpg') center/cover no-repeat;box-shadow:0 26px 70px rgba(8,18,42,.18);}
+  .hero__gradient{position:absolute;inset:0;background:radial-gradient(circle at 82% 18%,rgba(18,212,87,.34),transparent 28%),radial-gradient(circle at 12% 86%,rgba(220,38,38,.30),transparent 32%);z-index:1;pointer-events:none;}
+  .hero__content{position:relative;z-index:2;max-width:840px;color:var(--text);display:flex;flex-direction:column;gap:22px;}
+  .hero__eyebrow{margin:0;color:rgba(255,255,255,.76);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:14px;}
+  .hero__title{margin:0;font-family:"Wix Madefor Text",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-weight:700;letter-spacing:-.035em;font-size:clamp(38px,4.6vw,74px);line-height:.98;}
+  .hero__desc{margin:0;max-width:620px;font:500 24px/1.35 "Wix Madefor Text",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--muted);}
+  .hero__actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:6px;}
+  .hero__cta{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:15px 28px;border-radius:999px;background:#dc2626;color:#fff;font:800 16px/1.2 "Wix Madefor Text",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;text-decoration:none;box-shadow:0 18px 36px rgba(220,38,38,.34);transition:transform .18s ease,background .18s ease,box-shadow .18s ease;}
+  .hero__cta:hover{background:#b91c1c;color:#fff;transform:translateY(-1px);box-shadow:0 20px 40px rgba(185,28,28,.38);}
+  .hero__microtext{color:rgba(255,255,255,.82);font-size:15px;font-weight:700;}
+  .hero__tech{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;}
+  .hero__tech span{display:inline-flex;align-items:center;min-height:38px;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);backdrop-filter:blur(12px);font-weight:800;color:#fff;}
+  @media (max-width:1199px){.hero__card{padding:44px;min-height:460px}.hero__title{font-size:48px}.hero__desc{font-size:20px}}
+  @media (max-width:767px){.hero__card{padding:28px;border-radius:var(--radius-md);min-height:430px}.hero__title{font-size:36px}.hero__desc{font-size:18px}.hero__actions{align-items:flex-start;flex-direction:column}.hero__cta{width:100%}}
 </style>
-
-<script>
-(function () {
-  const init = () => {
-    const root = document.querySelector('section.hero');
-    if (!root) return;
-
-    const el = root.querySelector('[data-hero-rotator]');
-    if (!el) return;
-
-    const items = [
-      'проектируем UX/UI под ваш бизнес.',
-      'разрабатываем сайты и сервисы под ключ.',
-      'делаем интеграции: CRM, оплаты, аналитика.',
-      'поддерживаем и развиваем продукт после запуска.'
-    ];
-
-    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    let i = 0;
-
-    const setText = (text) => {
-      if (reduceMotion) {
-        el.textContent = text;
-        return;
-      }
-
-      el.classList.remove('is-show');
-      el.classList.add('is-hide');
-
-      window.setTimeout(() => {
-        el.textContent = text;
-        el.classList.remove('is-hide');
-        el.classList.add('is-show');
-      }, 180);
-    };
-
-    setText(items[i]);
-
-    if (!reduceMotion) {
-      window.setInterval(() => {
-        i = (i + 1) % items.length;
-        setText(items[i]);
-      }, 2600);
-    }
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init, { once: true });
-  } else {
-    init();
-  }
-})();
-</script>
 
 <?php
 $calculator = wpds_home_calculator_get_content(get_the_ID());
@@ -864,7 +524,7 @@ $calculator_services = $calculator['services'];
 	
 			
 <!-- Услуги -->
-<section class="TariffsWithForm componentWrapper TariffsWithForm_wrapper__mcER3" id="uslugi-wordpress">
+<section class="TariffsWithForm componentWrapper TariffsWithForm_wrapper__mcER3" id="pricing">
   <div class="container TariffsWithForm_container__0SpEL">
     <div class="TariffsWithForm__inner TariffsWithForm_inner__yUvZD"
          itemscope itemtype="https://schema.org/OfferCatalog"
@@ -877,10 +537,9 @@ $calculator_services = $calculator['services'];
 
       <!-- SEO: краткий интро-абзац с ключевыми фразами без спама -->
       <p class="TariffsWithForm__intro" style="color: #fff;">
-        Разрабатываем сайты на <strong>WordPress под ключ</strong>: лендинги, сайты-визитки,
-        <strong>интернет-магазины на WooCommerce</strong>, каталоги и доски объявлений.
-        Выполняем <strong>разработку плагинов WordPress</strong>, интеграции, <strong>импорт товаров WooCommerce</strong>
-        и <strong>поддержку WordPress-сайтов</strong>.
+        Оставили три понятных формата: лендинг на WordPress, интернет-магазин WooCommerce
+        и разработку плагинов под нестандартную бизнес-логику. В каждой карточке — стартовая цена,
+        сроки и конкретный результат.
       </p>
 
       <!-- Лендинги / сайты-визитки -->
@@ -894,9 +553,13 @@ $calculator_services = $calculator['services'];
         </h3>
 
         <p class="TariffsWithForm_itemText__caT4q" itemprop="description">
-          Одностраничный сайт на WordPress под ваши задачи: структура, дизайн и верстка,
-          формы и заявки, базовая SEO-настройка, адаптивность под мобильные устройства.
+          От 45 000 ₽ · 10 дней на разработку
         </p>
+        <ul class="TariffsWithForm_itemText__caT4q">
+          <li>✓ Прототип, структура блоков и продающие тексты</li>
+          <li>✓ Адаптивная верстка, формы заявок и базовая SEO-настройка</li>
+          <li>✓ Результат: готовая посадочная страница для заявок</li>
+        </ul>
 
         <h3 class="TariffsWithForm_itemPrice__9tmRc" title="От 45 000 ₽ / проект">
           От 45 000 ₽ / проект
@@ -916,35 +579,17 @@ $calculator_services = $calculator['services'];
         </h3>
 
         <p class="TariffsWithForm_itemText__caT4q" itemprop="description">
-          WooCommerce магазин под ключ: каталог, карточки товаров, корзина и оформление заказа,
-          оплата/доставка, уведомления, базовая SEO-структура и оптимизация скорости.
+          От 120 000 ₽ · 28 дней на разработку
         </p>
+        <ul class="TariffsWithForm_itemText__caT4q">
+          <li>✓ Каталог, карточки товаров, корзина и оформление заказа</li>
+          <li>✓ Оплата, доставка, уведомления, CRM/аналитика по задаче</li>
+          <li>✓ Результат: готовый к продажам магазин за месяц, PageSpeed 90+</li>
+        </ul>
 
         <h3 class="TariffsWithForm_itemPrice__9tmRc" title="От 120 000 ₽ / проект">
           От 120 000 ₽ / проект
           <meta itemprop="price" content="120000" />
-          <meta itemprop="priceCurrency" content="RUB" />
-        </h3>
-      </a>
-
-      <!-- Доски объявлений / каталоги -->
-      <a class="TariffsWithForm_item__H3khh"
-         href="https://wpdevstudio.ru/services/razrabotka-marketplejsa-na-wordpress-pod-vashu-biznes-model/"
-         itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer"
-         aria-label="Доска объявлений или каталог на WordPress — цены и описание">
-
-        <h3 class="TariffsWithForm_itemTitle__bAQLg" itemprop="name">
-          Доска объявлений / каталог на WordPress
-        </h3>
-
-        <p class="TariffsWithForm_itemText__caT4q" itemprop="description">
-          Каталог или доска объявлений: личные кабинеты, добавление объявлений, фильтры,
-          карта/геопоиск, платные опции размещения, модерация и поиск по сайту.
-        </p>
-
-        <h3 class="TariffsWithForm_itemPrice__9tmRc" title="От 180 000 ₽ / проект">
-          От 180 000 ₽ / проект
-          <meta itemprop="price" content="180000" />
           <meta itemprop="priceCurrency" content="RUB" />
         </h3>
       </a>
@@ -960,9 +605,13 @@ $calculator_services = $calculator['services'];
         </h3>
 
         <p class="TariffsWithForm_itemText__caT4q" itemprop="description">
-          Кастомные плагины WordPress: новые типы записей, формы, интеграции и автоматизации,
-          нестандартная логика, доработка и оптимизация существующих решений.
+          От 25 000 ₽ · от 5 дней на задачу
         </p>
+        <ul class="TariffsWithForm_itemText__caT4q">
+          <li>✓ Техническое задание, архитектура и безопасная реализация</li>
+          <li>✓ Интеграции, кастомные поля, роли, автоматизация процессов</li>
+          <li>✓ Результат: отдельный модуль без правок ядра и темы</li>
+        </ul>
 
         <h3 class="TariffsWithForm_itemPrice__9tmRc" title="От 25 000 ₽ / задача">
           От 25 000 ₽ / задача
@@ -971,49 +620,6 @@ $calculator_services = $calculator['services'];
         </h3>
       </a>
 
-      <!-- Экспорт / импорт товаров и интеграции -->
-      <a class="TariffsWithForm_item__H3khh"
-         href="https://wpdevstudio.ru/uslugi/eksport-import-tovarov-i-integraczii/"
-         itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer"
-         aria-label="Импорт товаров WooCommerce и интеграции — цены и описание">
-
-        <h3 class="TariffsWithForm_itemTitle__bAQLg" itemprop="name">
-          Импорт товаров WooCommerce и интеграции (CRM, API, прайсы)
-        </h3>
-
-        <p class="TariffsWithForm_itemText__caT4q" itemprop="description">
-          Импорт/экспорт товаров WooCommerce: синхронизация с CRM и маркетплейсами,
-          прайс-листами поставщиков, автообновление остатков и цен, интеграции по API.
-        </p>
-
-        <h3 class="TariffsWithForm_itemPrice__9tmRc" title="От 15 000 ₽ / задача">
-          От 15 000 ₽ / задача
-          <meta itemprop="price" content="15000" />
-          <meta itemprop="priceCurrency" content="RUB" />
-        </h3>
-      </a>
-
-      <!-- Поддержка и доработки -->
-      <a class="TariffsWithForm_item__H3khh"
-         href="https://wpdevstudio.ru/services/dorabotka-sajta-na-wordpress-i-woocommerce-pravki-dorabotka-funkczionala/"
-         itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer"
-         aria-label="Поддержка и доработка сайтов на WordPress — цены и описание">
-
-        <h3 class="TariffsWithForm_itemTitle__bAQLg" itemprop="name">
-          Поддержка и доработка сайтов на WordPress
-        </h3>
-
-        <p class="TariffsWithForm_itemText__caT4q" itemprop="description">
-          Регулярные правки и развитие: обновления, ускорение, исправление ошибок,
-          улучшение функционала и стабильности WordPress-сайта по плану работ.
-        </p>
-
-        <h3 class="TariffsWithForm_itemPrice__9tmRc" title="От 10 000 ₽">
-          От 10 000 ₽ / задача
-          <meta itemprop="price" content="10000" />
-          <meta itemprop="priceCurrency" content="RUB" />
-        </h3>
-      </a>
     </div>
 
     <!-- Форма заявки -->
