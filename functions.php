@@ -3429,6 +3429,70 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+
+/**
+ * ACF поля для выбора релевантных услуг.
+ */
+add_action('acf/init', 'gl_register_service_related_services_field');
+function gl_register_service_related_services_field() {
+	if (!function_exists('acf_add_local_field_group')) {
+		return;
+	}
+
+	acf_add_local_field_group([
+		'key' => 'group_gl_service_related_services',
+		'title' => 'Релевантные услуги',
+		'fields' => [
+			[
+				'key' => 'field_gl_service_related_services',
+				'label' => 'Релевантные услуги',
+				'name' => 'service_related_services',
+				'type' => 'relationship',
+				'instructions' => 'Выберите услуги, которые нужно показать на странице этой услуги.',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => [
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				],
+				'post_type' => [
+					'service',
+				],
+				'taxonomy' => '',
+				'filters' => [
+					'search',
+					'taxonomy',
+				],
+				'elements' => [
+					'featured_image',
+				],
+				'min' => '',
+				'max' => '',
+				'return_format' => 'object',
+			],
+		],
+		'location' => [
+			[
+				[
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'service',
+				],
+			],
+		],
+		'menu_order' => 20,
+		'position' => 'normal',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => true,
+		'description' => '',
+		'show_in_rest' => 0,
+	]);
+}
+
 /**
  * Шорткод слайдера кейсов/услуг из ACF поля
  *
@@ -3437,6 +3501,20 @@ if (!defined('ABSPATH')) {
  * [gl_related_cases_slider field="service_related_cases" title="Другие услуги для вас" button_text="Смотреть каталог" button_url="/services/"]
  */
 add_shortcode('gl_related_cases_slider', 'gl_related_cases_slider_shortcode');
+add_shortcode('gl_related_services_slider', 'gl_related_services_slider_shortcode');
+
+function gl_related_services_slider_shortcode($atts = []) {
+	$atts = shortcode_atts([
+		'field'       => 'service_related_services',
+		'title'       => 'Релевантные услуги',
+		'button_text' => 'Смотреть все услуги',
+		'button_url'  => '/services/',
+		'post_id'     => get_the_ID(),
+	], $atts, 'gl_related_services_slider');
+
+	return gl_related_cases_slider_shortcode($atts);
+}
+
 
 function gl_related_cases_slider_shortcode($atts = []) {
 	if (!is_singular()) {
