@@ -2847,6 +2847,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			<?php echo do_shortcode('[gl_related_cases_slider]'); ?>
 
+				<?php echo do_shortcode('[gl_related_services_slider]'); ?>
+
 			<?php echo do_shortcode('[gl_related_blog_slider title="Полезные статьи по интернет-магазинам" button_text="Смотреть статьи" button_url="/blog/"]'); ?>
 		</div>
 	</section>
