@@ -3464,9 +3464,7 @@ function gl_register_service_related_services_field() {
 					'search',
 					'taxonomy',
 				],
-				'elements' => [
-					'featured_image',
-				],
+				'elements' => [],
 				'min' => '',
 				'max' => '',
 				'return_format' => 'object',
@@ -3580,30 +3578,27 @@ function gl_related_cases_slider_shortcode($atts = []) {
 
 		<div class="gl-related-slider__viewport">
 			<div class="gl-related-slider__track">
-				<?php foreach ($normalized_posts as $related_post) : 
-					$card_id    = $related_post->ID;
-					$card_title = get_the_title($card_id);
-					$card_url   = get_permalink($card_id);
-					$thumb_url  = get_the_post_thumbnail_url($card_id, 'large');
+				<?php foreach ($normalized_posts as $related_post) :
+					$card_id      = $related_post->ID;
+					$card_title   = get_the_title($card_id);
+					$card_url     = get_permalink($card_id);
+					$card_excerpt = get_the_excerpt($card_id);
 
-					if (!$thumb_url) {
-						$thumb_url = get_template_directory_uri() . '/assets/img/placeholder-service.jpg';
+					if (!$card_excerpt) {
+						$card_excerpt = wp_trim_words(wp_strip_all_tags($related_post->post_content), 18, '…');
 					}
 					?>
 					<article class="gl-related-slider__card">
 						<a class="gl-related-slider__card-link" href="<?php echo esc_url($card_url); ?>">
-							<div class="gl-related-slider__image-wrap">
-								<img
-									class="gl-related-slider__image"
-									src="<?php echo esc_url($thumb_url); ?>"
-									alt="<?php echo esc_attr($card_title); ?>"
-									loading="lazy"
-								>
-								<div class="gl-related-slider__overlay"></div>
-							</div>
-
 							<div class="gl-related-slider__content">
+								<span class="gl-related-slider__eyebrow">Услуга</span>
 								<h3 class="gl-related-slider__card-title"><?php echo esc_html($card_title); ?></h3>
+
+								<?php if ($card_excerpt) : ?>
+									<p class="gl-related-slider__excerpt"><?php echo esc_html($card_excerpt); ?></p>
+								<?php endif; ?>
+
+								<span class="gl-related-slider__more">Подробнее</span>
 							</div>
 						</a>
 					</article>
@@ -3700,55 +3695,98 @@ function gl_related_cases_slider_shortcode($atts = []) {
 }
 
 .gl-related-slider__card-link {
-	display: block;
+	display: flex;
+	min-height: 360px;
 	position: relative;
 	text-decoration: none;
+	border: 1px solid rgba(17, 24, 39, 0.08);
 	border-radius: 34px;
 	overflow: hidden;
-	background: #111827;
+	background:
+		radial-gradient(circle at 20% 0%, rgba(220, 38, 38, 0.14), transparent 36%),
+		linear-gradient(145deg, #ffffff 0%, #f3f5f7 100%);
 	box-shadow: 0 14px 40px rgba(16, 24, 40, 0.08);
+	transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
 }
 
-.gl-related-slider__image-wrap {
-	position: relative;
-	aspect-ratio: 0.78 / 1;
-	background: #111827;
-}
-
-.gl-related-slider__image {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	display: block;
-	transform: scale(1);
-	transition: transform .35s ease;
-}
-
-.gl-related-slider__overlay {
+.gl-related-slider__card-link::after {
+	content: "";
+	width: 126px;
+	height: 126px;
 	position: absolute;
-	inset: 0;
-	background: linear-gradient(180deg, rgba(10, 10, 10, 0.05) 0%, rgba(10, 10, 10, 0.52) 100%);
+	right: -38px;
+	bottom: -38px;
+	border-radius: 50%;
+	background: rgba(220, 38, 38, 0.08);
+	transition: transform .2s ease, background .2s ease;
 }
 
-.gl-related-slider__card-link:hover .gl-related-slider__image {
-	transform: scale(1.03);
+.gl-related-slider__card-link:hover {
+	border-color: rgba(220, 38, 38, 0.18);
+	box-shadow: 0 18px 48px rgba(16, 24, 40, 0.12);
+	transform: translateY(-3px);
+}
+
+.gl-related-slider__card-link:hover::after {
+	background: rgba(220, 38, 38, 0.14);
+	transform: scale(1.08);
 }
 
 .gl-related-slider__content {
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	padding: 24px 24px 26px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	padding: 28px;
+	position: relative;
 	z-index: 2;
+}
+
+.gl-related-slider__eyebrow {
+	display: inline-flex;
+	align-self: flex-start;
+	margin-bottom: 22px;
+	padding: 8px 12px;
+	border-radius: 999px;
+	background: rgba(220, 38, 38, 0.08);
+	color: #dc2626;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1;
 }
 
 .gl-related-slider__card-title {
 	margin: 0;
-	font-size: clamp(18px, 2vw, 28px);
-	line-height: 1.05;
+	font-size: clamp(22px, 2vw, 30px);
+	line-height: 1.1;
 	letter-spacing: -0.02em;
-	color: #fff;
+	color: #111827;
+}
+
+.gl-related-slider__excerpt {
+	margin: 18px 0 0;
+	font-size: 16px;
+	line-height: 1.55;
+	color: #515964;
+}
+
+.gl-related-slider__more {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: auto;
+	padding-top: 28px;
+	color: #dc2626;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.gl-related-slider__more::after {
+	content: "→";
+	transition: transform .2s ease;
+}
+
+.gl-related-slider__card-link:hover .gl-related-slider__more::after {
+	transform: translateX(4px);
 }
 
 .gl-related-slider__bottom {
@@ -3803,11 +3841,20 @@ function gl_related_cases_slider_shortcode($atts = []) {
 	}
 
 	.gl-related-slider__card-link {
+		min-height: 300px;
 		border-radius: 24px;
 	}
 
 	.gl-related-slider__content {
-		padding: 18px 18px 20px;
+		padding: 22px;
+	}
+
+	.gl-related-slider__eyebrow {
+		margin-bottom: 18px;
+	}
+
+	.gl-related-slider__excerpt {
+		font-size: 15px;
 	}
 
 	.gl-related-slider__catalog-btn {
