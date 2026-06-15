@@ -727,6 +727,8 @@ get_header();
 
 				<?php echo do_shortcode('[gl_related_cases_slider]'); ?>
 
+				<?php echo do_shortcode('[gl_related_services_slider]'); ?>
+
 				<?php echo do_shortcode('[gl_related_blog_slider title="Полезные статьи по сайтам на WordPress" button_text="Смотреть статьи" button_url="/blog/"]'); ?>
 			</div>
 		</div>

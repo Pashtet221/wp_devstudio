@@ -3429,6 +3429,68 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+
+/**
+ * ACF поля для выбора релевантных услуг.
+ */
+add_action('acf/init', 'gl_register_service_related_services_field');
+function gl_register_service_related_services_field() {
+	if (!function_exists('acf_add_local_field_group')) {
+		return;
+	}
+
+	acf_add_local_field_group([
+		'key' => 'group_gl_service_related_services',
+		'title' => 'Релевантные услуги',
+		'fields' => [
+			[
+				'key' => 'field_gl_service_related_services',
+				'label' => 'Релевантные услуги',
+				'name' => 'service_related_services',
+				'type' => 'relationship',
+				'instructions' => 'Выберите услуги, которые нужно показать на странице этой услуги.',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => [
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				],
+				'post_type' => [
+					'service',
+				],
+				'taxonomy' => '',
+				'filters' => [
+					'search',
+					'taxonomy',
+				],
+				'elements' => '',
+				'min' => '',
+				'max' => '',
+				'return_format' => 'object',
+			],
+		],
+		'location' => [
+			[
+				[
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'service',
+				],
+			],
+		],
+		'menu_order' => 20,
+		'position' => 'normal',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => true,
+		'description' => '',
+		'show_in_rest' => 0,
+	]);
+}
+
 /**
  * Шорткод слайдера кейсов/услуг из ACF поля
  *
@@ -3437,6 +3499,21 @@ if (!defined('ABSPATH')) {
  * [gl_related_cases_slider field="service_related_cases" title="Другие услуги для вас" button_text="Смотреть каталог" button_url="/services/"]
  */
 add_shortcode('gl_related_cases_slider', 'gl_related_cases_slider_shortcode');
+add_shortcode('gl_related_services_slider', 'gl_related_services_slider_shortcode');
+
+function gl_related_services_slider_shortcode($atts = []) {
+	$atts = shortcode_atts([
+		'field'       => 'service_related_services',
+		'title'       => 'Релевантные услуги',
+		'button_text' => 'Смотреть все услуги',
+		'button_url'  => '/services/',
+		'card_layout' => 'text',
+		'post_id'     => get_the_ID(),
+	], $atts, 'gl_related_services_slider');
+
+	return gl_related_cases_slider_shortcode($atts);
+}
+
 
 function gl_related_cases_slider_shortcode($atts = []) {
 	if (!is_singular()) {
@@ -3448,6 +3525,7 @@ function gl_related_cases_slider_shortcode($atts = []) {
 		'title'       => 'Другие услуги для вас',
 		'button_text' => 'Смотреть каталог',
 		'button_url'  => '/services/',
+		'card_layout' => 'image',
 		'post_id'     => get_the_ID(),
 	], $atts, 'gl_related_cases_slider');
 
@@ -3483,10 +3561,11 @@ function gl_related_cases_slider_shortcode($atts = []) {
 	}
 
 	$uid = 'gl-slider-' . wp_generate_password(6, false, false);
+	$is_text_layout = $atts['card_layout'] === 'text';
 
 	ob_start();
 	?>
-	<div class="gl-related-slider" id="<?php echo esc_attr($uid); ?>">
+	<div class="gl-related-slider<?php echo $is_text_layout ? ' gl-related-slider--text' : ''; ?>" id="<?php echo esc_attr($uid); ?>">
 		<div class="gl-related-slider__top">
 			<h2 class="gl-related-slider__title"><?php echo esc_html($atts['title']); ?></h2>
 
@@ -3506,27 +3585,42 @@ function gl_related_cases_slider_shortcode($atts = []) {
 					$card_id    = $related_post->ID;
 					$card_title = get_the_title($card_id);
 					$card_url   = get_permalink($card_id);
+					$excerpt    = get_the_excerpt($card_id);
 					$thumb_url  = get_the_post_thumbnail_url($card_id, 'large');
 
-					if (!$thumb_url) {
+					if (!$excerpt) {
+						$excerpt = wp_trim_words(wp_strip_all_tags(get_post_field('post_content', $card_id)), 18, '...');
+					}
+
+					if (!$thumb_url && !$is_text_layout) {
 						$thumb_url = get_template_directory_uri() . '/assets/img/placeholder-service.jpg';
 					}
 					?>
 					<article class="gl-related-slider__card">
 						<a class="gl-related-slider__card-link" href="<?php echo esc_url($card_url); ?>">
-							<div class="gl-related-slider__image-wrap">
-								<img
-									class="gl-related-slider__image"
-									src="<?php echo esc_url($thumb_url); ?>"
-									alt="<?php echo esc_attr($card_title); ?>"
-									loading="lazy"
-								>
-								<div class="gl-related-slider__overlay"></div>
-							</div>
+							<?php if ($is_text_layout) : ?>
+								<div class="gl-related-slider__service-content">
+									<h3 class="gl-related-slider__service-title"><?php echo esc_html($card_title); ?></h3>
+									<?php if ($excerpt) : ?>
+										<p class="gl-related-slider__service-excerpt"><?php echo esc_html($excerpt); ?></p>
+									<?php endif; ?>
+									<span class="gl-related-slider__service-more">Подробнее</span>
+								</div>
+							<?php else : ?>
+								<div class="gl-related-slider__image-wrap">
+									<img
+										class="gl-related-slider__image"
+										src="<?php echo esc_url($thumb_url); ?>"
+										alt="<?php echo esc_attr($card_title); ?>"
+										loading="lazy"
+									>
+									<div class="gl-related-slider__overlay"></div>
+								</div>
 
-							<div class="gl-related-slider__content">
-								<h3 class="gl-related-slider__card-title"><?php echo esc_html($card_title); ?></h3>
-							</div>
+								<div class="gl-related-slider__content">
+									<h3 class="gl-related-slider__card-title"><?php echo esc_html($card_title); ?></h3>
+								</div>
+							<?php endif; ?>
 						</a>
 					</article>
 				<?php endforeach; ?>
@@ -3656,6 +3750,69 @@ function gl_related_cases_slider_shortcode($atts = []) {
 	transform: scale(1.03);
 }
 
+.gl-related-slider--text .gl-related-slider__card-link {
+	display: flex;
+	min-height: 280px;
+	height: 100%;
+	background: #f8fbf9;
+	border: 1px solid #e6efe9;
+	box-shadow: none;
+	color: #1A1A1A;
+	transition: .2s ease;
+}
+
+.gl-related-slider--text .gl-related-slider__card-link:hover {
+	background: #fff;
+	border-color: #d8e7de;
+	box-shadow: 0 18px 44px rgba(16, 24, 40, 0.08);
+	transform: translateY(-2px);
+	color: #1A1A1A;
+}
+
+.gl-related-slider__service-content {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	padding: 28px;
+}
+
+.gl-related-slider__service-title {
+	margin: 0;
+	font-size: clamp(22px, 2.1vw, 30px);
+	line-height: 1.08;
+	letter-spacing: -0.03em;
+	color: #1A1A1A;
+}
+
+.gl-related-slider__service-excerpt {
+	margin: 18px 0 0;
+	font-size: 16px;
+	line-height: 1.6;
+	color: #667085;
+}
+
+.gl-related-slider__service-more {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: auto;
+	padding-top: 28px;
+	font-size: 16px;
+	font-weight: 600;
+	color: #1A1A1A;
+}
+
+.gl-related-slider__service-more::after {
+	content: '→';
+	margin-left: 10px;
+	transition: transform .2s ease;
+}
+
+.gl-related-slider--text .gl-related-slider__card-link:hover .gl-related-slider__service-more::after {
+	transform: translateX(4px);
+}
+
 .gl-related-slider__content {
 	position: absolute;
 	left: 0;
@@ -3730,6 +3887,14 @@ function gl_related_cases_slider_shortcode($atts = []) {
 
 	.gl-related-slider__content {
 		padding: 18px 18px 20px;
+	}
+
+	.gl-related-slider--text .gl-related-slider__card-link {
+		min-height: 250px;
+	}
+
+	.gl-related-slider__service-content {
+		padding: 22px;
 	}
 
 	.gl-related-slider__catalog-btn {

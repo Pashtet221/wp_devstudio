@@ -670,6 +670,8 @@ get_header();
 			
 			
 			<?php echo do_shortcode('[gl_related_cases_slider]'); ?>
+
+				<?php echo do_shortcode('[gl_related_services_slider]'); ?>
 			
 			
 			
