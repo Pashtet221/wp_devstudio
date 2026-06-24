@@ -4907,3 +4907,104 @@ add_action('acf/init', function () {
 		],
 	]);
 });
+
+
+
+
+/**
+ * ACF-поля для страницы кейса.
+ */
+add_action('acf/init', function () {
+	if (!function_exists('acf_add_local_field_group')) {
+		return;
+	}
+
+	acf_add_local_field_group([
+		'key' => 'group_wpds_case_page_minimal',
+		'title' => 'Кейс: данные для страницы',
+		'fields' => [
+			[
+				'key' => 'field_wpds_case_site_url',
+				'label' => 'Ссылка на сайт',
+				'name' => 'case_site_url',
+				'type' => 'url',
+			],
+			[
+				'key' => 'field_wpds_case_accent_color',
+				'label' => 'Цвет кейса',
+				'name' => 'case_accent_color',
+				'type' => 'color_picker',
+				'default_value' => '#df6a2e',
+				'return_format' => 'string',
+			],
+			[
+				'key' => 'field_wpds_case_summary_items',
+				'label' => 'Плашки под первым экраном',
+				'name' => 'case_summary_items',
+				'type' => 'repeater',
+				'instructions' => 'До 4 коротких характеристик проекта. Для каждой плашки можно загрузить свою иконку.',
+				'layout' => 'table',
+				'button_label' => 'Добавить плашку',
+				'min' => 0,
+				'max' => 4,
+				'sub_fields' => [
+					[
+						'key' => 'field_wpds_case_summary_icon',
+						'label' => 'Иконка',
+						'name' => 'icon',
+						'type' => 'image',
+						'instructions' => 'Загрузите SVG, PNG или WebP-иконку.',
+						'return_format' => 'array',
+						'preview_size' => 'thumbnail',
+						'library' => 'all',
+					],
+					[
+						'key' => 'field_wpds_case_summary_label',
+						'label' => 'Подпись',
+						'name' => 'label',
+						'type' => 'text',
+					],
+					[
+						'key' => 'field_wpds_case_summary_value',
+						'label' => 'Значение',
+						'name' => 'value',
+						'type' => 'text',
+					],
+				],
+			],
+			[
+				'key' => 'field_wpds_case_intro_text',
+				'label' => 'О клиенте',
+				'name' => 'case_intro_text',
+				'type' => 'textarea',
+				'rows' => 4,
+				'new_lines' => 'br',
+			],
+			[
+				'key' => 'field_wpds_case_task_text',
+				'label' => 'Задача',
+				'name' => 'case_task_text',
+				'type' => 'textarea',
+				'rows' => 4,
+				'new_lines' => 'br',
+			],
+		],
+		'location' => [
+			[
+				[
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'case',
+				],
+			],
+		],
+		'menu_order' => 10,
+		'position' => 'normal',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => true,
+		'show_in_rest' => 0,
+	]);
+});

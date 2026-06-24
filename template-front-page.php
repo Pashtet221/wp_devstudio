@@ -659,7 +659,7 @@ $calculator_services = $calculator['services'];
     <div class="ds-fit__head">
       <h2 class="pageTitle">Для кого подходим</h2>
       <p class="ds-fit__subtitle">
-        Работаем с проектами, где нужен не просто шаблонный сайт, а продуманное решение на WordPress и WooCommerce с возможностью развития.
+        Работаем с бизнесом, агентствами и существующими WordPress/WooCommerce-проектами, где нужен понятный технический исполнитель.
       </p>
     </div>
 
@@ -668,25 +668,12 @@ $calculator_services = $calculator['services'];
       <a class="ds-fit__card" href="/contacts/">
         <span class="ds-fit__icon">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 3L4 7V11C4 16 7.5 20.5 12 21C16.5 20.5 20 16 20 11V7L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9.5 12L11.2 13.7L14.8 10.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 19V9.5L12 4L20 9.5V19" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M9 19V13H15V19" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
           </svg>
         </span>
-        <span class="ds-fit__title">Малому и среднему бизнесу</span>
-        <span class="ds-fit__text">Для компаний, которым нужен надёжный сайт под реальные задачи: заявки, продажи, каталог, презентация услуг.</span>
-      </a>
-
-      <a class="ds-fit__card" href="/contacts/">
-        <span class="ds-fit__icon">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M4 7H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M6 7V17C6 18.1 6.9 19 8 19H16C17.1 19 18 18.1 18 17V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9 11H15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M10 3H14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span class="ds-fit__title">Интернет-магазинам на WooCommerce</span>
-        <span class="ds-fit__text">Для магазинов, где важны карточки товаров, корзина, оформление заказа, оплата, доставка и удобная админка.</span>
+        <span class="ds-fit__title">Владельцам бизнеса</span>
+        <span class="ds-fit__text">Если нужен сайт, интернет-магазин или каталог на WordPress и WooCommerce под реальные задачи: заявки, продажи, услуги и развитие проекта.</span>
       </a>
 
       <a class="ds-fit__card" href="/contacts/">
@@ -698,42 +685,8 @@ $calculator_services = $calculator['services'];
             <path d="M13 19C13 17.067 14.567 15.5 16.5 15.5H17C18.933 15.5 20.5 17.067 20.5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
           </svg>
         </span>
-        <span class="ds-fit__title">Агентствам и партнёрам на аутсорсе</span>
-        <span class="ds-fit__text">Для студий, маркетологов и подрядчиков, которым нужен технический исполнитель под WordPress-задачи без лишней бюрократии.</span>
-      </a>
-
-      <a class="ds-fit__card" href="/contacts/">
-        <span class="ds-fit__icon">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M8 8H6C4.89543 8 4 8.89543 4 10V18C4 19.1046 4.89543 20 6 20H14C15.1046 20 16 19.1046 16 18V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M14 4H20V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M20 4L10 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span class="ds-fit__title">Проектам с нестандартной бизнес-логикой</span>
-        <span class="ds-fit__text">Когда типового шаблона недостаточно и нужны калькуляторы, сложные формы, кастомные сценарии и нестандартный функционал.</span>
-      </a>
-
-      <a class="ds-fit__card" href="/contacts/">
-        <span class="ds-fit__icon">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 5V12L16 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8"/>
-          </svg>
-        </span>
-        <span class="ds-fit__title">Сайтам, которые нужно развивать</span>
-        <span class="ds-fit__text">Для проектов, где важно не просто запустить сайт, а иметь основу для дальнейших улучшений, SEO и новых функций.</span>
-      </a>
-
-      <a class="ds-fit__card" href="/contacts/">
-        <span class="ds-fit__icon">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M4 19V9.5L12 4L20 9.5V19" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-            <path d="M9 19V13H15V19" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span class="ds-fit__title">Тем, кому нужен сайт с нуля</span>
-        <span class="ds-fit__text">Если нужен запуск проекта под ключ: структура, дизайн, сборка, базовая настройка, формы, контентные блоки и запуск.</span>
+        <span class="ds-fit__title">Агентствам и студиям</span>
+        <span class="ds-fit__text">Когда нужен технический партнёр на аутсорсе для WordPress-задач: вёрстка, темы, WooCommerce, доработки, интеграции и поддержка проектов.</span>
       </a>
 
       <a class="ds-fit__card" href="/contacts/">
@@ -745,46 +698,8 @@ $calculator_services = $calculator['services'];
             <rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.8"/>
           </svg>
         </span>
-        <span class="ds-fit__title">Тем, кому нужны доработки WordPress-сайта</span>
-        <span class="ds-fit__text">Когда проект уже есть, но требуется исправить ошибки, добавить блоки, улучшить интерфейс или доработать логику.</span>
-      </a>
-
-      <a class="ds-fit__card" href="/contacts/">
-        <span class="ds-fit__icon">
-          <svg viewBox="0 0 24 24" fill="none">
-            <rect x="4" y="5" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.8"/>
-            <rect x="14" y="5" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.8"/>
-            <rect x="9" y="13" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M10 8H14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M17 11V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M7 11V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span class="ds-fit__title">Проектам, где нужны плагины и интеграции</span>
-        <span class="ds-fit__text">Для задач, где требуется автоматизация, API, импорт, экспорт, синхронизация с CRM и кастомные модули.</span>
-      </a>
-
-      <a class="ds-fit__card" href="/contacts/">
-        <span class="ds-fit__icon">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M5 16L9 12L12 15L19 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M19 12V8H15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M4 20H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span class="ds-fit__title">Компаниям, которым важны скорость и структура</span>
-        <span class="ds-fit__text">Подходит тем, кто хочет не хаотичный сайт, а понятную архитектуру, чистую сборку и основу для масштабирования.</span>
-      </a>
-
-      <a class="ds-fit__card" href="/contacts/">
-        <span class="ds-fit__icon">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 3L19 7V12C19 16.5 16 20 12 21C8 20 5 16.5 5 12V7L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-            <path d="M9 12L11 14L15.5 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span class="ds-fit__title">Бизнесу, которому нужен технический партнёр</span>
-        <span class="ds-fit__text">Если нужен не просто исполнитель на один раз, а человек, который понимает WordPress, WooCommerce и развитие проекта в целом.</span>
+        <span class="ds-fit__title">Владельцам существующих сайтов</span>
+        <span class="ds-fit__text">Если сайт уже работает, но нужны правки, исправление ошибок, новые блоки, улучшение интерфейса, оптимизация или нестандартный функционал.</span>
       </a>
 
     </div>
@@ -811,7 +726,7 @@ $calculator_services = $calculator['services'];
 
 .ds-fit__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
 }
 
@@ -1542,31 +1457,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	<!-- Кейсы		 -->
 <?php echo do_shortcode( '[cases_grid]' ); ?>
 
-           <section class="Blocks__wrapper componentWrapper" id="plugins">
-    <div class="container">
-        <div class="Blocks">
-			<h2 class="pageTitle Blocks__title">Наши плагины</h2>
-            <?php echo do_shortcode( '[ds_product_cards limit="10" columns="3" mode="carousel"]' ); ?>
-        </div>
-    </div>
-</section>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+					
 			
 			
 			
@@ -2149,388 +2040,244 @@ document.addEventListener('DOMContentLoaded', () => {
 			
 			
 			
-<section class="AboutBento2 componentWrapper" id="about-company">
-<div class="container">
-  <h2 class="AboutBento2__title">О студии WordPress-разработки WP Dev Studio</h2>
+<section class="wpds-trust-section">
+  <div class="wpds-trust-section__container">
 
-  <div class="AboutBento2__grid">
+    <article class="wpds-trust-card">
+      <div class="wpds-trust-card__content">
 
-    <!-- 1) About -->
-    <article class="AboutBento2__card AboutBento2__card--about">
-      <div class="AboutBento2__aboutHead">
-        <img
-          class="AboutBento2__logo"
-          src="/wp-content/uploads/2025/12/logo2-2.png"
-          alt="WP Dev Studio — студия WordPress и WooCommerce разработки"
-        >
-        <a class="AboutBento2__btn" href="/about">Подробнее о студии</a>
+        <div class="wpds-trust-card__badge">
+          Экспертиза WordPress
+        </div>
+
+        <h2 class="wpds-trust-card__title">
+          Почему нам доверяют WordPress-проекты
+        </h2>
+
+        <p class="wpds-trust-card__text">
+          <strong>WP Dev Studio</strong> — студия с узкой специализацией на
+          <strong>WordPress</strong> и <strong>WooCommerce</strong>.
+          Мы не берёмся за всё подряд и не работаем с десятками платформ,
+          поэтому глубоко знаем экосистему WordPress и её возможности.
+        </p>
+
+        <p class="wpds-trust-card__text">
+          Разрабатываем интернет-магазины, корпоративные сайты, каталоги,
+          кастомные темы, плагины и интеграции. Многие задачи, которые другие
+          студии передают подрядчикам, выполняем самостоятельно.
+        </p>
+
+        <p class="wpds-trust-card__text">
+          Такой подход позволяет создавать быстрые, масштабируемые проекты без
+          лишних плагинов и технического долга, сохраняя контроль над качеством
+          на каждом этапе разработки.
+        </p>
+
+        <a class="wpds-trust-card__link" href="/about/">
+          Подробнее о студии →
+        </a>
+
       </div>
-
-      <p class="AboutBento2__text">
-        <strong>WP Dev Studio</strong> — команда специалистов по
-        <strong>разработке сайтов на WordPress</strong> и
-        <strong>созданию WooCommerce-магазинов</strong> под задачи бизнеса.
-        Мы проектируем архитектуру, разрабатываем кастомные темы и плагины,
-        настраиваем интеграции и создаём решения, готовые к росту и масштабированию.
-      </p>
-
-      <ul class="AboutBento2__pills" aria-label="Технологии и стек разработки">
-        <li class="AboutBento2__pill">WordPress</li>
-        <li class="AboutBento2__pill">WooCommerce</li>
-        <li class="AboutBento2__pill">ACF</li>
-        <li class="AboutBento2__pill">Кастомные плагины</li>
-        <li class="AboutBento2__pill">Интеграции API</li>
-      </ul>
-    </article>
-
-    <!-- 2) Designers -->
-    <article class="AboutBento2__card AboutBento2__card--design">
-      <h3 class="AboutBento2__h">UX/UI-дизайн с фокусом на конверсию</h3>
-      <p class="AboutBento2__p">
-        Проектируем UX/UI-дизайн, структуру и интерфейсы для сайтов и интернет-магазинов
-        с упором на удобство пользователей и достижение бизнес-целей.
-      </p>
-      <p class="AboutBento2__p">
-        Дизайн разрабатывается в связке с программистами, поэтому все решения
-        реализуемы на WordPress без компромиссов по скорости и качеству.
-      </p>
-    </article>
-
-    <!-- 3) Process -->
-    <article class="AboutBento2__card AboutBento2__card--process">
-      <h3 class="AboutBento2__h">Прозрачный процесс разработки</h3>
-      <p class="AboutBento2__p">
-        Работаем поэтапно: брифинг, структура, разработка, тестирование и запуск.
-        Используем dev-сервер, трекер задач и показываем промежуточные версии проекта.
-      </p>
-      <a class="AboutBento2__link" href="/cases">Смотреть кейсы →</a>
-    </article>
-
-    <!-- 4) Specialization -->
-    <article class="AboutBento2__card AboutBento2__card--spec">
-      <h3 class="AboutBento2__h">Узкая специализация на WordPress и WooCommerce</h3>
-      <p class="AboutBento2__p">
-        Мы не распыляемся на десятки CMS.
-        Глубоко знаем ядро WordPress и WooCommerce, разрабатываем нестандартный функционал,
-        оптимизируем производительность и безопасность проектов.
-      </p>
-    </article>
-
-    <!-- 5) Approach -->
-    <article class="AboutBento2__card AboutBento2__card--approach">
-      <h3 class="AboutBento2__h">Кастомный подход без лишних плагинов</h3>
-      <p class="AboutBento2__p">
-        Не собираем сайты из сотен готовых решений.
-        Продумываем архитектуру, пишем собственный код,
-        используем только необходимые плагины и оптимизируем загрузку страниц.
-      </p>
-    </article>
-
-    <!-- 6) Support -->
-    <article class="AboutBento2__card AboutBento2__card--support">
-      <h3 class="AboutBento2__h">Поддержка и развитие WordPress-проектов</h3>
-      <p class="AboutBento2__p">
-        После запуска обеспечиваем техническую поддержку:
-        обновления, ускорение, доработки функционала, интеграции и
-        долгосрочное сопровождение сайтов и интернет-магазинов.
-      </p>
     </article>
 
   </div>
-</div>
+</section>
 
-
-  <style>
-    /* =========================
-       ABOUT BENTO v2 — FIXED AREAS (NO GAPS)
-       ========================= */
-
-    .AboutBento2{ padding: 72px 0; background:#fff; }
-    .AboutBento2__title{
-      margin: 0 0 18px;
-      font-size: 34px;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color:#111;
-    }
-
-    /* Чёткая раскладка без пустот */
-    .AboutBento2__grid{
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 12px;
-      align-items: stretch;
-
-      grid-template-areas:
-        "about about about about about about about design design design design design"
-        "about about about about about about about process process process process process"
-        "spec  spec  spec  spec  approach approach approach approach support support support support";
-    }
-
-    .AboutBento2__card{
-      border: 1px solid rgba(17,17,17,.10);
-      border-radius: 22px;
-      background: #fff;
-      padding: 18px;
-      box-shadow: 0 18px 45px rgba(0,0,0,.06);
-      min-width: 0;
-
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-    }
-
-    .AboutBento2__h{
-      margin: 0;
-      font-size: 16px;
-      line-height: 1.25;
-      letter-spacing: -0.01em;
-      color:#111;
-    }
-
-    .AboutBento2__p{
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.6;
-      color: rgba(17,17,17,.72);
-    }
-
-    /* Areas */
-    .AboutBento2__card--about{ grid-area: about; }
-    .AboutBento2__card--design{ grid-area: design; }
-    .AboutBento2__card--process{ grid-area: process; }
-    .AboutBento2__card--spec{ grid-area: spec; }
-    .AboutBento2__card--approach{ grid-area: approach; }
-    .AboutBento2__card--support{ grid-area: support; }
-
-    /* About card */
-    .AboutBento2__aboutHead{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-    }
-
-    .AboutBento2__logo{
-      width: 200px;
-      max-width: 60%;
-      height: auto;
-      display:block;
-    }
-
-    .AboutBento2__btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 11px 14px;
-      border-radius: 14px;
-      background:#111;
-      color:#fff;
-      font-weight: 800;
-      font-size: 13px;
-      text-decoration:none;
-      white-space:nowrap;
-      transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
-    }
-    .AboutBento2__btn:hover{
-      background:#000;
-      transform: translateY(-1px);
-      box-shadow: 0 10px 22px rgba(0,0,0,.16);
-    }
-
-    .AboutBento2__text{
-      margin: 0;
-      font-size: 15px;
-      line-height: 1.65;
-      color: rgba(17,17,17,.78);
-    }
-
-    .AboutBento2__pills{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 8px;
-      margin-top: 2px;
-    }
-
-    .AboutBento2__pill{
-      display:inline-flex;
-      align-items:center;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(17,17,17,.10);
-      background: rgba(17,17,17,.03);
-      font-size: 13px;
-      font-weight: 700;
-      color: rgba(17,17,17,.86);
-      white-space: nowrap;
-    }
-
-    /* Accent card (design) */
-    .AboutBento2__card--design{
-      background: linear-gradient(180deg, rgba(224,27,36,.08), rgba(224,27,36,.02));
-      border-color: rgba(224,27,36,.22);
-    }
-
-    /* Dark CTA (process) */
-    .AboutBento2__card--process{
-      background:#111;
-      border-color: rgba(255,255,255,.12);
-      box-shadow: 0 22px 60px rgba(0,0,0,.18);
-    }
-    .AboutBento2__card--process .AboutBento2__h{ color:#fff; }
-    .AboutBento2__card--process .AboutBento2__p{ color: rgba(255,255,255,.78); }
-
-    .AboutBento2__link{
-      margin-top: 2px;
-      display:inline-flex;
-      width: fit-content;
-      font-weight: 900;
-      font-size: 14px;
-      color:#fff;
-      text-decoration:none;
-    }
-    .AboutBento2__link:hover{ text-decoration: underline; }
-
-    /* =========================
-       Responsive
-       ========================= */
-
-    @media (max-width: 1100px){
-      .AboutBento2__grid{
-        grid-template-areas:
-          "about about about about about about about about about about about about"
-          "design design design design design design process process process process process process"
-          "spec  spec  spec  spec  spec  spec  approach approach approach approach approach approach"
-          "support support support support support support support support support support support support";
-      }
-
-      .AboutBento2__logo{ max-width: 70%; }
-    }
-
-    @media (max-width: 640px){
-      .AboutBento2{ padding: 56px 0; }
-      .AboutBento2__title{ font-size: 28px; margin-bottom: 14px; }
-
-      .AboutBento2__grid{
-        grid-template-columns: 1fr;
-        gap: 10px;
-        grid-template-areas:
-          "about"
-          "design"
-          "process"
-          "spec"
-          "approach"
-          "support";
-      }
-
-      .AboutBento2__card{
-        border-radius: 18px;
-        padding: 16px;
-      }
-
-      .AboutBento2__aboutHead{
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-
-      .AboutBento2__logo{
-        width: 180px;
-        max-width: 85%;
-      }
-
-      .AboutBento2__btn{
-        width: 100%;
-      }
-
-      .AboutBento2__text{ font-size: 14px; }
-      .AboutBento2__p{ font-size: 13px; }
-    }
-	  
-	  
-	  /* =========================
-   ABOUT COMPANY — DARK THEME
+<style>
+/* =========================
+   WPDS TRUST SECTION
    ========================= */
 
-#about-company{
-  background: #161d25;
+.wpds-trust-section{
+  padding:72px 20px;
+  background:#0f1723;
 }
 
-/* все карточки */
-#about-company .AboutBento2__card{
-  background: #161d25;
-  border-color: rgba(255,255,255,.10);
-  box-shadow: 0 18px 45px rgba(0,0,0,.45);
-}
-
-/* заголовок секции */
-#about-company .AboutBento2__title{
-  color: #fff;
-}
-
-/* --- ТЕКСТ (используем ОРИГИНАЛЬНЫЕ КЛАССЫ) --- */
-#about-company .AboutBento2__h{
-  color: #fff;
-}
-
-#about-company .AboutBento2__p,
-#about-company .AboutBento2__text{
-  color: rgba(255,255,255,.78);
-}
-
-/* pills */
-#about-company .AboutBento2__pill{
-  background: rgba(255,255,255,.06);
-  border-color: rgba(255,255,255,.14);
-  color: #fff;
-}
-
-/* кнопка "Подробнее" */
-#about-company .AboutBento2__btn{
-  background: #fff;
-  color: #161d25;
-  border-color: rgba(255,255,255,.35);
-}
-#about-company .AboutBento2__btn:hover{
-  background: #f1f1f1;
-}
-
-/* тёмная CTA-карточка (процессы) — чуть выделим */
-#about-company .AboutBento2__card--process{
-  background: linear-gradient(
-    180deg,
-    rgba(255,255,255,.06),
-    rgba(255,255,255,.02)
-  );
-  border-color: rgba(255,255,255,.18);
-}
-
-/* ссылка в CTA */
-#about-company .AboutBento2__link{
-  color: #fff;
-}
-#about-company .AboutBento2__link:hover{
-  text-decoration: underline;
-}
-
-/* логотип — чтобы не "терялся" */
-#about-company .AboutBento2__logo{
-  filter: brightness(1.15);
+.wpds-trust-section__container{
+  width:100%;
+  max-width:1180px;
+  margin:0 auto;
 }
 
 /* =========================
-   MOBILE — без изменений сетки
+   CARD
    ========================= */
-@media (max-width: 640px){
-  #about-company .AboutBento2__card{
-    box-shadow: 0 14px 36px rgba(0,0,0,.55);
+
+.wpds-trust-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:24px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.wpds-trust-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(
+      circle at 92% 8%,
+      rgba(239,68,68,.10),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.035),
+      rgba(255,255,255,0)
+    );
+  pointer-events:none;
+}
+
+.wpds-trust-card::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:1px;
+  background:rgba(255,255,255,.12);
+  pointer-events:none;
+}
+
+.wpds-trust-card__content{
+  position:relative;
+  z-index:1;
+  padding:42px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+/* =========================
+   BADGE
+   ========================= */
+
+.wpds-trust-card__badge{
+  display:inline-flex;
+  align-items:center;
+  width:fit-content;
+  margin-bottom:18px;
+  padding:7px 13px;
+  border-radius:999px;
+  background:rgba(239,68,68,.08);
+  border:1px solid rgba(239,68,68,.18);
+  color:#f87171;
+  font-size:13px;
+  line-height:1;
+  font-weight:700;
+}
+
+/* =========================
+   TYPOGRAPHY
+   ========================= */
+
+.wpds-trust-card__title{
+  max-width:760px;
+  margin:0 0 20px;
+  color:#ffffff;
+  font-size:34px;
+  line-height:1.15;
+  letter-spacing:-.03em;
+  font-weight:800;
+}
+
+.wpds-trust-card__text{
+  max-width:820px;
+  margin:0 0 16px;
+  color:rgba(255,255,255,.72);
+  font-size:16px;
+  line-height:1.7;
+  font-weight:500;
+}
+
+.wpds-trust-card__text strong{
+  color:#ffffff;
+  font-weight:800;
+}
+
+/* =========================
+   LINK
+   ========================= */
+
+.wpds-trust-card__link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:fit-content;
+  margin-top:12px;
+  padding:12px 18px;
+  border-radius:12px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.10);
+  color:#ffffff;
+  font-size:15px;
+  line-height:1;
+  font-weight:700;
+  text-decoration:none;
+  transition:
+    background .2s ease,
+    border-color .2s ease,
+    transform .2s ease;
+}
+
+.wpds-trust-card__link:hover{
+  background:rgba(255,255,255,.09);
+  border-color:rgba(255,255,255,.16);
+  transform:translateY(-1px);
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width:768px){
+
+  .wpds-trust-section{
+    padding:56px 16px;
+  }
+
+  .wpds-trust-card{
+    border-radius:20px;
+  }
+
+  .wpds-trust-card__content{
+    padding:30px 24px;
+  }
+
+  .wpds-trust-card__title{
+    font-size:27px;
+  }
+
+  .wpds-trust-card__text{
+    font-size:15px;
+    line-height:1.65;
   }
 }
 
-  </style>
-</section>
+@media (max-width:480px){
 
-	
+  .wpds-trust-section{
+    padding:44px 14px;
+  }
+
+  .wpds-trust-card__content{
+    padding:24px 18px;
+  }
+
+  .wpds-trust-card__badge{
+    font-size:12px;
+  }
+
+  .wpds-trust-card__title{
+    font-size:24px;
+  }
+
+  .wpds-trust-card__link{
+    width:100%;
+  }
+}
+</style>
 	
 	
 	
@@ -3136,336 +2883,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 	
 	
-	
-<section class="Articles componentWrapper" aria-labelledby="blog-title">
-  <div class="container Articles__container">
-
-    <h2 class="pageTitle Articles__title" id="blog-title">
-      <a href="/blog" target="_blank" rel="noopener">
-        <span>Экспертные материалы</span>
-        <i class="icon-chevron-right" aria-hidden="true"></i>
-      </a>
-    </h2>
-
-    <!-- ДОБАВЛЯЕМ SEO-текст (ключевые фразы) -->
-    <p class="pageAboveTitle Articles__aboveTitle">
-      Практические статьи про <strong>разработку сайтов на WordPress</strong>, <strong>WooCommerce-магазины</strong>,
-      <strong>SEO</strong>, <strong>ускорение</strong>, <strong>импорт товаров</strong> и <strong>разработку плагинов</strong>.
-    </p>
-
-    <div class="articles-grid" role="list">
-      <?php
-      $articles = new WP_Query([
-        'post_type'              => 'post',
-        'posts_per_page'         => 4,
-        'post_status'            => 'publish',
-        'ignore_sticky_posts'    => true,
-        'no_found_rows'          => true,
-        'update_post_meta_cache' => true,
-        'update_post_term_cache' => true,
-      ]);
-
-      if ($articles->have_posts()):
-        while ($articles->have_posts()): $articles->the_post();
-
-          $post_id   = get_the_ID();
-          $permalink = get_permalink($post_id);
-
-          // Просмотры (если есть)
-          $views = get_post_meta($post_id, 'views', true);
-          $views = ($views !== '' && $views !== null) ? max(0, (int) $views) : null;
-
-          // Thumbnail + alt из медиа
-          $thumb_id = get_post_thumbnail_id($post_id);
-          $has_thumb = $thumb_id ? true : false;
-          $img_alt = $thumb_id ? get_post_meta($thumb_id, '_wp_attachment_image_alt', true) : '';
-          $img_alt = $img_alt ? $img_alt : wp_strip_all_tags(get_the_title($post_id));
-
-          // Дата
-          $date_human = get_the_date('d.m.Y', $post_id);
-          $date_iso   = get_the_date('c', $post_id);
-          ?>
-
-          <article class="article-card" role="listitem"
-                   itemscope itemtype="https://schema.org/BlogPosting">
-            <meta itemprop="mainEntityOfPage" content="<?php echo esc_url($permalink); ?>">
-            <meta itemprop="headline" content="<?php echo esc_attr(wp_strip_all_tags(get_the_title($post_id))); ?>">
-            <meta itemprop="dateModified" content="<?php echo esc_attr(get_the_modified_date('c', $post_id)); ?>">
-
-            <a class="article-card__link"
-               href="<?php echo esc_url($permalink); ?>"
-               rel="bookmark"
-               itemprop="url"
-               aria-label="<?php echo esc_attr('Читать статью: ' . wp_strip_all_tags(get_the_title($post_id))); ?>">
-
-              <figure class="article-card__image" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-                <?php if ($has_thumb): ?>
-                  <?php
-                  echo wp_get_attachment_image(
-                    $thumb_id,
-                    'large',
-                    false,
-                    [
-                      'loading'  => 'lazy',
-                      'decoding' => 'async',
-                      'alt'      => $img_alt,
-                    ]
-                  );
-                  ?>
-                  <meta itemprop="url" content="<?php echo esc_url(wp_get_attachment_image_url($thumb_id, 'large')); ?>">
-                <?php else: ?>
-                  <img
-                    src="<?php echo esc_url(get_template_directory_uri() . '/images/placeholders/article.jpg'); ?>"
-                    alt="<?php echo esc_attr($img_alt); ?>"
-                    loading="lazy"
-                    decoding="async"
-                  >
-                <?php endif; ?>
-              </figure>
-
-              <h3 class="article-card__title" itemprop="name">
-                <?php the_title(); ?>
-              </h3>
-
-              <div class="article-card__bottom">
-                <div class="article-card__meta">
-
-                  <time class="article-card__date"
-                        datetime="<?php echo esc_attr($date_iso); ?>"
-                        itemprop="datePublished">
-                    <?php echo esc_html($date_human); ?>
-                  </time>
-
-                  <?php if ($views !== null): ?>
-                    <span class="article-card__views"
-                          itemprop="interactionStatistic" itemscope itemtype="https://schema.org/InteractionCounter">
-                      <meta itemprop="interactionType" content="https://schema.org/ViewAction">
-                      <meta itemprop="userInteractionCount" content="<?php echo esc_attr($views); ?>">
-
-                      <span class="article-card__icon" aria-hidden="true">
-                        <!-- глаз -->
-                        <svg viewBox="0 0 20 20">
-                          <path d="M10 4.167c-4.254 0-7.045 3.754-7.983 5.239-.114.18-.17.27-.202.408a.977.977 0 0 0 0 .373c.032.138.088.228.202.408.938 1.485 3.73 5.239 7.983 5.239 4.255 0 7.046-3.754 7.984-5.24.113-.18.17-.269.202-.407a.976.976 0 0 0 0-.373c-.032-.138-.089-.228-.202-.408C17.046 7.921 14.254 4.167 10 4.167Z"
-                                fill="none" stroke="currentColor" stroke-width="1.5"/>
-                          <path d="M10 7.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z"
-                                fill="currentColor"/>
-                        </svg>
-                      </span>
-
-                      <?php echo esc_html(number_format_i18n($views)); ?>
-                    </span>
-                  <?php endif; ?>
-
-                </div>
-
-                <span class="article-card__read">
-                  Читать
-                  <span class="article-card__icon article-card__icon--arrow" aria-hidden="true">
-                    <svg viewBox="0 0 20 20">
-                      <path d="m7.5 15 5-5-5-5"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"/>
-                    </svg>
-                  </span>
-                </span>
-              </div>
-
-            </a>
-          </article>
-
-        <?php endwhile; wp_reset_postdata(); endif; ?>
-    </div>
-	  
-	  <div class="Cases__more">
-                    <a href="<?php echo esc_url(home_url('/blog/')); ?>" class="Cases__moreButton">
-                        Все статьи                   </a>
-                </div>
-
-  </div>
-</section>
-
-
-
-
-						
-<style>
-/* Кнопка "Смотреть все" */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 20px;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  border: 1px solid #e3e3e8;
-  background-color: #f5f5f8;
-  color: #55576a;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-
-.btn:hover {
-  background-color: #e6e7ef;
-  border-color: #d1d2de;
-  color: #222333;
-}
-
-.btn--ghost {
-  background-color: transparent;
-}
-
-/* Сетка статей */
-.articles-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
-}
-
-/* Карточка статьи */
-.article-card {
-  height: 100%;
-}
-
-.article-card__link {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  text-decoration: none;
-  color: #161616;
-  border-radius: 16px;
-  background-color: #fafbfc;
-  overflow: hidden;
-  transition: box-shadow 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
-}
-
-.article-card__link:hover {
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
-  transform: translateY(-2px);
-  background-color: #ffffff;
-}
-
-.article-card__image {
-  margin: 0;
-  overflow: hidden;
-  min-height: 250px;
-}
-
-.article-card__image img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-}
-
-.article-card__title {
-  padding: 16px 16px 0;
-  font-size: 1.05rem;
-  line-height: 1.4;
-  font-weight: 500;
-}
-
-.article-card__bottom {
-  margin-top: auto;
-  padding: 14px 16px 16px;
-  border-top: 1px solid #e9eaee;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.article-card__meta {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.875rem;
-  color: #8b8d9b;
-  flex-wrap: wrap;
-}
-
-.article-card__date {
-  white-space: nowrap;
-}
-
-.article-card__views {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  white-space: nowrap;
-}
-
-.article-card__read {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.9rem;
-  color: #161616;
-  white-space: nowrap;
-}
-
-.article-card__icon {
-  width: 18px;
-  height: 18px;
-  display: inline-flex;
-}
-
-.article-card__icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.article-card__icon--arrow {
-  width: 16px;
-  height: 16px;
-}
-
-/* Адаптив */
-@media (max-width: 1199px) {
-  .articles-section__title {
-    font-size: 1.8rem;
-  }
-
-  .articles-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-  }
-}
-
-@media (max-width: 767px) {
-  .articles-section {
-    padding: 32px 0;
-  }
-
-  .articles-section__container {
-    padding: 0 16px;
-  }
-
-  .articles-section__header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .articles-section__title {
-    font-size: 1.6rem;
-  }
-
-  .articles-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .article-card__image {
-    max-height: 200px;
-  }
-}
-
-</style>
-						
+			
 						
 						
 						
