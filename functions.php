@@ -4988,26 +4988,6 @@ add_action('acf/init', function () {
 				'rows' => 4,
 				'new_lines' => 'br',
 			],
-			[
-				'key' => 'field_wpds_case_related_cases',
-				'label' => 'Другие проекты',
-				'name' => 'case_related_cases',
-				'type' => 'relationship',
-				'instructions' => 'Выберите другие кейсы, которые нужно показать в слайдере на странице кейса.',
-				'post_type' => [
-					'case',
-				],
-				'filters' => [
-					'search',
-					'taxonomy',
-				],
-				'elements' => [
-					'featured_image',
-				],
-				'min' => 0,
-				'max' => '',
-				'return_format' => 'object',
-			],
 		],
 		'location' => [
 			[
