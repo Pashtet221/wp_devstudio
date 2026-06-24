@@ -151,6 +151,51 @@ $default_summary = [
 if (empty($summary)) {
 	$summary = $default_summary;
 }
+
+$related_cases = wpds_case_field('case_related_cases', []);
+
+if (!is_array($related_cases)) {
+	$related_cases = [];
+}
+
+$related_cases = array_values(array_filter(array_map(static function ($item) {
+	if (is_object($item) && isset($item->ID)) {
+		return get_post((int) $item->ID);
+	}
+
+	if (is_numeric($item)) {
+		return get_post((int) $item);
+	}
+
+	return null;
+}, $related_cases), static function ($item) use ($post_id) {
+	return $item instanceof WP_Post && (int) $item->ID !== (int) $post_id;
+}));
+
+if (!function_exists('wpds_case_terms')) {
+	function wpds_case_terms(int $case_id): array {
+		$taxonomies = ['case_cat', 'case_category', 'category'];
+		$terms = [];
+
+		foreach ($taxonomies as $taxonomy) {
+			if (!taxonomy_exists($taxonomy)) {
+				continue;
+			}
+
+			$case_terms = get_the_terms($case_id, $taxonomy);
+
+			if (empty($case_terms) || is_wp_error($case_terms)) {
+				continue;
+			}
+
+			foreach ($case_terms as $term) {
+				$terms[$term->term_id] = $term->name;
+			}
+		}
+
+		return array_values($terms);
+	}
+}
 ?>
 
 <main class="wpds-case" style="--case-accent: <?php echo esc_attr($case_accent); ?>;">
@@ -255,6 +300,100 @@ if (empty($summary)) {
 			</article>
 		</div>
 	</section>
+
+	<section class="wpds-case-offer" aria-labelledby="wpds-case-offer-title">
+		<div class="wpds-case__container">
+			<h2 id="wpds-case-offer-title" class="wpds-case-offer__heading">Хотите сайт, который приносит клиентов?</h2>
+
+			<div class="wpds-case-offer__card">
+				<div class="wpds-case-offer__content">
+					<span class="wpds-case-offer__icon" aria-hidden="true">&lt;/&gt;</span>
+					<div>
+						<h3>Разработка сайтов под ключ</h3>
+						<p>Разработаем сайт с уникальным дизайном и правильной SEO структурой для дальнейшего продвижения.</p>
+					</div>
+				</div>
+
+				<a class="wpds-case-offer__button" href="<?php echo esc_url(home_url('/services/')); ?>">Подробнее</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="wpds-case-cta" aria-labelledby="wpds-case-cta-title">
+		<div class="wpds-case__container wpds-case-cta__inner">
+			<div class="wpds-case-cta__decor wpds-case-cta__decor--left" aria-hidden="true"></div>
+			<div class="wpds-case-cta__decor wpds-case-cta__decor--right" aria-hidden="true"></div>
+
+			<div class="wpds-case-cta__text">
+				<h2 id="wpds-case-cta-title">Понравился кейс?<br>Хотите так же?</h2>
+				<p>Оставьте нам заявку и наш менеджер свяжется с вами для обсуждения</p>
+			</div>
+
+			<form class="wpds-case-cta__form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+				<input type="hidden" name="action" value="smart_contact_form_submit">
+				<input type="hidden" name="_scf_nonce" value="<?php echo esc_attr(wp_create_nonce('smart_contact_form_submit')); ?>">
+				<input type="text" name="website" value="" tabindex="-1" autocomplete="off" aria-hidden="true" class="wpds-case-cta__hp">
+
+				<label class="wpds-case-cta__field">
+					<span class="screen-reader-text">Ваше имя</span>
+					<input type="text" name="name" placeholder="Ваше имя *" autocomplete="name" required>
+				</label>
+
+				<label class="wpds-case-cta__field wpds-case-cta__field--phone">
+					<span class="wpds-case-cta__country" aria-hidden="true">🇧🇾⌄</span>
+					<span class="screen-reader-text">Ваш номер</span>
+					<input type="tel" name="contact" placeholder="Ваш номер *" autocomplete="tel" required>
+				</label>
+
+				<button class="wpds-case-cta__submit" type="submit">Отправить</button>
+
+				<label class="wpds-case-cta__agree">
+					<input type="checkbox" checked required>
+					<span>Даю согласие на <a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>">обработку персональных данных</a></span>
+				</label>
+			</form>
+		</div>
+	</section>
+
+	<?php if (!empty($related_cases)) : ?>
+		<section class="wpds-case-related" aria-labelledby="wpds-case-related-title">
+			<div class="wpds-case__container">
+				<div class="wpds-case-related__top">
+					<h2 id="wpds-case-related-title">Другие проекты <span>(<?php echo esc_html(count($related_cases)); ?>)</span></h2>
+					<div class="wpds-case-related__nav" aria-label="Навигация слайдера">
+						<button type="button" class="wpds-case-related__arrow" data-wpds-related-prev aria-label="Предыдущие проекты">←</button>
+						<button type="button" class="wpds-case-related__arrow" data-wpds-related-next aria-label="Следующие проекты">→</button>
+					</div>
+				</div>
+
+				<div class="wpds-case-related__viewport" data-wpds-related-slider>
+					<?php foreach ($related_cases as $related_case) : ?>
+						<?php
+						$related_id = (int) $related_case->ID;
+						$related_image = wpds_case_image(get_post_thumbnail_id($related_id), 'large');
+						$related_terms = wpds_case_terms($related_id);
+						?>
+						<article class="wpds-case-related__card">
+							<a href="<?php echo esc_url(get_permalink($related_id)); ?>" class="wpds-case-related__link">
+								<?php if ($related_image['url']) : ?>
+									<img src="<?php echo esc_url($related_image['url']); ?>" alt="<?php echo esc_attr($related_image['alt'] ?: get_the_title($related_id)); ?>" loading="lazy" decoding="async">
+								<?php endif; ?>
+								<h3><?php echo esc_html(get_the_title($related_id)); ?></h3>
+							</a>
+							<?php if (!empty($related_terms)) : ?>
+								<div class="wpds-case-related__tags">
+									<?php foreach (array_slice($related_terms, 0, 5) as $term_name) : ?>
+										<span><?php echo esc_html($term_name); ?></span>
+									<?php endforeach; ?>
+								</div>
+							<?php endif; ?>
+						</article>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</section>
+	<?php endif; ?>
+
 </main>
 
 <style>
@@ -652,7 +791,72 @@ if (empty($summary)) {
 	color: var(--case-accent);
 }
 
+.wpds-case-offer { padding: 8px 0 96px; }
+.wpds-case-offer__heading { margin: 0 0 34px; color: #061b34; font-size: clamp(28px, 2.2vw, 38px); line-height: 1.18; font-weight: 800; letter-spacing: -0.02em; }
+.wpds-case-offer__card { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 46px 54px; border-radius: 14px; background: #f8f8f8; }
+.wpds-case-offer__content { display: flex; align-items: flex-start; gap: 20px; min-width: 0; }
+.wpds-case-offer__icon { color: #e95b00; font-size: 28px; line-height: 1; font-weight: 800; }
+.wpds-case-offer__card h3 { margin: 0 0 18px; color: #061b34; font-size: 28px; line-height: 1.2; }
+.wpds-case-offer__card p { margin: 0; color: #52607e; font-size: 24px; line-height: 1.4; }
+.wpds-case-offer__button { display: inline-flex; align-items: center; justify-content: center; min-width: 190px; min-height: 88px; padding: 20px 34px; border-radius: 999px; background: #eb5a00; color: #fff; text-decoration: none; font-size: 22px; font-weight: 800; }
+.wpds-case-cta { padding: 0 0 96px; }
+.wpds-case-cta__inner { position: relative; display: grid; grid-template-columns: minmax(300px, .82fr) minmax(620px, 1.55fr); align-items: center; gap: 56px; min-height: 330px; padding: 58px 92px; overflow: hidden; border-radius: 10px; color: #fff; background: radial-gradient(circle at 70% 55%, rgba(92,146,255,.45), transparent 24%), linear-gradient(135deg, #315ce0 0%, #214ed2 100%); }
+.wpds-case-cta__inner:before { content: ""; position: absolute; inset: 0; opacity: .22; background: linear-gradient(115deg, transparent 44%, rgba(255,255,255,.28) 44.3%, transparent 44.6%), linear-gradient(165deg, transparent 52%, rgba(255,255,255,.22) 52.3%, transparent 52.6%); pointer-events: none; }
+.wpds-case-cta__decor { position: absolute; width: 92px; height: 92px; border-radius: 24px; background: rgba(255,255,255,.12); pointer-events: none; }
+.wpds-case-cta__decor:before { content: ""; position: absolute; inset: 20px; background: #fff; clip-path: polygon(0 50%, 72% 6%, 100% 94%); }
+.wpds-case-cta__decor--left { left: 22px; top: 26px; transform: rotate(10deg); }
+.wpds-case-cta__decor--right { right: 40px; bottom: 42px; transform: rotate(180deg); }
+.wpds-case-cta__text, .wpds-case-cta__form { position: relative; z-index: 1; }
+.wpds-case-cta__text h2 { margin: 0 0 26px; font-size: clamp(38px, 3.2vw, 56px); line-height: 1.08; font-weight: 800; }
+.wpds-case-cta__text p { max-width: 560px; margin: 0; font-size: 27px; line-height: 1.55; }
+.wpds-case-cta__form { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr) minmax(190px, .56fr); gap: 24px; align-items: center; }
+.wpds-case-cta__hp { position: absolute !important; left: -9999px; opacity: 0; width: 1px; height: 1px; }
+.wpds-case-cta__field { display: flex; align-items: center; min-height: 96px; border-radius: 999px; background: #fff; color: #061b34; overflow: hidden; }
+.wpds-case-cta__field input { width: 100%; border: 0; outline: 0; padding: 0 38px; background: transparent; color: #061b34; font-size: 22px; }
+.wpds-case-cta__country { align-self: stretch; display: inline-flex; align-items: center; justify-content: center; min-width: 138px; border-radius: 999px; background: #f1f5fa; color: #6b7280; font-size: 24px; }
+.wpds-case-cta__submit { min-height: 96px; border: 0; border-radius: 999px; background: #fff; color: #2d55d8; font-size: 22px; font-weight: 800; cursor: pointer; }
+.wpds-case-cta__agree { grid-column: 1 / 3; display: flex; align-items: center; gap: 16px; margin-top: -6px; color: rgba(255,255,255,.92); font-size: 18px; }
+.wpds-case-cta__agree input { width: 26px; height: 26px; accent-color: #fff; }
+.wpds-case-cta__agree a { color: inherit; text-underline-offset: 3px; }
+.wpds-case-related { padding: 0 0 110px; }
+.wpds-case-related__top { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 52px; }
+.wpds-case-related__top h2 { margin: 0; color: #061b34; font-size: clamp(42px, 3.2vw, 64px); line-height: 1.08; letter-spacing: -0.03em; }
+.wpds-case-related__top h2 span { color: #969caf; font-weight: 400; }
+.wpds-case-related__nav { display: flex; gap: 28px; }
+.wpds-case-related__arrow { width: 62px; height: 62px; border: 1px solid #edf1f7; border-radius: 50%; background: #fff; color: #111827; font-size: 28px; line-height: 1; cursor: pointer; }
+.wpds-case-related__viewport { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(360px, 47%); gap: 70px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
+.wpds-case-related__viewport::-webkit-scrollbar { display: none; }
+.wpds-case-related__card { scroll-snap-align: start; }
+.wpds-case-related__link { display: block; color: inherit; text-decoration: none; }
+.wpds-case-related__link img { display: block; width: 100%; aspect-ratio: 1.6 / 1; object-fit: cover; border-radius: 8px; background: #f1f5f9; }
+.wpds-case-related__link h3 { margin: 32px 0 28px; color: #061b34; font-size: 28px; line-height: 1.28; font-weight: 800; }
+.wpds-case-related__tags { display: flex; flex-wrap: wrap; gap: 14px 16px; }
+.wpds-case-related__tags span { display: inline-flex; align-items: center; min-height: 54px; padding: 0 24px; border: 1px solid #e7edf7; border-radius: 999px; color: #66738e; background: #fff; font-size: 21px; }
+
 @media (max-width: 1200px) {
+	.wpds-case-offer__card,
+	.wpds-case-cta__inner {
+		padding-left: 34px;
+		padding-right: 34px;
+	}
+
+	.wpds-case-cta__inner {
+		grid-template-columns: 1fr;
+	}
+
+	.wpds-case-cta__form {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.wpds-case-cta__submit {
+		grid-column: span 2;
+	}
+
+	.wpds-case-related__viewport {
+		grid-auto-columns: minmax(330px, 62%);
+		gap: 34px;
+	}
+
 	.wpds-case__container {
 		width: min(1120px, calc(100% - 40px));
 	}
@@ -667,6 +871,40 @@ if (empty($summary)) {
 }
 
 @media (max-width: 900px) {
+	.wpds-case-offer,
+	.wpds-case-cta {
+		padding-bottom: 64px;
+	}
+
+	.wpds-case-offer__card {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	.wpds-case-offer__card p,
+	.wpds-case-cta__text p {
+		font-size: 20px;
+	}
+
+	.wpds-case-cta__form {
+		grid-template-columns: 1fr;
+	}
+
+	.wpds-case-cta__submit,
+	.wpds-case-cta__agree {
+		grid-column: auto;
+	}
+
+	.wpds-case-related__top {
+		align-items: flex-start;
+		flex-direction: column;
+		margin-bottom: 32px;
+	}
+
+	.wpds-case-related__viewport {
+		grid-auto-columns: minmax(280px, 84%);
+	}
+
 	.wpds-case-hero {
 		padding-bottom: 88px;
 	}
@@ -715,6 +953,61 @@ if (empty($summary)) {
 }
 
 @media (max-width: 560px) {
+	.wpds-case-offer__heading {
+		font-size: 26px;
+	}
+
+	.wpds-case-offer__card {
+		padding: 26px 20px;
+	}
+
+	.wpds-case-offer__content {
+		gap: 12px;
+	}
+
+	.wpds-case-offer__card h3 {
+		font-size: 22px;
+	}
+
+	.wpds-case-offer__card p,
+	.wpds-case-cta__text p {
+		font-size: 17px;
+	}
+
+	.wpds-case-offer__button,
+	.wpds-case-cta__field,
+	.wpds-case-cta__submit {
+		min-height: 64px;
+	}
+
+	.wpds-case-cta__inner {
+		padding: 34px 20px;
+	}
+
+	.wpds-case-cta__field input {
+		padding: 0 22px;
+		font-size: 17px;
+	}
+
+	.wpds-case-cta__country {
+		min-width: 92px;
+	}
+
+	.wpds-case-related__top h2 {
+		font-size: 34px;
+	}
+
+	.wpds-case-related__link h3 {
+		margin: 20px 0;
+		font-size: 22px;
+	}
+
+	.wpds-case-related__tags span {
+		min-height: 42px;
+		padding: 0 16px;
+		font-size: 16px;
+	}
+
 	.wpds-case__container {
 		width: min(100% - 28px, 1120px);
 	}
@@ -798,6 +1091,29 @@ if (empty($summary)) {
 	}
 }
 </style>
+
+<script>
+(function () {
+	document.addEventListener('click', function (event) {
+		var button = event.target.closest('[data-wpds-related-prev], [data-wpds-related-next]');
+
+		if (!button) {
+			return;
+		}
+
+		var section = button.closest('.wpds-case-related');
+		var slider = section ? section.querySelector('[data-wpds-related-slider]') : null;
+
+		if (!slider) {
+			return;
+		}
+
+		var direction = button.matches('[data-wpds-related-prev]') ? -1 : 1;
+		var amount = Math.max(slider.clientWidth * 0.78, 320);
+		slider.scrollBy({ left: amount * direction, behavior: 'smooth' });
+	});
+})();
+</script>
 
 <?php
 get_footer();
