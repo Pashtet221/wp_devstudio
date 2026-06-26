@@ -405,12 +405,12 @@ if (!function_exists('wpds_case_terms')) {
 
 .wpds-case-hero {
 	position: relative;
-	padding: 16px 0 128px;
+	padding: 16px 0 118px;
 }
 
 .wpds-case-hero__bg {
 	position: absolute;
-	inset: 74px max(92px, calc((100vw - 1600px) / 2)) 0;
+	inset: 74px max(92px, calc((100vw - 1600px) / 2)) -34px;
 	border-radius: 8px;
 	background:
 		linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px),
@@ -518,7 +518,7 @@ if (!function_exists('wpds_case_terms')) {
 	position: relative;
 	z-index: 4;
 	width: min(900px, 70vw);
-	margin: 60px auto -120px;
+	margin: 60px auto -104px;
 	padding: 0;
 }
 
@@ -591,7 +591,7 @@ if (!function_exists('wpds_case_terms')) {
 }
 
 .wpds-case-summary {
-	padding: 64px 0 20px;
+	padding: 56px 0 20px;
 }
 
 .wpds-case-summary__grid {
