@@ -12,6 +12,7 @@ $email       = 'info@wpdevstudio.ru';
 $tg_url = 'https://t.me/+79250404189';
 $wa_url = 'https://wa.me/79250404189';
 $li_url = 'https://www.linkedin.com/in/pavel-damut-142181288';
+$max_url = 'https://max.ru/';
 ?>
 
 <footer class="wpds-footer" id="footer" itemscope itemtype="https://schema.org/Organization">
@@ -68,6 +69,13 @@ $li_url = 'https://www.linkedin.com/in/pavel-damut-142181288';
              rel="nofollow noopener noreferrer"
              aria-label="Открыть LinkedIn">
             <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+
+          <a href="<?php echo esc_url($max_url); ?>"
+             target="_blank"
+             rel="nofollow noopener noreferrer"
+             aria-label="Написать в Max">
+            <span class="wpds-max-icon" aria-hidden="true">MAX</span>
           </a>
         </div>
       </div>
@@ -184,6 +192,14 @@ $li_url = 'https://www.linkedin.com/in/pavel-damut-142181288';
       <span class="FloatingWidget__icon" aria-hidden="true">IN</span>
     </a>
 
+    <a href="<?php echo esc_url($max_url); ?>"
+       class="FloatingWidget__item FloatingWidget__item--max"
+       target="_blank"
+       rel="nofollow noopener noreferrer"
+       aria-label="Написать в Max">
+      <span class="FloatingWidget__icon" aria-hidden="true">MAX</span>
+    </a>
+
   </div>
 </div>
 
@@ -291,6 +307,12 @@ $li_url = 'https://www.linkedin.com/in/pavel-damut-142181288';
   font-size:22px;
   text-decoration:none;
   transition:background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+}
+
+.wpds-max-icon{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.02em;
 }
 
 .wpds-footer__socials a:hover{
@@ -581,6 +603,12 @@ $li_url = 'https://www.linkedin.com/in/pavel-damut-142181288';
 
 .FloatingWidget__item--linkedin .FloatingWidget__icon{
   background:#3375b0;
+}
+
+.FloatingWidget__item--max .FloatingWidget__icon{
+  background:linear-gradient(135deg, #00a8ff, #7c3aed);
+  font-size:10px;
+  letter-spacing:.02em;
 }
 
 .FloatingWidget__scrollTop{

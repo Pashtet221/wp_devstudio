@@ -193,6 +193,13 @@
     <span>Telegram</span>
 </a>
 
+    <!-- Max -->
+    <a href="https://max.ru/"
+       target="_blank" rel="nofollow noopener noreferrer"
+       class="contact-item contact-max">
+        <span class="contact-max__icon" aria-hidden="true">MAX</span>
+        <span>Max</span>
+    </a>
 
 </address>
 					
@@ -237,6 +244,22 @@
 
 .contact-telegram .contact-icon {
     filter: drop-shadow(0 0 0 #0088cc);
+}
+
+.contact-max__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #00a8ff, #7c3aed);
+    color: #fff;
+    font-size: 9px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: .02em;
 }
 
 .contact-email .contact-icon {
@@ -634,6 +657,10 @@ document.addEventListener('click', function (e) {
     </a>
     <a href="mailto:info@wpdevstudio.ru" aria-label="Написать на почту info@wpdevstudio.ru">
       <span>info@wpdevstudio.ru</span>
+    </a>
+    <a href="https://max.ru/" target="_blank" rel="nofollow noopener noreferrer" aria-label="Написать в Max">
+      <span class="contact-max__icon" aria-hidden="true">MAX</span>
+      <span>Max</span>
     </a>
   </address>
 

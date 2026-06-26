@@ -189,6 +189,42 @@ get_header();
 		transform: translateY(-1px);
 	}
 
+	.gl-services-pagination {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		margin-top: 38px;
+		flex-wrap: wrap;
+	}
+
+	.gl-services-pagination .page-numbers {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 44px;
+		height: 44px;
+		padding: 0 14px;
+		border: 1px solid #dce7e0;
+		border-radius: 12px;
+		background: rgba(255, 255, 255, 0.9);
+		color: var(--gl-color-heading, #1A1A1A);
+		font-size: 15px;
+		font-weight: 700;
+		line-height: 1;
+		text-decoration: none;
+		box-shadow: 0 10px 28px rgba(16, 24, 40, 0.04);
+		transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+	}
+
+	.gl-services-pagination .page-numbers.current,
+	.gl-services-pagination a.page-numbers:hover {
+		background: var(--gl-color-accent, #2cbc63);
+		border-color: var(--gl-color-accent, #2cbc63);
+		color: #fff;
+		transform: translateY(-1px);
+	}
+
 	.gl-services-empty {
 		max-width: 760px;
 		margin: 0 auto;
@@ -295,6 +331,25 @@ get_header();
 					</article>
 				<?php endwhile; ?>
 			</div>
+
+			<?php
+			$services_pagination = paginate_links([
+				'total'     => max(1, (int) $wp_query->max_num_pages),
+				'current'   => max(1, get_query_var('paged') ?: get_query_var('page')),
+				'mid_size'  => 1,
+				'prev_text' => '← Назад',
+				'next_text' => 'Вперёд →',
+				'type'      => 'array',
+			]);
+			?>
+
+			<?php if (!empty($services_pagination)) : ?>
+				<nav class="gl-services-pagination" aria-label="Пагинация услуг">
+					<?php foreach ($services_pagination as $services_pagination_link) : ?>
+						<?php echo $services_pagination_link; ?>
+					<?php endforeach; ?>
+				</nav>
+			<?php endif; ?>
 		<?php else : ?>
 			<div class="gl-services-empty">
 				<p>Услуги пока не добавлены. Здесь появятся страницы с подробным описанием работ и решений под WordPress и WooCommerce.</p>
