@@ -194,7 +194,7 @@
 </a>
 
     <!-- Max -->
-    <a href="https://max.ru/"
+    <a href="https://max.ru/u/f9LHodD0cOJbdYFRJnINg9bi-nZNK5jaoRGHmt2DikMFZct5kLZUEm0ZkIA"
        target="_blank" rel="nofollow noopener noreferrer"
        class="contact-item contact-max">
         <span class="contact-max__icon" aria-hidden="true">MAX</span>
@@ -658,7 +658,7 @@ document.addEventListener('click', function (e) {
     <a href="mailto:info@wpdevstudio.ru" aria-label="Написать на почту info@wpdevstudio.ru">
       <span>info@wpdevstudio.ru</span>
     </a>
-    <a href="https://max.ru/" target="_blank" rel="nofollow noopener noreferrer" aria-label="Написать в Max">
+    <a href="https://max.ru/u/f9LHodD0cOJbdYFRJnINg9bi-nZNK5jaoRGHmt2DikMFZct5kLZUEm0ZkIA" target="_blank" rel="nofollow noopener noreferrer" aria-label="Написать в Max">
       <span class="contact-max__icon" aria-hidden="true">MAX</span>
       <span>Max</span>
     </a>
