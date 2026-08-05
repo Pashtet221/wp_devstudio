@@ -12,7 +12,7 @@ $email       = 'info@wpdevstudio.ru';
 $tg_url = 'https://t.me/+79250404189';
 $wa_url = 'https://wa.me/79250404189';
 $li_url = 'https://www.linkedin.com/in/pavel-damut-142181288';
-$max_url = 'https://max.ru/';
+$max_url = 'https://max.ru/u/f9LHodD0cOJbdYFRJnINg9bi-nZNK5jaoRGHmt2DikMFZct5kLZUEm0ZkIA';
 ?>
 
 <footer class="wpds-footer" id="footer" itemscope itemtype="https://schema.org/Organization">
