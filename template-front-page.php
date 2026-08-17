@@ -31,21 +31,45 @@ get_header();
 			
 			
 			
-<section class="hero hero--compact" aria-label="Запуск WordPress-магазинов">
+<section class="home-hero" aria-label="Основные направления студии" data-home-hero>
   <div class="container">
-    <div class="hero__card">
-      <div class="hero__gradient" aria-hidden="true"></div>
-      <div class="hero__content">
-        <p class="hero__eyebrow">WordPress · WooCommerce · запуск под ключ</p>
-        <h1 class="hero__title">Запускаем WordPress-магазины, которые продают — от 30 дней</h1>
-        <p class="hero__desc">Без шаблонов, без исчезновений после оплаты</p>
-        <div class="hero__actions">
-          <a class="hero__cta" href="#pricing">Узнать стоимость</a>
-          <span class="hero__microtext">Бесплатный расчёт за 1 день</span>
+    <div class="home-hero__viewport">
+      <div class="home-hero__track" data-hero-track>
+        <article class="home-hero__slide home-hero__slide--development is-active" aria-hidden="false">
+          <div class="home-hero__content">
+            <p class="home-hero__eyebrow">Разработка · доработка · поддержка</p>
+            <h1 class="home-hero__title">Разрабатываем сайты и сервисы для задач бизнеса</h1>
+            <p class="home-hero__desc">Берём проект с нуля или подключаемся к существующему: продумываем структуру, реализуем нужную логику и остаёмся на связи после запуска.</p>
+            <div class="home-hero__actions">
+              <a class="home-hero__cta" href="#site-calculator">Рассчитать проект</a>
+              <a class="home-hero__link" href="/cases/">Посмотреть кейсы</a>
+            </div>
+            <ul class="home-hero__facts" aria-label="Особенности работы">
+              <li>Прямой контакт с разработчиком</li><li>Поэтапная оплата</li><li>Официальное сотрудничество</li>
+            </ul>
+          </div>
+        </article>
+        <article class="home-hero__slide home-hero__slide--shop" aria-hidden="true">
+          <div class="home-hero__content">
+            <p class="home-hero__eyebrow">WordPress · WooCommerce · запуск под ключ</p>
+            <h2 class="home-hero__title">Запускаем WordPress-магазины, которые продают — от 30 дней</h2>
+            <p class="home-hero__desc">Без шаблонных решений и исчезновений после оплаты. Собираем магазин вокруг ваших товаров и процессов.</p>
+            <div class="home-hero__actions">
+              <a class="home-hero__cta" href="#site-calculator">Узнать стоимость</a>
+              <span class="home-hero__note">Бесплатный расчёт за 1 день</span>
+            </div>
+            <div class="home-hero__tags"><span>WordPress</span><span>WooCommerce</span></div>
+          </div>
+        </article>
+      </div>
+      <div class="home-hero__controls">
+        <div class="home-hero__dots" role="tablist" aria-label="Выбор слайда">
+          <button class="is-active" type="button" role="tab" aria-selected="true" aria-label="Слайд 1" data-hero-dot="0"></button>
+          <button type="button" role="tab" aria-selected="false" aria-label="Слайд 2" data-hero-dot="1"></button>
         </div>
-        <div class="hero__tech" aria-label="Технологии">
-          <span>WordPress</span>
-          <span>WooCommerce</span>
+        <div class="home-hero__arrows">
+          <button type="button" aria-label="Предыдущий слайд" data-hero-prev>←</button>
+          <button type="button" aria-label="Следующий слайд" data-hero-next>→</button>
         </div>
       </div>
     </div>
@@ -53,35 +77,12 @@ get_header();
 </section>
 
 <style>
-  :root{
-    --container: 1440px;
-    --pad-desktop: 72px;
-    --pad-tablet: 36px;
-    --pad-mobile: 16px;
-    --radius-lg: 36px;
-    --radius-md: 24px;
-    --text: #fff;
-    --muted: rgba(255,255,255,.84);
-  }
-  .container{margin-inline:auto;max-width:var(--container);padding-inline:var(--pad-desktop);}
-  @media (max-width:1199px){.container{max-width:768px;padding-inline:var(--pad-tablet);}}
-  @media (max-width:767px){.container{max-width:100%;padding-inline:var(--pad-mobile);}}
-  .hero{background:#fff;padding:16px 0 0;}
-  .hero__card{position:relative;overflow:hidden;border-radius:var(--radius-lg);min-height:clamp(360px,38vw,520px);display:flex;align-items:center;padding:54px 58px;background:linear-gradient(135deg,rgba(9,20,39,.96),rgba(28,58,138,.78)),url('/upload/iblock/d82/o45ep3y74cg2zpoveibch37dbt09kdbp/first%201.jpg') center/cover no-repeat;box-shadow:0 26px 70px rgba(8,18,42,.18);}
-  .hero__gradient{position:absolute;inset:0;background:radial-gradient(circle at 82% 18%,rgba(18,212,87,.34),transparent 28%),radial-gradient(circle at 12% 86%,rgba(220,38,38,.30),transparent 32%);z-index:1;pointer-events:none;}
-  .hero__content{position:relative;z-index:2;max-width:840px;color:var(--text);display:flex;flex-direction:column;gap:22px;}
-  .hero__eyebrow{margin:0;color:rgba(255,255,255,.76);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:14px;}
-  .hero__title{margin:0;font-family:"Wix Madefor Text",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-weight:700;letter-spacing:-.035em;font-size:clamp(38px,4.6vw,74px);line-height:.98;}
-  .hero__desc{margin:0;max-width:620px;font:500 24px/1.35 "Wix Madefor Text",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--muted);}
-  .hero__actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:6px;}
-  .hero__cta{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:15px 28px;border-radius:999px;background:#dc2626;color:#fff;font:800 16px/1.2 "Wix Madefor Text",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;text-decoration:none;box-shadow:0 18px 36px rgba(220,38,38,.34);transition:transform .18s ease,background .18s ease,box-shadow .18s ease;}
-  .hero__cta:hover{background:#b91c1c;color:#fff;transform:translateY(-1px);box-shadow:0 20px 40px rgba(185,28,28,.38);}
-  .hero__microtext{color:rgba(255,255,255,.82);font-size:15px;font-weight:700;}
-  .hero__tech{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;}
-  .hero__tech span{display:inline-flex;align-items:center;min-height:38px;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);backdrop-filter:blur(12px);font-weight:800;color:#fff;}
-  @media (max-width:1199px){.hero__card{padding:44px;min-height:460px}.hero__title{font-size:48px}.hero__desc{font-size:20px}}
-  @media (max-width:767px){.hero__card{padding:28px;border-radius:var(--radius-md);min-height:430px}.hero__title{font-size:36px}.hero__desc{font-size:18px}.hero__actions{align-items:flex-start;flex-direction:column}.hero__cta{width:100%}}
+.home-hero{--hero-pad:clamp(28px,5vw,64px);background:#fff;padding:16px 0 0;font-family:"Wix Madefor Text",system-ui,sans-serif}.home-hero__viewport{position:relative;overflow:hidden;border-radius:36px;background:#0b1220;box-shadow:0 26px 70px rgba(8,18,42,.18)}.home-hero__track{display:flex;transition:transform .6s cubic-bezier(.22,.61,.36,1)}.home-hero__slide{position:relative;flex:0 0 100%;min-height:clamp(430px,43vw,590px);box-sizing:border-box;display:flex;align-items:center;padding:var(--hero-pad);color:#fff}.home-hero__slide:before{content:"";position:absolute;inset:0;pointer-events:none}.home-hero__slide--development{background:linear-gradient(125deg,#111827 0%,#1e3a8a 62%,#2563eb 100%)}.home-hero__slide--development:before{background:radial-gradient(circle at 82% 20%,rgba(34,197,94,.42),transparent 24%),radial-gradient(circle at 74% 95%,rgba(99,102,241,.6),transparent 34%)}.home-hero__slide--shop{background:linear-gradient(135deg,rgba(9,20,39,.97),rgba(28,58,138,.82)),url('/upload/iblock/d82/o45ep3y74cg2zpoveibch37dbt09kdbp/first%201.jpg') center/cover no-repeat}.home-hero__slide--shop:before{background:radial-gradient(circle at 82% 18%,rgba(18,212,87,.34),transparent 28%),radial-gradient(circle at 12% 86%,rgba(220,38,38,.3),transparent 32%)}.home-hero__content{position:relative;z-index:1;max-width:900px;display:flex;flex-direction:column;gap:20px}.home-hero__eyebrow{margin:0;color:rgba(255,255,255,.72);font-size:13px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.home-hero__title{margin:0;max-width:900px;color:#fff;font-size:clamp(38px,5vw,72px);font-weight:650;line-height:.98;letter-spacing:-.045em}.home-hero__desc{margin:0;max-width:720px;color:rgba(255,255,255,.8);font-size:clamp(17px,1.7vw,22px);line-height:1.45}.home-hero__actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.home-hero__cta{display:inline-flex;justify-content:center;padding:16px 26px;border-radius:999px;background:#dc2626;color:#fff!important;font-weight:800;text-decoration:none;box-shadow:0 16px 36px rgba(220,38,38,.3)}.home-hero__link{color:#fff!important;font-weight:700;text-underline-offset:5px}.home-hero__note{color:rgba(255,255,255,.8);font-weight:700}.home-hero__facts{display:flex;gap:10px;flex-wrap:wrap;margin:0;padding:0;list-style:none}.home-hero__facts li,.home-hero__tags span{padding:9px 13px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(255,255,255,.1);font-size:14px;font-weight:700;backdrop-filter:blur(10px)}.home-hero__tags{display:flex;gap:10px}.home-hero__controls{position:absolute;z-index:2;right:var(--hero-pad);bottom:28px;left:var(--hero-pad);display:flex;align-items:center;justify-content:space-between;pointer-events:none}.home-hero__dots,.home-hero__arrows{display:flex;gap:8px;pointer-events:auto}.home-hero__dots button{width:9px;height:9px;padding:0;border:0;border-radius:99px;background:rgba(255,255,255,.45);cursor:pointer;transition:.25s}.home-hero__dots button.is-active{width:30px;background:#fff}.home-hero__arrows button{display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(255,255,255,.22);border-radius:50%;background:rgba(15,23,42,.35);color:#fff;font-size:20px;cursor:pointer}.home-hero__arrows button:hover{background:#fff;color:#111827}@media(max-width:767px){.home-hero__viewport{border-radius:24px}.home-hero__slide{min-height:590px;align-items:flex-start}.home-hero__title{font-size:38px}.home-hero__actions{align-items:flex-start;flex-direction:column}.home-hero__cta{width:100%;box-sizing:border-box}.home-hero__facts{display:grid}.home-hero__controls{bottom:20px}.home-hero__arrows button{width:38px;height:38px}}
+@media(prefers-reduced-motion:reduce){.home-hero__track{transition:none}}
 </style>
+<script>
+(function(){const root=document.querySelector('[data-home-hero]');if(!root)return;const track=root.querySelector('[data-hero-track]');const slides=[...root.querySelectorAll('.home-hero__slide')];const dots=[...root.querySelectorAll('[data-hero-dot]')];let active=0;function show(index){active=(index+slides.length)%slides.length;track.style.transform=`translateX(-${active*100}%)`;slides.forEach((slide,i)=>slide.setAttribute('aria-hidden',i===active?'false':'true'));dots.forEach((dot,i)=>{dot.classList.toggle('is-active',i===active);dot.setAttribute('aria-selected',i===active?'true':'false')})}root.querySelector('[data-hero-prev]').addEventListener('click',()=>show(active-1));root.querySelector('[data-hero-next]').addEventListener('click',()=>show(active+1));dots.forEach(dot=>dot.addEventListener('click',()=>show(Number(dot.dataset.heroDot))));root.addEventListener('keydown',event=>{if(event.key==='ArrowLeft')show(active-1);if(event.key==='ArrowRight')show(active+1)});})();
+</script>
 
 <?php
 $calculator = wpds_home_calculator_get_content(get_the_ID());
@@ -901,6 +902,25 @@ $calculator_services = $calculator['services'];
 	
 	
 	
+<section class="home-format" aria-labelledby="home-format-title">
+  <div class="container">
+    <div class="home-format__head">
+      <div><span class="home-format__kicker">Формат работы</span><h2 id="home-format-title">Небольшая студия — без лишних звеньев</h2></div>
+      <p>Вы общаетесь напрямую со специалистом, который погружён в проект. При необходимости подключаем проверенных дизайнеров и разработчиков, но ответственность за результат остаётся в одних руках.</p>
+    </div>
+    <div class="home-format__grid">
+      <article><span>01</span><h3>Фиксируем задачу</h3><p>Разбираемся в целях, предлагаем состав работ и заранее согласовываем стоимость и сроки.</p></article>
+      <article><span>02</span><h3>Двигаемся поэтапно</h3><p>Показываем промежуточный результат, принимаем обратную связь и не копим неожиданности к финалу.</p></article>
+      <article><span>03</span><h3>Работаем официально</h3><p>Закрепляем договорённости, выдаём чек. Для крупных проектов делим оплату на понятные этапы.</p></article>
+      <article><span>04</span><h3>Остаёмся после запуска</h3><p>Передаём понятный проект, помогаем с запуском и можем продолжить поддержку и развитие.</p></article>
+    </div>
+    <a class="home-format__more" href="/about/">Подробнее о студии <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+<style>
+.home-format{padding:76px 0;background:#fff;color:#18181b;font-family:"Wix Madefor Text",system-ui,sans-serif}.home-format__head{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:48px;align-items:end;margin-bottom:32px}.home-format__kicker{color:#dc2626;font-size:13px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.home-format h2{max-width:760px;margin:10px 0 0;font-size:clamp(36px,4.5vw,64px);font-weight:600;line-height:1;letter-spacing:-.045em}.home-format__head p{margin:0;color:#52525b;font-size:18px;line-height:1.55}.home-format__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.home-format__grid article{min-height:250px;padding:24px;border:1px solid #e4e4e7;border-radius:26px;background:#f7f7f8}.home-format__grid article:nth-child(3){background:#18181b;color:#fff}.home-format__grid span{color:#dc2626;font-size:13px;font-weight:800}.home-format__grid h3{margin:52px 0 12px;font-size:23px;line-height:1.1}.home-format__grid p{margin:0;color:#71717a;line-height:1.5}.home-format__grid article:nth-child(3) p{color:#d4d4d8}.home-format__more{display:inline-flex;gap:10px;margin-top:24px;color:#18181b!important;font-weight:800;text-decoration:none}.home-format__more span{color:#dc2626}@media(max-width:991px){.home-format__head{grid-template-columns:1fr;gap:20px}.home-format__grid{grid-template-columns:1fr 1fr}}@media(max-width:767px){.home-format{padding:52px 0}.home-format__grid{grid-template-columns:1fr}.home-format__grid article{min-height:auto}.home-format__grid h3{margin-top:30px}}
+</style>
+
 <!-- Преимущества	 -->
 			
 <section class="componentWrapper" id="advantages" aria-labelledby="advantages-title">

@@ -6,300 +6,49 @@ get_header(); ?>
 
 
 <section class="wps-about-hero">
-  <div class="container">
-    <div class="wps-about-hero__wrap">
-      <div class="wps-about-hero__content">
-        <span class="wps-about-label">О студии</span>
-        <h1 class="wps-about-hero__title">
-          WPDevStudio — разработка сайтов, интернет-магазинов и плагинов на WordPress / WooCommerce
-        </h1>
-        <p class="wps-about-hero__text">
-          Создаю кастомные решения для бизнеса: корпоративные сайты, интернет-магазины, лендинги,
-          нестандартный функционал, WooCommerce-доработки, интеграции и собственные плагины.
-          Без перегруженных шаблонных решений — с упором на структуру, удобство и результат.
-        </p>
-
-        <div class="wps-about-hero__actions">
-          <a href="#contact-form" class="wps-btn wps-btn--primary">Обсудить проект</a>
-          <a href="/portfolio/" class="wps-btn wps-btn--ghost">Смотреть кейсы</a>
-        </div>
-
-        <ul class="wps-about-hero__meta">
-          <li>WordPress / WooCommerce</li>
-          <li>Кастомная разработка</li>
-          <li>Официальная работа с клиентами</li>
-        </ul>
-      </div>
-
-      <div class="wps-about-hero__card">
-        <div class="wps-about-stat">
-          <span class="wps-about-stat__num">WordPress</span>
-          <span class="wps-about-stat__label">основная специализация</span>
-        </div>
-        <div class="wps-about-stat">
-          <span class="wps-about-stat__num">WooCommerce</span>
-          <span class="wps-about-stat__label">магазины и кастомный checkout</span>
-        </div>
-        <div class="wps-about-stat">
-          <span class="wps-about-stat__num">Custom</span>
-          <span class="wps-about-stat__label">плагины, шаблоны, нестандартный функционал</span>
-        </div>
-      </div>
+  <div class="container"><div class="wps-about-hero__wrap">
+    <div class="wps-about-hero__content">
+      <span class="wps-about-label">О студии</span>
+      <h1 class="wps-about-hero__title">Разработка без конвейера и лишних посредников</h1>
+      <p class="wps-about-hero__text">WPDevStudio помогает бизнесу запускать и развивать сайты, магазины и веб-сервисы. Погружаемся в задачу, предлагаем понятное решение и отвечаем за результат от оценки до запуска.</p>
+      <div class="wps-about-hero__actions"><a href="#contact-form" class="wps-btn wps-btn--primary">Обсудить проект</a><a href="/cases/" class="wps-btn wps-btn--ghost">Смотреть кейсы</a></div>
+      <ul class="wps-about-hero__meta"><li>Прямое общение</li><li>Поэтапная работа</li><li>Поддержка после запуска</li></ul>
     </div>
-  </div>
+    <div class="wps-about-hero__card">
+      <div class="wps-about-stat"><span class="wps-about-stat__num">В фокусе</span><span class="wps-about-stat__label">задача бизнеса, а не набор модных функций</span></div>
+      <div class="wps-about-stat"><span class="wps-about-stat__num">В основе</span><span class="wps-about-stat__label">понятная архитектура и удобное управление</span></div>
+      <div class="wps-about-stat"><span class="wps-about-stat__num">На связи</span><span class="wps-about-stat__label">до, во время и после запуска проекта</span></div>
+    </div>
+  </div></div>
 </section>
 
-<section class="wps-about-section">
-  <div class="container">
-    <div class="wps-about-grid">
-      <div class="wps-about-block">
-        <span class="wps-about-kicker">Кто мы</span>
-        <h2 class="wps-about-title">Разработка без лишней бюрократии, но с профессиональным подходом</h2>
-        <p>
-          WPDevStudio — это практика, заточенная под реальные задачи бизнеса на WordPress. Здесь нет
-          поточного “собрать сайт за вечер”. Основной фокус — продуманная структура, чистая верстка,
-          адаптация под задачи клиента, удобная админка и доработки, которые действительно решают задачу.
-        </p>
-        <p>
-          Подход особенно хорошо подходит тем, кому нужен не просто красивый сайт, а рабочий инструмент:
-          для заявок, продаж, презентации услуг, каталога, интернет-магазина или внутренних бизнес-процессов.
-        </p>
-      </div>
-
-      <div class="wps-about-note">
-        <div class="wps-about-note__item">
-          <strong>Формат работы</strong>
-          <p>Частная студия / персональный разработчик под брендом WPDevStudio.</p>
-        </div>
-        <div class="wps-about-note__item">
-          <strong>Основной профиль</strong>
-          <p>WordPress, WooCommerce, кастомная тема, кастомные шаблоны, интеграции, плагины.</p>
-        </div>
-        <div class="wps-about-note__item">
-          <strong>Результат</strong>
-          <p>Не просто сайт, а понятная система, которую удобно использовать и развивать.</p>
-        </div>
-      </div>
-    </div>
+<section class="wps-about-section"><div class="container"><div class="wps-about-grid">
+  <div class="wps-about-block"><span class="wps-about-kicker">Как устроена студия</span><h2 class="wps-about-title">Небольшая команда под конкретную задачу</h2><p>Проект не проходит через менеджеров, которые теряют детали. Вы общаетесь со специалистом, участвующим в разработке. Если нужны дизайн, тексты или дополнительная экспертиза, подключаем проверенных исполнителей и сохраняем единый контроль качества.</p></div>
+  <div class="wps-about-note">
+    <div class="wps-about-note__item"><strong>Без конвейера</strong><p>Берём ограниченное число проектов, чтобы разбираться в каждом.</p></div>
+    <div class="wps-about-note__item"><strong>Без технической воды</strong><p>Объясняем решения человеческим языком и показываем результат.</p></div>
+    <div class="wps-about-note__item"><strong>С ответственностью</strong><p>Не исчезаем после оплаты и доводим согласованный объём до запуска.</p></div>
   </div>
-</section>
+</div></div></section>
 
-<section class="wps-about-section wps-about-section--dark">
-  <div class="container">
-    <div class="wps-section-head">
-      <span class="wps-about-kicker">Что делаем</span>
-      <h2 class="wps-about-title">Какие задачи закрывает WPDevStudio</h2>
-      <p class="wps-about-subtitle">
-        От посадочных страниц до WooCommerce-магазинов и собственных плагинов под нестандартные процессы.
-      </p>
-    </div>
-
-    <div class="wps-services-grid">
-      <article class="wps-service-card">
-        <h3>Сайты на WordPress</h3>
-        <p>Корпоративные сайты, лендинги, каталоги, презентационные сайты услуг и нишевые проекты.</p>
-      </article>
-
-      <article class="wps-service-card">
-        <h3>Интернет-магазины WooCommerce</h3>
-        <p>Каталог, карточка товара, корзина, checkout, способы оплаты, доставка, UX и кастомный функционал.</p>
-      </article>
-
-      <article class="wps-service-card">
-        <h3>Кастомные плагины</h3>
-        <p>Разработка плагинов под конкретную бизнес-логику: формы, фильтры, модальные окна, интеграции, шаги оформления заказа.</p>
-      </article>
-
-      <article class="wps-service-card">
-        <h3>Доработка тем и шаблонов</h3>
-        <p>Адаптация готовых решений под задачи клиента без ощущения “шаблонного сайта как у всех”.</p>
-      </article>
-
-      <article class="wps-service-card">
-        <h3>Верстка и UI-блоки</h3>
-        <p>Секции, карточки, hero-блоки, CTA, попапы, табы, слайдеры, адаптивная верстка и визуальная система страниц.</p>
-      </article>
-
-      <article class="wps-service-card">
-        <h3>Поддержка и развитие</h3>
-        <p>Доработки после запуска, развитие функционала, оптимизация, подключение новых модулей и улучшение конверсии.</p>
-      </article>
-    </div>
+<section class="wps-about-section wps-about-section--dark"><div class="container">
+  <div class="wps-section-head"><span class="wps-about-kicker">Что делаем</span><h2 class="wps-about-title">Запускаем новое и улучшаем работающее</h2><p class="wps-about-subtitle">От лендинга до магазина с интеграциями — без лишнего функционала и с запасом для развития.</p></div>
+  <div class="wps-services-grid">
+    <article class="wps-service-card"><h3>Сайты и магазины</h3><p>Проектирование, дизайн, разработка, каталог, оплата, доставка и подготовка к запуску.</p></article>
+    <article class="wps-service-card"><h3>Доработки и интеграции</h3><p>Новые разделы, личные кабинеты, обмен данными, автоматизация и нестандартная бизнес-логика.</p></article>
+    <article class="wps-service-card"><h3>Поддержка и развитие</h3><p>Исправления, ускорение, улучшение пользовательских сценариев и планомерное развитие проекта.</p></article>
   </div>
-</section>
+</div></section>
 
-<section class="wps-about-section">
-  <div class="container">
-    <div class="wps-section-head">
-      <span class="wps-about-kicker">Почему выбирают</span>
-      <h2 class="wps-about-title">Почему с нами удобно работать</h2>
-    </div>
+<section class="wps-about-section wps-about-section--accent"><div class="container"><div class="wps-legal">
+  <div class="wps-legal__content"><span class="wps-about-kicker">Условия</span><h2 class="wps-about-title">Договорённости понятны до старта</h2><p>После обсуждения фиксируем состав работ, сроки и стоимость. Большой проект делим на этапы: так вы видите прогресс и оплачиваете конкретный результат.</p></div>
+  <div class="wps-legal__box"><ul class="wps-legal-list"><li>Оценка до начала работ</li><li>Чек после оплаты</li><li>Поэтапная оплата крупных проектов</li><li>Регулярные промежуточные показы</li></ul><div class="wps-legal-requisites"><div class="wps-legal-requisites__row"><span>Формат:</span><strong>официальное сотрудничество</strong></div></div></div>
+</div></div></section>
 
-    <div class="wps-adv-grid">
-      <div class="wps-adv-card">
-        <h3>Специализация, а не “всё подряд”</h3>
-        <p>Фокус на WordPress / WooCommerce, а не распыление на десятки платформ и случайных услуг.</p>
-      </div>
-      <div class="wps-adv-card">
-        <h3>Под задачи бизнеса</h3>
-        <p>Функционал продумывается под конкретный процесс: лиды, продажи, заявки, каталог, личные сценарии оформления.</p>
-      </div>
-      <div class="wps-adv-card">
-        <h3>Кастом без перегруза</h3>
-        <p>Только нужные доработки, без лишнего мусора и нагромождения плагинов ради плагинов.</p>
-      </div>
-      <div class="wps-adv-card">
-        <h3>Понятная коммуникация</h3>
-        <p>Нормальное обсуждение задачи, логика работ, этапность и честное понимание, что реально нужно проекту.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="wps-about-section">
-  <div class="container">
-    <div class="wps-about-process">
-      <div class="wps-about-process__content">
-        <span class="wps-about-kicker">Как строится работа</span>
-        <h2 class="wps-about-title">Понятный процесс без хаоса</h2>
-        <p class="wps-about-subtitle">
-          Чтобы проект не превращался в бесконечную переписку и случайные правки, работа строится поэтапно.
-        </p>
-      </div>
-
-      <div class="wps-steps">
-        <div class="wps-step">
-          <span class="wps-step__num">01</span>
-          <h3>Обсуждение задачи</h3>
-          <p>Собираем вводные, понимаем цели проекта, нужный функционал и желаемый формат сайта.</p>
-        </div>
-        <div class="wps-step">
-          <span class="wps-step__num">02</span>
-          <h3>Структура и оценка</h3>
-          <p>Определяется состав страниц, блоков, функционала, сроки и стоимость работ.</p>
-        </div>
-        <div class="wps-step">
-          <span class="wps-step__num">03</span>
-          <h3>Разработка</h3>
-          <p>Верстка, интеграция в WordPress, настройка WooCommerce, создание шаблонов и доработка логики.</p>
-        </div>
-        <div class="wps-step">
-          <span class="wps-step__num">04</span>
-          <h3>Тестирование и запуск</h3>
-          <p>Проверка адаптива, форм, корзины, технических моментов и подготовка проекта к публикации.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="wps-about-section wps-about-section--accent">
-  <div class="container">
-    <div class="wps-legal">
-     <div class="wps-legal__content">
-  <span class="wps-about-kicker">Официальная работа</span>
-  <h2 class="wps-about-title">Работаем официально и прозрачно</h2>
-  <p>
-    WPDevStudio работает с клиентами в официальном формате. Это дает понятный порядок сотрудничества,
-    прозрачные условия оплаты и больше уверенности на всех этапах работы.
-  </p>
-  <p>
-    Такой подход удобен для клиентов, которым важны подтверждение оплаты, четкие договоренности
-    и спокойное взаимодействие без лишних рисков.
-  </p>
-</div>
-
-      <div class="wps-legal__box">
-        <ul class="wps-legal-list">
-          <li>Официальная работа с клиентами</li>
-          <li>Чек после оплаты</li>
-          <li>Поэтапная оплата для крупных проектов</li>
-          <li>Понятный формат сотрудничества</li>
-        </ul>
-
-        <div class="wps-legal-requisites">
-          <div class="wps-legal-requisites__row">
-            <span>Статус:</span>
-            <strong>самозанятый</strong>
-          </div>
-          <div class="wps-legal-requisites__row">
-            <span>ИНН:</span>
-            <strong>По требованию заказчика</strong>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="wps-about-section">
-  <div class="container">
-    <div class="wps-section-head">
-      <span class="wps-about-kicker">Технологии</span>
-      <h2 class="wps-about-title">С чем работаем</h2>
-    </div>
-
-    <div class="wps-tech-list">
-      <span>WordPress</span>
-      <span>WooCommerce</span>
-      <span>PHP</span>
-      <span>JavaScript</span>
-      <span>HTML / CSS / SCSS</span>
-      <span>ACF</span>
-      <span>Custom Post Types</span>
-      <span>AJAX</span>
-      <span>Swiper / Fancybox</span>
-      <span>Yandex Maps / формы / интеграции</span>
-    </div>
-  </div>
-</section>
-
-<section class="wps-about-section wps-about-section--dark">
-  <div class="container">
-    <div class="wps-section-head">
-      <span class="wps-about-kicker">Для кого</span>
-      <h2 class="wps-about-title">Кому подходит такой формат работы</h2>
-    </div>
-
-    <div class="wps-fit-grid">
-      <div class="wps-fit-card">
-        <h3>Малому и среднему бизнесу</h3>
-        <p>Когда нужен сайт или магазин под реальную задачу, а не просто шаблон “чтобы был”.</p>
-      </div>
-      <div class="wps-fit-card">
-        <h3>Тем, кому нужен кастом</h3>
-        <p>Если стандартных тем и плагинов уже не хватает и нужен нестандартный сценарий работы.</p>
-      </div>
-      <div class="wps-fit-card">
-        <h3>Проектам на WooCommerce</h3>
-        <p>Когда важны карточка товара, вариации, оформление заказа, логика корзины и интеграции.</p>
-      </div>
-      <div class="wps-fit-card">
-        <h3>Тем, кто хочет развивать сайт дальше</h3>
-        <p>Когда нужен фундамент, который потом можно дорабатывать, а не переделывать с нуля.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="wps-about-cta">
-  <div class="container">
-    <div class="wps-about-cta__wrap">
-      <div class="wps-about-cta__content">
-        <span class="wps-about-label">Связаться</span>
-        <h2>Если нужен сайт, WooCommerce-магазин или кастомная доработка — обсудим проект</h2>
-        <p>
-          Можно обратиться как за разработкой с нуля, так и за доработкой существующего проекта на WordPress.
-        </p>
-      </div>
-
-      <div class="wps-about-cta__actions">
-        <a href="#contact-form" class="wps-btn wps-btn--primary">Оставить заявку</a>
-        <a href="/contacts/" class="wps-btn wps-btn--ghost">Контакты</a>
-      </div>
-    </div>
-  </div>
-</section>
+<section class="wps-about-cta"><div class="container"><div class="wps-about-cta__wrap">
+  <div class="wps-about-cta__content"><span class="wps-about-label">Следующий шаг</span><h2>Расскажите о задаче — предложим способ её решить</h2><p>Можно прийти с идеей, техническим заданием или уже работающим проектом.</p></div>
+  <div class="wps-about-cta__actions"><a href="#contact-form" class="wps-btn wps-btn--primary">Оставить заявку</a><a href="/contacts/" class="wps-btn wps-btn--ghost">Контакты</a></div>
+</div></div></section>
 
 <style>
 	.wps-about-hero,
