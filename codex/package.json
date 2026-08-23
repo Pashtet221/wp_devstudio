@@ -1,0 +1,7 @@
+{
+  "name": "codex-wordpress-cloud",
+  "version": "4.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {"check:capture":"node --check scripts/capture-media.mjs"}
+}
