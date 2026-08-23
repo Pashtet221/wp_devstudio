@@ -1,46 +1,14 @@
 <?php
-/**
- * Landing page: converting an existing front end into a WooCommerce store.
- *
- * WordPress automatically selects this template for the page with the
- * `perenos-verstki-na-wordpress` slug.
- *
- * @package WPDevStudio
- */
+/*
+Template Name: Услуга — Перенос HTML-вёрстки на WordPress и WooCommerce
+Template Post Type: service
+*/
 
 defined('ABSPATH') || exit;
 
 $contact_url = home_url('/contacts/');
-$page_url    = get_permalink();
-$seo_title   = 'Перенос HTML-вёрстки на WordPress и WooCommerce под ключ';
-$seo_desc    = 'Перенесу готовую HTML/CSS/JS-вёрстку на WordPress и WooCommerce с сохранением дизайна. Каталог, карточки товаров, корзина, личный кабинет, оплата и доставка.';
-$seo_keys    = 'перенос вёрстки на WordPress, перенос HTML на WordPress, интеграция WooCommerce, разработка темы WordPress, перенос сайта на WooCommerce';
-
-// SEO fallback for installations where an SEO plugin has not supplied the tags yet.
-add_filter('pre_get_document_title', static function () use ($seo_title) {
-	return $seo_title;
-});
-add_action('wp_head', static function () use ($seo_desc, $seo_keys, $page_url) {
-	echo '<meta name="description" content="' . esc_attr($seo_desc) . '">' . "\n";
-	echo '<meta name="keywords" content="' . esc_attr($seo_keys) . '">' . "\n";
-	echo '<link rel="canonical" href="' . esc_url($page_url) . '">' . "\n";
-}, 1);
 
 get_header();
-
-$service_schema = [
-	'@context'    => 'https://schema.org',
-	'@type'       => 'Service',
-	'name'        => 'Перенос готовой HTML-вёрстки на WordPress и WooCommerce',
-	'description' => 'Интеграция готовой HTML/CSS/JS-вёрстки в кастомную тему WordPress с подключением каталога, корзины, оплаты и доставки WooCommerce.',
-	'url'         => $page_url,
-	'provider'    => [
-		'@type' => 'Organization',
-		'name'  => get_bloginfo('name'),
-		'url'   => home_url('/'),
-	],
-	'areaServed'  => 'RU',
-];
 
 $faq = [
 	[
@@ -59,8 +27,6 @@ $faq = [
 ?>
 
 <main class="transfer-service">
-	<script type="application/ld+json"><?php echo wp_json_encode($service_schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?></script>
-
 	<section class="transfer-service__hero">
 		<div class="transfer-service__container transfer-service__hero-grid">
 			<div>
@@ -157,13 +123,6 @@ $faq = [
 					</details>
 				<?php endforeach; ?>
 			</div>
-			<script type="application/ld+json"><?php echo wp_json_encode([
-				'@context' => 'https://schema.org',
-				'@type' => 'FAQPage',
-				'mainEntity' => array_map(static function ($item) {
-					return ['@type' => 'Question', 'name' => $item['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $item['answer']]];
-				}, $faq),
-			], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?></script>
 		</div>
 	</section>
 
