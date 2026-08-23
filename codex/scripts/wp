@@ -1,3 +1,32 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
 DIR="$(cd "$(dirname "$0")"/.. && pwd)"
+
+# Prefer a real local config, but keep compatibility with the current repository setup.
+ENV_FILE=""
+if [[ -f "$DIR/config/.env" ]]; then
+  ENV_FILE="$DIR/config/.env"
+elif [[ -f "$DIR/config/.env.example" ]]; then
+  ENV_FILE="$DIR/config/.env.example"
+fi
+
+if [[ -n "$ENV_FILE" ]]; then
+  set -a
+  # shellcheck disable=SC1090
+  source "$ENV_FILE"
+  set +a
+fi
+
+missing=()
+[[ -z "${WORDPRESS_URL:-}" ]] && missing+=(WORDPRESS_URL)
+[[ -z "${WORDPRESS_USERNAME:-}" ]] && missing+=(WORDPRESS_USERNAME)
+[[ -z "${WORDPRESS_APP_PASSWORD:-}" ]] && missing+=(WORDPRESS_APP_PASSWORD)
+
+if (( ${#missing[@]} > 0 )); then
+  printf 'Missing required WordPress configuration: %s\n' "${missing[*]}" >&2
+  printf 'Set them in codex/config/.env or as Codex environment variables.\n' >&2
+  exit 2
+fi
+
 exec bash "$DIR/scripts/wordpress-api.sh" "$@"
