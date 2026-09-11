@@ -67,10 +67,10 @@ $home = static function ($path = '/') {
         <button class="wpds-header__services-toggle" type="button" aria-expanded="false" aria-controls="services-megamenu">
           Услуги <svg aria-hidden="true" viewBox="0 0 16 16"><path d="m3 6 5 5 5-5"/></svg>
         </button>
-        <a href="<?php echo $home('/services/online-store/'); ?>">Интернет-магазины</a>
-        <a href="<?php echo $home('/services/site-improvement/'); ?>">Доработка</a>
+        <a href="<?php echo $home('/services/razrabotka-internet-magazina-na-wordpress-i-woocommerce-pod-vash-biznes/'); ?>">Интернет-магазины</a>
+        <a href="<?php echo $home('/services/dorabotka-sajta-na-wordpress-i-woocommerce-pravki-dorabotka-funkczionala/'); ?>">Доработка</a>
         <a href="<?php echo $home('/cases/'); ?>">Кейсы</a>
-        <a href="<?php echo $home('/services/'); ?>">Цены</a>
+        <a href="<?php echo $home('/prices/'); ?>">Цены</a>
         <a href="<?php echo $home('/about/'); ?>">О студии</a>
       </nav>
 
@@ -90,29 +90,29 @@ $home = static function ($path = '/') {
     <div class="wpds-header__container wpds-mega__grid">
       <section class="wpds-mega__column">
         <h2><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="14" rx="1"/><path d="M8 21h8M12 17v4"/></svg>Разработка</h2>
-        <a href="<?php echo $home('/services/online-store/'); ?>">Интернет-магазины WooCommerce</a>
-        <a href="<?php echo $home('/services/business-card-site/'); ?>">Сайты для бизнеса</a>
-        <a href="<?php echo $home('/services/marketplace/'); ?>">Маркетплейсы</a>
-        <a href="<?php echo $home('/services/wordpress-theme-development/'); ?>">Кастомные темы WordPress</a>
-        <a href="<?php echo $home('/services/wordpress-account-development/'); ?>">Личные кабинеты</a>
+        <a href="<?php echo $home('/services/razrabotka-internet-magazina-na-wordpress-i-woocommerce-pod-vash-biznes/'); ?>">Интернет-магазины WooCommerce</a>
+        <a href="<?php echo $home('/services/razrabotka-sajta-vizitki-kotoryj-vyzyvaet-doverie-i-privodit-zayavki/'); ?>">Сайты для бизнеса</a>
+        <a href="<?php echo $home('/services/razrabotka-marketplejsa-na-wordpress-pod-vashu-biznes-model/'); ?>">Маркетплейсы</a>
+        <a href="<?php echo $home('/services/'); ?>">Кастомные темы WordPress</a>
+        <a href="<?php echo $home('/services/'); ?>">Личные кабинеты</a>
       </section>
       <section class="wpds-mega__column">
         <h2><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V21h-4v-.09A1.7 1.7 0 0 0 9 19.36a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.63 15 1.7 1.7 0 0 0 3.08 14H3v-4h.09A1.7 1.7 0 0 0 4.64 9a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.63h.01A1.7 1.7 0 0 0 10 3.08V3h4v.09A1.7 1.7 0 0 0 15 4.64a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.37 9v.01A1.7 1.7 0 0 0 20.92 10H21v4h-.09A1.7 1.7 0 0 0 19.4 15Z"/></svg>Развитие проекта</h2>
-        <a href="<?php echo $home('/services/site-improvement/'); ?>">Доработка WordPress и WooCommerce</a>
-        <a href="<?php echo $home('/services/wordpress-plugin-development/'); ?>">Разработка плагинов</a>
-        <a href="<?php echo $home('/services/wordpress-api-integration/'); ?>">Интеграции API</a>
-        <a href="<?php echo $home('/services/woocommerce-product-import/'); ?>">Импорт и автоматизация</a>
-        <a href="<?php echo $home('/services/support/'); ?>">Техническая поддержка</a>
-        <a href="<?php echo $home('/services/wordpress-speed-optimization/'); ?>">Аудит и оптимизация</a>
+        <a href="<?php echo $home('/services/dorabotka-sajta-na-wordpress-i-woocommerce-pravki-dorabotka-funkczionala/'); ?>">Доработка WordPress и WooCommerce</a>
+        <a href="<?php echo $home('/uslugi/razrabotka-plaginov-pod-vashi-zadachi/'); ?>">Разработка плагинов</a>
+        <a href="<?php echo $home('/uslugi/eksport-import-tovarov-i-integraczii/'); ?>">Интеграции API</a>
+        <a href="<?php echo $home('/uslugi/eksport-import-tovarov-i-integraczii/'); ?>">Импорт и автоматизация</a>
+        <a href="<?php echo $home('/services/dorabotka-sajta-na-wordpress-i-woocommerce-pravki-dorabotka-funkczionala/'); ?>">Техническая поддержка</a>
+        <a href="<?php echo $home('/services/'); ?>">Аудит и оптимизация</a>
       </section>
       <section class="wpds-mega__column">
         <h2><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M17 3l4 4-4 4M3 7h18M7 21l-4-4 4-4M21 17H3"/></svg>Миграции</h2>
-        <a href="<?php echo $home('/services/bitrix-wordpress/'); ?>">1С-Битрикс → WordPress</a>
-        <a href="<?php echo $home('/services/opencart-wordpress/'); ?>">OpenCart → WordPress</a>
-        <a href="<?php echo $home('/services/joomla-wordpress/'); ?>">Joomla → WordPress</a>
-        <a href="<?php echo $home('/services/tilda-wordpress/'); ?>">Tilda → WordPress</a>
-        <a href="<?php echo $home('/services/shopify-woocommerce/'); ?>">Shopify → WooCommerce</a>
-        <a href="<?php echo $home('/services/drupal-wordpress/'); ?>">Другие платформы</a>
+        <a href="<?php echo $home('/services/'); ?>">1С-Битрикс → WordPress</a>
+        <a href="<?php echo $home('/services/'); ?>">OpenCart → WordPress</a>
+        <a href="<?php echo $home('/services/'); ?>">Joomla → WordPress</a>
+        <a href="<?php echo $home('/services/'); ?>">Tilda → WordPress</a>
+        <a href="<?php echo $home('/services/'); ?>">Shopify → WooCommerce</a>
+        <a href="<?php echo $home('/services/'); ?>">Другие платформы</a>
       </section>
       <aside class="wpds-mega__aside">
         <div class="wpds-mega__help">
@@ -128,8 +128,8 @@ $home = static function ($path = '/') {
   <div class="wpds-mobile" id="wpds-mobile-menu" hidden>
     <nav aria-label="Мобильная навигация">
       <a href="<?php echo $home('/services/'); ?>">Услуги</a>
-      <a href="<?php echo $home('/services/online-store/'); ?>">Интернет-магазины</a>
-      <a href="<?php echo $home('/services/site-improvement/'); ?>">Доработка</a>
+      <a href="<?php echo $home('/services/razrabotka-internet-magazina-na-wordpress-i-woocommerce-pod-vash-biznes/'); ?>">Интернет-магазины</a>
+      <a href="<?php echo $home('/services/dorabotka-sajta-na-wordpress-i-woocommerce-pravki-dorabotka-funkczionala/'); ?>">Доработка</a>
       <a href="<?php echo $home('/cases/'); ?>">Кейсы</a>
       <a href="<?php echo $home('/about/'); ?>">О студии</a>
       <a href="<?php echo $home('/contacts/'); ?>">Контакты</a>
