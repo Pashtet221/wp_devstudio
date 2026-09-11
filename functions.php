@@ -62,6 +62,21 @@ function itb_company_clean_enqueue_assets() {
         itb_company_asset_version('assets/js/header.js'),
         true
     );
+
+    wp_enqueue_style(
+        'wpds-reveal-motion',
+        $theme_uri . '/assets/css/reveal-motion.css',
+        ['itb-company-style'],
+        itb_company_asset_version('assets/css/reveal-motion.css')
+    );
+
+    wp_enqueue_script(
+        'wpds-reveal-motion',
+        $theme_uri . '/assets/js/reveal-motion.js',
+        [],
+        itb_company_asset_version('assets/js/reveal-motion.js'),
+        false
+    );
 }
 
 add_action( 'wp_enqueue_scripts', 'itb_company_clean_enqueue_assets' );
