@@ -27,8 +27,8 @@ $max_url = 'https://max.ru/u/f9LHodD0cOJbdYFRJnINg9bi-nZNK5jaoRGHmt2DikMFZct5kLZ
         <a href="<?php echo esc_url(home_url('/')); ?>"
            class="wpds-footer__logo"
            aria-label="<?php echo esc_attr(get_bloginfo('name')); ?> — на главную">
-          <?php if (function_exists('the_custom_logo') && has_custom_logo()): ?>
-            <?php the_custom_logo(); ?>
+          <?php if (has_custom_logo()): ?>
+            <?php echo wp_get_attachment_image(get_theme_mod('custom_logo'), 'full', false, ['class' => 'wpds-footer__logo-image']); ?>
           <?php else: ?>
             <span class="wpds-footer__logoText"><?php bloginfo('name'); ?></span>
           <?php endif; ?>
@@ -211,6 +211,7 @@ $max_url = 'https://max.ru/u/f9LHodD0cOJbdYFRJnINg9bi-nZNK5jaoRGHmt2DikMFZct5kLZ
   background:#0f1723;
   color:#fff;
   border-top:1px solid rgba(255,255,255,.08);
+  font-family:inherit;
 }
 
 .wpds-footer::before{
@@ -238,16 +239,18 @@ $max_url = 'https://max.ru/u/f9LHodD0cOJbdYFRJnINg9bi-nZNK5jaoRGHmt2DikMFZct5kLZ
 .wpds-footer__logo{
   display:inline-flex;
   align-items:center;
-  max-width:220px;
+  max-width:180px;
   margin-bottom:24px;
 }
 
 .wpds-footer__logo img,
 .wpds-footer__logo .custom-logo{
   display:block;
-  width:210px;
+  width:auto;
   max-width:100%;
+  max-height:58px;
   height:auto;
+  object-fit:contain;
 }
 
 .wpds-footer__logoText{
@@ -685,7 +688,7 @@ $max_url = 'https://max.ru/u/f9LHodD0cOJbdYFRJnINg9bi-nZNK5jaoRGHmt2DikMFZct5kLZ
 @media (max-width:480px){
   .wpds-footer__logo img,
   .wpds-footer__logo .custom-logo{
-    width:190px;
+    max-height:52px;
   }
 
   .wpds-footer__socials a{

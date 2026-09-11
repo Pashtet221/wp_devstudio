@@ -6,3 +6,16 @@ Author: ChatGPT
 Version: 1.0
 Text Domain: itb-company-clean
 */
+
+/* WordPress does not add the generated Next.js font-variable class. */
+:root {
+  --font-golos: "__golos_e2af37";
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-golos), sans-serif;
+}
