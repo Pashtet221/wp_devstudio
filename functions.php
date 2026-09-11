@@ -47,6 +47,21 @@ function itb_company_clean_enqueue_assets() {
         [],
         itb_company_asset_version('style.css')
     );
+
+    wp_enqueue_style(
+        'wpds-header',
+        $theme_uri . '/assets/css/header.css',
+        ['itb-company-style'],
+        itb_company_asset_version('assets/css/header.css')
+    );
+
+    wp_enqueue_script(
+        'wpds-header',
+        $theme_uri . '/assets/js/header.js',
+        [],
+        itb_company_asset_version('assets/js/header.js'),
+        true
+    );
 }
 
 add_action( 'wp_enqueue_scripts', 'itb_company_clean_enqueue_assets' );
