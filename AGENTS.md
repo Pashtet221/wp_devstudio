@@ -34,6 +34,22 @@ codex/scripts/wp update-seo ID payload.json
 codex/scripts/wp audit
 ```
 
+## SEO Agent jobs
+
+SEO-задачи от `wpdevstudio-seo-agent` поступают в `seo-jobs/inbox/`. Перед обработкой прочитай `seo-jobs/README.md`.
+
+Правила маршрутизации:
+
+- `execution_targets=["WORDPRESS_BRIDGE"]` — работай через `codex/scripts/wp`; не меняй файлы темы без отдельного обоснования.
+- если присутствует `CODEX_REPOSITORY` — проверь соответствующие PHP/CSS/JS/template-файлы и подготовь reviewable изменение, но не deploy.
+- `WP_CONTENT`, `SEO_METADATA`, `PAGE_OPTIMIZATION` — сначала прочитай текущий WordPress-объект и SEO-поля, затем проверь близкие страницы на дублирование/каннибализацию.
+- `CONTENT_AND_TEMPLATE_AUDIT` — анализируй одновременно WordPress-контент и шаблон/компоненты темы.
+- `TECHNICAL_HTTP_FIX`, `CANONICAL_REVIEW`, `CRAWLABILITY_FIX` — сначала установи фактическую причину, затем предлагай минимальное безопасное исправление.
+
+Не обходи `execution_policy` из job. Если publish/deploy/destructive/slug/redirect запрещены — только подготовь изменение и результат.
+
+Результат по каждому job сохраняй как `seo-jobs/results/<job_id>.json` по контракту из `seo-jobs/README.md`.
+
 ## Правила безопасности
 
 - Не меняй WordPress Core, WooCommerce Core и сторонние плагины без прямой необходимости.
