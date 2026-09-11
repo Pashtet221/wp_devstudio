@@ -310,6 +310,25 @@ add_action('wp_head', function () {
  * Shortcode: [smart_contact_form]
  */
 
+/**
+ * Return the recipients for lead notifications sent by theme forms.
+ *
+ * The configured recipient remains the primary address, while the studio
+ * mailbox receives a second copy of every lead. Duplicate addresses are
+ * removed in case the configured address is already the studio mailbox.
+ *
+ * @param string $primary Primary recipient configured for the form.
+ * @return string[] Valid, unique recipient addresses.
+ */
+function wpds_get_form_notification_recipients($primary = '') {
+    $recipients = [
+        sanitize_email($primary),
+        'info@wpdevstudio.ru',
+    ];
+
+    return array_values(array_unique(array_filter($recipients, 'is_email')));
+}
+
 /* ===========================
  * 0) ОБЩАЯ ЛОГИКА: валидация + отправка письма
  * =========================== */
@@ -354,7 +373,7 @@ function scf_process_submission($post) {
     }
 
     // recipients
-    $to = get_option('admin_email');
+    $to = wpds_get_form_notification_recipients(get_option('admin_email'));
 
     $type_labels = [
         'phone'    => 'Телефон',
@@ -1675,7 +1694,7 @@ function wpds_contact_submit() {
         wp_send_json_error(['message' => 'Укажите корректный адрес сайта.'], 422);
     }
 
-    $to = get_option('admin_email'); // или 'you@domain.com'
+    $to = wpds_get_form_notification_recipients(get_option('admin_email'));
 
     $subject = 'Заявка с формы консультации (wpdevstudio.ru)';
 
@@ -2648,7 +2667,7 @@ function ds_bottom_form_send(){
   }
 
   // 4) mail
-  $to = get_option('admin_email');
+  $to = wpds_get_form_notification_recipients(get_option('admin_email'));
   $site_name = wp_specialchars_decode(get_bloginfo('name'), ENT_QUOTES);
 
   $subject = 'Новая заявка с формы (BottomForm)';
@@ -2765,7 +2784,7 @@ function wpds_plugin_request_handle() {
 	$message .= 'Сайт клиента: ' . ($website ?: '-') . "\n";
 	$message .= 'Комментарий: ' . ($comment ?: '-') . "\n";
 
-	$sent = wp_mail(get_option('admin_email'), $subject, $message, [
+	$sent = wp_mail(wpds_get_form_notification_recipients(get_option('admin_email')), $subject, $message, [
 		'Content-Type: text/plain; charset=UTF-8',
 		'Reply-To: ' . $name . ' <' . $email . '>',
 	]);
@@ -3273,7 +3292,7 @@ function post_cta_ajax_handler() {
     set_transient($rate_key, 1, 60);
 
     // отправка письма
-    $to = get_option('admin_email');
+    $to = wpds_get_form_notification_recipients(get_option('admin_email'));
     $subject = 'Заявка с сайта: ' . wp_parse_url(home_url(), PHP_URL_HOST);
 
     $body  = "Имя: {$name}\n";
@@ -4775,7 +4794,8 @@ function wpds_home_calculator_process_submission($post) {
 		}
 	}
 
-	$to = is_email($recipient) ? $recipient : get_option('admin_email');
+	$primary_recipient = is_email($recipient) ? $recipient : get_option('admin_email');
+	$to = wpds_get_form_notification_recipients($primary_recipient);
 	$subject = 'Заявка из калькулятора сайта';
 	$referer = wp_get_referer();
 
