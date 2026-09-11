@@ -1,0 +1,64 @@
+{
+  "job_version": "1.0",
+  "job_id": "codex-job-seo-task-wpdevstudio-a06d21c98fa5",
+  "task_id": "seo-task-wpdevstudio-a06d21c98fa5",
+  "site": "wpdevstudio",
+  "domain": "wpdevstudio.ru",
+  "priority": "medium",
+  "action_type": "WP_CONTENT",
+  "target": {
+    "url": "https://wpdevstudio.ru/services/tehnicheskaya-podderzhka-sajta-na-wordpress-i-woocommerce/",
+    "post_id": null,
+    "page_type": "service"
+  },
+  "goal": "Expand the existing service page only where search evidence and the current page state justify substantive additions.",
+  "seo_evidence": {
+    "source": "CONTEXTUAL_AI",
+    "signal": "EXPAND_CONTENT",
+    "query": "техническая поддержка сайтов на woocommerce",
+    "latest_metrics": {
+      "shows": 8.0,
+      "clicks": 0.0,
+      "position": 6.125
+    },
+    "note": "The page is already in search. Treat weekly movement as a signal to inspect content, not as proof that a rewrite is required."
+  },
+  "instructions": [
+    "Run codex/scripts/wp health.",
+    "Find and read the current target service through codex/scripts/wp before proposing changes.",
+    "Read current SEO metadata for the target object.",
+    "Check nearby service pages for duplication/cannibalization before adding content.",
+    "Preserve the existing commercial intent and URL.",
+    "Prefer substantive additions based on real service details, process, constraints, examples, pricing/engagement model or FAQ where justified.",
+    "Do not make a cosmetic rewrite merely to increase word count.",
+    "Prepare a diagnosis and concrete before/after proposal. Do not publish automatically."
+  ],
+  "acceptance_criteria": [
+    "Stay within the approved WP_CONTENT scope.",
+    "Do not change slug, canonical, redirects or template code.",
+    "Use current WordPress data as the source of truth.",
+    "Return NO_CHANGE if no safe substantive improvement is justified.",
+    "Record a verification checklist for later SEO monitoring."
+  ],
+  "execution_targets": [
+    "WORDPRESS_BRIDGE"
+  ],
+  "execution_policy": {
+    "code_changes": "NOT_REQUIRED",
+    "wordpress_changes": "DRAFT_OR_DRY_RUN",
+    "allow_publish": false,
+    "allow_deploy": false,
+    "allow_destructive_changes": false,
+    "allow_slug_change": false,
+    "allow_redirect_without_review": false,
+    "record_before_after": true
+  },
+  "required_output": {
+    "diagnosis": true,
+    "proposed_changes": true,
+    "before_after": true,
+    "risk_notes": true,
+    "verification_checklist": true,
+    "no_change_reason_allowed": true
+  }
+}
