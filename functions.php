@@ -2713,6 +2713,70 @@ add_filter('woocommerce_get_breadcrumb', function ($crumbs) {
   return $crumbs;
 }, 20);
 
+/**
+ * Assets and lead form for the product-as-a-service landing page.
+ */
+add_action('wp_enqueue_scripts', function () {
+	if (!function_exists('is_product') || !is_product()) {
+		return;
+	}
+
+	$theme = wp_get_theme();
+	wp_enqueue_style('wpds-plugin-landing', get_stylesheet_directory_uri() . '/assets/css/plugin-landing.css', [], $theme->get('Version'));
+	wp_enqueue_script('wpds-plugin-landing', get_stylesheet_directory_uri() . '/assets/js/plugin-landing.js', [], $theme->get('Version'), true);
+	wp_localize_script('wpds-plugin-landing', 'wpdsPluginLanding', [
+		'ajaxUrl' => admin_url('admin-ajax.php'),
+	]);
+}, 30);
+
+add_action('wp_ajax_wpds_plugin_request', 'wpds_plugin_request_handle');
+add_action('wp_ajax_nopriv_wpds_plugin_request', 'wpds_plugin_request_handle');
+
+function wpds_plugin_request_handle() {
+	$nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
+	if (!wp_verify_nonce($nonce, 'wpds_plugin_request')) {
+		wp_send_json_error(['message' => 'Страница устарела. Обновите её и попробуйте снова.'], 403);
+	}
+
+	if (!empty($_POST['company'])) {
+		wp_send_json_success(['message' => 'Спасибо! Заявка отправлена.']);
+	}
+
+	$name         = isset($_POST['name']) ? sanitize_text_field(wp_unslash($_POST['name'])) : '';
+	$contact      = isset($_POST['contact']) ? sanitize_text_field(wp_unslash($_POST['contact'])) : '';
+	$email        = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
+	$website      = isset($_POST['website']) ? esc_url_raw(wp_unslash($_POST['website'])) : '';
+	$comment      = isset($_POST['comment']) ? sanitize_textarea_field(wp_unslash($_POST['comment'])) : '';
+	$product_id   = isset($_POST['product_id']) ? absint($_POST['product_id']) : 0;
+	$product_name = $product_id ? get_the_title($product_id) : '';
+	$page_url     = $product_id ? get_permalink($product_id) : '';
+
+	if (!$name || mb_strlen($contact) < 3 || !is_email($email) || 'product' !== get_post_type($product_id)) {
+		wp_send_json_error(['message' => 'Проверьте имя, контакт и email.'], 422);
+	}
+
+	$subject = 'Новая заявка на плагин: ' . $product_name;
+	$message = "Новая заявка на плагин\n\n";
+	$message .= "Плагин: {$product_name}\n";
+	$message .= "Страница: {$page_url}\n";
+	$message .= "Имя: {$name}\n";
+	$message .= "Телефон / Telegram: {$contact}\n";
+	$message .= "Email: {$email}\n";
+	$message .= 'Сайт клиента: ' . ($website ?: '-') . "\n";
+	$message .= 'Комментарий: ' . ($comment ?: '-') . "\n";
+
+	$sent = wp_mail(get_option('admin_email'), $subject, $message, [
+		'Content-Type: text/plain; charset=UTF-8',
+		'Reply-To: ' . $name . ' <' . $email . '>',
+	]);
+
+	if (!$sent) {
+		wp_send_json_error(['message' => 'Не удалось отправить заявку. Напишите мне в мессенджер или попробуйте позже.'], 500);
+	}
+
+	wp_send_json_success(['message' => 'Спасибо! Заявка отправлена. Скоро свяжусь с вами.']);
+}
+
 
 
 
