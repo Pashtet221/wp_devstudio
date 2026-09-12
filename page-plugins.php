@@ -7,7 +7,7 @@ defined('ABSPATH') || exit;
 get_header();
 
 $plugins_query = new WP_Query([
-	'post_type'      => ['plugin', 'product'],
+	'post_type'      => 'product',
 	'post_status'    => 'publish',
 	'posts_per_page' => -1,
 	'orderby'        => 'menu_order',
@@ -46,21 +46,21 @@ $plugins_query = new WP_Query([
 
 					<?php
 					global $product;
-					$is_product = 'product' === get_post_type();
 
-					if ($is_product && (!$product || !$product->is_visible())) {
+					if (!$product || !$product->is_visible()) {
 						continue;
 					}
 
-					$product_id    = $is_product ? $product->get_id() : get_the_ID();
+					$product_id    = $product->get_id();
 					$product_link  = get_permalink($product_id);
 					$product_title = get_the_title($product_id);
 
-					$short_desc = $is_product
-						? apply_filters('woocommerce_short_description', $product->get_short_description())
-						: wpautop(get_the_excerpt($product_id));
+					$short_desc = apply_filters(
+						'woocommerce_short_description',
+						$product->get_short_description()
+					);
 
-					$price_html = $is_product ? $product->get_price_html() : '';
+					$price_html = $product->get_price_html();
 					?>
 
 					<article class="plugin-card">

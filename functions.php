@@ -2765,61 +2765,18 @@ add_filter('woocommerce_get_breadcrumb', function ($crumbs) {
 /**
  * Assets and lead form for the product-as-a-service landing page.
  */
-add_action('init', function () {
-	if (post_type_exists('plugin')) {
-		return;
-	}
-
-	register_post_type('plugin', [
-		'labels' => [
-			'name'          => 'Плагины',
-			'singular_name' => 'Плагин',
-			'add_new_item'  => 'Добавить плагин',
-			'edit_item'     => 'Редактировать плагин',
-		],
-		'public'       => true,
-		'show_in_rest' => true,
-		'has_archive'  => false,
-		'rewrite'      => ['slug' => 'plugin', 'with_front' => false],
-		'menu_icon'    => 'dashicons-admin-plugins',
-		'supports'     => ['title', 'editor', 'excerpt', 'thumbnail', 'revisions'],
-	]);
-});
-
 add_action('wp_enqueue_scripts', function () {
-	$is_plugin_product = function_exists('is_product') && is_product();
-	$is_plugin_page    = is_singular('plugin');
-
-	if (!$is_plugin_product && !$is_plugin_page) {
+	if (!function_exists('is_product') || !is_product()) {
 		return;
 	}
 
 	$theme = wp_get_theme();
 	wp_enqueue_style('wpds-plugin-landing', get_stylesheet_directory_uri() . '/assets/css/plugin-landing.css', [], $theme->get('Version'));
-	if ($is_plugin_product) {
-		wp_enqueue_script('wpds-plugin-landing', get_stylesheet_directory_uri() . '/assets/js/plugin-landing.js', [], $theme->get('Version'), true);
-		wp_localize_script('wpds-plugin-landing', 'wpdsPluginLanding', [
-			'ajaxUrl' => admin_url('admin-ajax.php'),
-		]);
-	}
+	wp_enqueue_script('wpds-plugin-landing', get_stylesheet_directory_uri() . '/assets/js/plugin-landing.js', [], $theme->get('Version'), true);
+	wp_localize_script('wpds-plugin-landing', 'wpdsPluginLanding', [
+		'ajaxUrl' => admin_url('admin-ajax.php'),
+	]);
 }, 30);
-
-/**
- * Use the purpose-built presentation for the SMS notification plugin.
- */
-add_filter('template_include', function ($template) {
-	if (!is_singular('plugin')) {
-		return $template;
-	}
-
-	$post = get_queried_object();
-	if (!$post instanceof WP_Post || 'sms-uvedomleniya-dlya-woocommerce' !== $post->post_name) {
-		return $template;
-	}
-
-	$custom_template = get_stylesheet_directory() . '/plugins/template-plugin-sms-notifications.php';
-	return file_exists($custom_template) ? $custom_template : $template;
-}, 99);
 
 add_action('wp_ajax_wpds_plugin_request', 'wpds_plugin_request_handle');
 add_action('wp_ajax_nopriv_wpds_plugin_request', 'wpds_plugin_request_handle');
