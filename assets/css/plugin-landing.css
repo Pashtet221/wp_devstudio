@@ -95,19 +95,6 @@
 .pluginOrderForm__status.is-success{color:#65dd96}
 .pluginOrderForm.is-sent label,.pluginOrderForm.is-sent button{display:none}
 .pluginLanding~.kworkCartIcon,body.single-product .kworkCartIcon{display:none!important}
-.pluginSmsHero{grid-template-columns:minmax(0,1fr) minmax(260px,340px) 370px}
-.pluginSmsHero .pluginHero__copy{grid-column:1/-1}
-.pluginSmsTags{display:flex;flex-wrap:wrap;gap:9px;margin-top:28px}
-.pluginSmsTags span{padding:8px 12px;border:1px solid var(--pl-line);border-radius:99px;color:#dbe1e8;font-size:13px}
-.pluginSmsPhone{align-self:center;max-width:310px;margin:auto;padding:12px;border:1px solid rgba(255,255,255,.18);border-radius:34px;background:#080c10;box-shadow:0 24px 70px rgba(0,0,0,.4)}
-.pluginSmsPhone__speaker{width:70px;height:5px;margin:2px auto 11px;border-radius:10px;background:#303943}
-.pluginSmsPhone__screen{min-height:360px;padding:34px 20px;border-radius:23px;background:radial-gradient(circle at 80% 5%,rgba(237,43,53,.2),transparent 40%),#121a22}
-.pluginSmsPhone__screen small,.pluginSmsPhone__screen strong,.pluginSmsPhone__screen span{display:block}
-.pluginSmsPhone__screen small{margin-bottom:54px;color:#929dab;font-size:11px}
-.pluginSmsPhone__screen strong{font-size:20px}
-.pluginSmsPhone__screen p{margin:12px 0;padding:16px;border-radius:14px 14px 14px 3px;background:#26323e;color:#edf1f5;line-height:1.65}
-.pluginSmsPhone__screen span{color:#7f8b98;font-size:11px}
-@media(max-width:1100px){.pluginSmsHero{grid-template-columns:minmax(0,1fr) 340px}.pluginSmsHero .pluginHero__copy{grid-column:1/-1}.pluginSmsHero .pluginOrderCard{grid-column:1/-1}}
 @media(max-width:960px){.pluginHero{grid-template-columns:1fr}
 .pluginHero__copy{grid-column:auto}
 .pluginHero__mobileAction{display:flex;align-items:center;gap:20px;margin-top:24px}
@@ -136,5 +123,4 @@
 .pluginModal__dialog{padding:28px 20px}
 .pluginOrderForm{grid-template-columns:1fr}
 .pluginOrderForm label{grid-column:1}
-.pluginSmsHero{grid-template-columns:1fr}.pluginSmsHero .pluginHero__copy,.pluginSmsHero .pluginOrderCard{grid-column:auto}.pluginSmsPhone{width:100%}
 }
