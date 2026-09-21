@@ -81,6 +81,33 @@ function itb_company_clean_enqueue_assets() {
 
 add_action( 'wp_enqueue_scripts', 'itb_company_clean_enqueue_assets' );
 
+/**
+ * Load the isolated assets used by the prices page template.
+ */
+function wpds_prices_enqueue_assets() {
+	if ( ! is_page_template( 'page-prices.php' ) ) {
+		return;
+	}
+
+	$theme_uri = get_template_directory_uri();
+
+	wp_enqueue_style(
+		'wpds-prices',
+		$theme_uri . '/assets/css/prices.css',
+		array( 'itb-company-style', 'wpds-header' ),
+		itb_company_asset_version( 'assets/css/prices.css' )
+	);
+
+	wp_enqueue_script(
+		'wpds-prices',
+		$theme_uri . '/assets/js/prices.js',
+		array(),
+		itb_company_asset_version( 'assets/js/prices.js' ),
+		true
+	);
+}
+add_action( 'wp_enqueue_scripts', 'wpds_prices_enqueue_assets', 20 );
+
 
 
 function itb_company_theme_setup() {
