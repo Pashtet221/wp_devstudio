@@ -149,6 +149,15 @@ add_action('wp_enqueue_scripts', function () {
 add_filter('big_image_size_threshold', '__return_false');
 
 
+/**
+ * Require visitors to sign in before they can submit comments or reviews.
+ *
+ * Filtering the option keeps the restriction consistent for the standard
+ * comment form, WooCommerce reviews, REST API and XML-RPC requests.
+ */
+add_filter('pre_option_comment_registration', '__return_true');
+
+
 
 
 function itb_company_page_has_swiper() {
