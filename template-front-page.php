@@ -1069,6 +1069,7 @@ $calculator_services = $calculator['services'];
                 <!-- ВАЖНО: поля для WordPress AJAX -->
                 <input type="hidden" name="action" value="wpds_contact_submit">
                 <input type="hidden" name="_wpds_nonce" value="<?php echo esc_attr( wp_create_nonce('wpds_contact_submit') ); ?>">
+                <input type="hidden" name="_wpds_time" value="<?php echo esc_attr( wpds_form_time_token('wpds_contact') ); ?>">
 
                 <!-- Honeypot (скрыто от людей) -->
                 <input type="text" name="company" value="" tabindex="-1" autocomplete="off"

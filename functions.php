@@ -386,6 +386,8 @@ function wpds_get_form_notification_recipients($primary = '') {
     return array_values(array_unique(array_filter($recipients, 'is_email')));
 }
 
+require_once get_stylesheet_directory() . '/includes/form-antispam.php';
+
 /* ===========================
  * 0) ОБЩАЯ ЛОГИКА: валидация + отправка письма
  * =========================== */
@@ -1717,16 +1719,38 @@ function wpds_contact_submit() {
         wp_send_json_error(['message' => 'Invalid request.'], 400);
     }
 
+    $form_id = 'wpds_contact';
+    $ip = wpds_form_client_ip();
+    $spam_score = 0;
+
     // Nonce
     $nonce = isset($_POST['_wpds_nonce']) ? sanitize_text_field(wp_unslash($_POST['_wpds_nonce'])) : '';
     if (!$nonce || !wp_verify_nonce($nonce, 'wpds_contact_submit')) {
-        wp_send_json_error(['message' => 'Ошибка безопасности. Обновите страницу и попробуйте снова.'], 403);
+        wpds_form_log_block('invalid_nonce', 100, $ip);
+        wp_send_json_error(['message' => 'Не удалось отправить заявку. Обновите страницу и попробуйте ещё раз.'], 403);
     }
 
     // Honeypot
     $company = isset($_POST['company']) ? trim((string) wp_unslash($_POST['company'])) : '';
     if ($company !== '') {
-        wp_send_json_success(['message' => 'OK']);
+        wpds_form_log_block('honeypot', 100, $ip);
+        wp_send_json_success(['message' => 'Заявка отправлена! Мы свяжемся с вами в ближайшее время.']);
+    }
+
+    $time_token = isset($_POST['_wpds_time']) ? sanitize_text_field(wp_unslash($_POST['_wpds_time'])) : '';
+    $token_age = wpds_form_time_token_age($time_token, $form_id);
+    if (false === $token_age || $token_age < 2) {
+        $spam_score += 50;
+    }
+
+    if ($spam_score >= 50) {
+        wpds_form_log_block('time_trap', $spam_score, $ip);
+        wp_send_json_error(['message' => 'Не удалось отправить заявку. Попробуйте ещё раз.'], 400);
+    }
+
+    if (!wpds_form_rate_limit($form_id, $ip)) {
+        wpds_form_log_block('rate_limit', 100, $ip);
+        wp_send_json_error(['message' => 'Слишком много попыток. Попробуйте немного позже.'], 429);
     }
 
     // Согласие
@@ -1737,18 +1761,24 @@ function wpds_contact_submit() {
 
     // Поля
     $phone   = isset($_POST['phone']) ? sanitize_text_field(wp_unslash($_POST['phone'])) : '';
-    $website = isset($_POST['website']) ? sanitize_text_field(wp_unslash($_POST['website'])) : '';
+    $website = isset($_POST['website']) ? esc_url_raw(wp_unslash($_POST['website'])) : '';
 
-    if ($phone === '') {
-        wp_send_json_error(['message' => 'Введите номер телефона.'], 422);
+    if ($phone === '' || mb_strlen($phone) > 40 || !preg_match('/^[0-9+()\-\s.]{6,40}$/u', $phone)) {
+        wp_send_json_error(['message' => 'Введите корректный номер телефона.'], 422);
     }
 
     // Приведём website к URL (если заполнено)
     if ($website !== '' && !preg_match('~^https?://~i', $website)) {
         $website = 'https://' . $website;
     }
-    if ($website !== '' && !filter_var($website, FILTER_VALIDATE_URL)) {
+    if ($website !== '' && (!filter_var($website, FILTER_VALIDATE_URL) || mb_strlen($website) > 2048)) {
         wp_send_json_error(['message' => 'Укажите корректный адрес сайта.'], 422);
+    }
+
+    $fingerprint = wpds_form_fingerprint($form_id, [$phone, $website]);
+    if (get_transient($fingerprint)) {
+        wpds_form_log_block('duplicate', 30, $ip);
+        wp_send_json_success(['message' => 'Заявка отправлена! Мы свяжемся с вами в ближайшее время.']);
     }
 
     $to = wpds_get_form_notification_recipients(get_option('admin_email'));
@@ -1756,7 +1786,6 @@ function wpds_contact_submit() {
     $subject = 'Заявка с формы консультации (wpdevstudio.ru)';
 
     $referer = isset($_SERVER['HTTP_REFERER']) ? esc_url_raw(wp_unslash($_SERVER['HTTP_REFERER'])) : '—';
-    $ip      = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '—';
 
     $message  = "Новая заявка с сайта:\n\n";
     $message .= "Телефон: {$phone}\n";
@@ -1772,6 +1801,8 @@ function wpds_contact_submit() {
     if (!$sent) {
         wp_send_json_error(['message' => 'Не удалось отправить заявку. Попробуйте позже.'], 500);
     }
+
+    set_transient($fingerprint, 1, 5 * MINUTE_IN_SECONDS);
 
     wp_send_json_success(['message' => 'Заявка отправлена! Мы свяжемся с вами в ближайшее время.']);
 }
