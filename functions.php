@@ -630,6 +630,7 @@ add_shortcode('smart_contact_form', function () {
         .contactField__input::placeholder { color: rgba(255,255,255,.5); }
 
         .scfTask {
+            box-sizing: border-box;
             width: 100%;
             min-height: 132px;
             padding: 16px 20px;
@@ -643,6 +644,12 @@ add_shortcode('smart_contact_form', function () {
         }
         .scfTask::placeholder { color: rgba(255,255,255,.5); }
         .scfTask:focus { outline: 2px solid rgba(255,255,255,.3); outline-offset: 2px; }
+
+        .scfTaskField {
+            display: block;
+            width: 100%;
+            flex: 0 0 100% !important;
+        }
 
         .contactField__dropdown {
             position: absolute;
@@ -982,7 +989,7 @@ add_shortcode('smart_contact_form', function () {
             </div>
         </div>
 
-        <label class="field TariffsWithForm_formField__w5Pz5">
+        <label class="field TariffsWithForm_formField__w5Pz5 scfTaskField">
             <span class="screen-reader-text">Расскажите о задаче</span>
             <textarea class="scfTask" name="task" minlength="20" maxlength="3000" required
                       placeholder="Расскажите о задаче. Например: нужен интернет-магазин на WooCommerce, доработка существующего сайта или новый функционал."></textarea>
