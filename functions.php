@@ -407,9 +407,16 @@ function scf_process_submission($post) {
         return ['ok' => false, 'message' => 'Ошибка безопасности. Обновите страницу и попробуйте снова.'];
     }
 
-    // honeypot
+    // Honeypot: imitate a successful submission so bots do not learn how the trap works.
     if (!empty($post['website'])) {
-        return ['ok' => false, 'message' => 'Spam detected.'];
+        return ['ok' => true, 'message' => 'Заявка отправлена! Я скоро свяжусь с вами.'];
+    }
+
+    $time_token = isset($post['_scf_time']) ? sanitize_text_field(wp_unslash($post['_scf_time'])) : '';
+    $token_age = wpds_form_time_token_age($time_token, 'smart_contact_form');
+    if (false === $token_age || $token_age < 3) {
+        wpds_form_log_block('smart_contact_time_trap', 100, wpds_form_client_ip());
+        return ['ok' => true, 'message' => 'Заявка отправлена! Я скоро свяжусь с вами.'];
     }
 
     // agree
@@ -420,11 +427,16 @@ function scf_process_submission($post) {
     // data
     $name         = isset($post['name']) ? sanitize_text_field(wp_unslash($post['name'])) : '';
     $contact      = isset($post['contact']) ? sanitize_text_field(wp_unslash($post['contact'])) : '';
+    $task         = isset($post['task']) ? sanitize_textarea_field(wp_unslash($post['task'])) : '';
     $contact_type = isset($post['contact_type']) ? sanitize_key(wp_unslash($post['contact_type'])) : 'email';
 
     $allowed_types = ['phone', 'email', 'telegram', 'whatsapp'];
     if (!in_array($contact_type, $allowed_types, true)) {
         $contact_type = 'email';
+    }
+
+    if (mb_strlen($task) < 20) {
+        return ['ok' => false, 'message' => 'Расскажите о задаче подробнее — минимум 20 символов.'];
     }
 
     // validate contact
@@ -460,6 +472,7 @@ function scf_process_submission($post) {
     $message .= "Имя: " . ($name ?: '—') . "\n";
     $message .= "Тип контакта: " . ($type_labels[$contact_type] ?? $contact_type) . "\n";
     $message .= "Контакт: " . ($contact ?: '—') . "\n\n";
+    $message .= "Описание задачи:\n{$task}\n\n";
     $message .= "Страница: " . ($referer ?: '—') . "\n";
     $message .= "IP: " . $ip . "\n";
     $message .= "User-Agent: " . $ua . "\n";
@@ -615,6 +628,21 @@ add_shortcode('smart_contact_form', function () {
         }
 
         .contactField__input::placeholder { color: rgba(255,255,255,.5); }
+
+        .scfTask {
+            width: 100%;
+            min-height: 132px;
+            padding: 16px 20px;
+            border: 2px solid #3d485c;
+            border-radius: 8px;
+            background: transparent;
+            color: #fff;
+            font: inherit;
+            line-height: 1.45;
+            resize: vertical;
+        }
+        .scfTask::placeholder { color: rgba(255,255,255,.5); }
+        .scfTask:focus { outline: 2px solid rgba(255,255,255,.3); outline-offset: 2px; }
 
         .contactField__dropdown {
             position: absolute;
@@ -908,6 +936,7 @@ add_shortcode('smart_contact_form', function () {
 
         <input type="hidden" name="action" value="smart_contact_form_submit">
         <input type="hidden" name="_scf_nonce" value="<?php echo esc_attr(wp_create_nonce('smart_contact_form_submit')); ?>">
+        <input type="hidden" name="_scf_time" value="<?php echo esc_attr(wpds_form_time_token('smart_contact_form')); ?>">
 
         <!-- honeypot -->
         <input type="text" name="website" value="" tabindex="-1" autocomplete="off"
@@ -953,24 +982,26 @@ add_shortcode('smart_contact_form', function () {
             </div>
         </div>
 
+        <label class="field TariffsWithForm_formField__w5Pz5">
+            <span class="screen-reader-text">Расскажите о задаче</span>
+            <textarea class="scfTask" name="task" minlength="20" maxlength="3000" required
+                      placeholder="Расскажите о задаче. Например: нужен интернет-магазин на WooCommerce, доработка существующего сайта или новый функционал."></textarea>
+        </label>
+
         <button class="btnGrey TariffsWithForm_formBtn__rxSJF" type="submit">
             Оставить заявку
         </button>
 
         <div class="TariffsWithForm_formPrivacy__DGmeL">
-            <label class="Agree_label__Ra_Cy Agree_labelDark__FAnOd">
-                <input name="agree" required type="checkbox" value="1" />
+            <label class="Agree_label__Ra_Cy Agree_labelDark__FAnOd form-consent">
+                <input type="checkbox" name="agree" required value="1">
                 <div class="Agree_checkbox__a6Zei"></div>
-                <label class="form-consent">
-  <input type="checkbox" name="consent" required>
-  <span>
-    Я даю согласие на обработку моих персональных данных и подтверждаю, что ознакомлен(а) с
-    <a href="/privacy" target="_blank" rel="noopener">Политикой конфиденциальности</a>
-    и
-    <a href="/user-agreement" target="_blank" rel="noopener">Пользовательским соглашением</a>.
-  </span>
-</label>
-
+                <span>
+                    Я даю согласие на обработку моих персональных данных и подтверждаю, что ознакомлен(а) с
+                    <a href="/privacy" target="_blank" rel="noopener">Политикой конфиденциальности</a>
+                    и
+                    <a href="/user-agreement" target="_blank" rel="noopener">Пользовательским соглашением</a>.
+                </span>
             </label>
         </div>
     </form>
@@ -4850,11 +4881,19 @@ function wpds_home_calculator_process_submission($post) {
 	}
 
 	if (!empty($post['company_site'])) {
-		return ['ok' => false, 'message' => 'Заявка не отправлена.'];
+		return ['ok' => true, 'message' => 'Заявка отправлена! Я свяжусь с вами и уточню детали проекта.'];
+	}
+
+	$time_token = isset($post['_wpds_calc_time']) ? sanitize_text_field(wp_unslash($post['_wpds_calc_time'])) : '';
+	$token_age = wpds_form_time_token_age($time_token, 'wpds_home_calculator');
+	if (false === $token_age || $token_age < 3) {
+		wpds_form_log_block('home_calculator_time_trap', 100, wpds_form_client_ip());
+		return ['ok' => true, 'message' => 'Заявка отправлена! Я свяжусь с вами и уточню детали проекта.'];
 	}
 
 	$name = isset($post['calc_name']) ? sanitize_text_field(wp_unslash($post['calc_name'])) : '';
 	$phone = isset($post['calc_phone']) ? sanitize_text_field(wp_unslash($post['calc_phone'])) : '';
+	$task = isset($post['calc_task']) ? sanitize_textarea_field(wp_unslash($post['calc_task'])) : '';
 	$payload_raw = isset($post['calc_payload']) ? wp_unslash($post['calc_payload']) : '';
 	$post_id = isset($post['calc_post_id']) ? absint($post['calc_post_id']) : 0;
 	$calculator_content = wpds_home_calculator_get_content($post_id);
@@ -4866,6 +4905,14 @@ function wpds_home_calculator_process_submission($post) {
 
 	if ($phone === '' || mb_strlen($phone) < 5) {
 		return ['ok' => false, 'message' => 'Введите номер телефона.'];
+	}
+
+	if (mb_strlen($task) < 20) {
+		return ['ok' => false, 'message' => 'Расскажите о задаче подробнее — минимум 20 символов.'];
+	}
+
+	if (empty($post['calc_agree'])) {
+		return ['ok' => false, 'message' => 'Нужно дать согласие на обработку данных.'];
 	}
 
 	$payload = json_decode($payload_raw, true);
@@ -4899,6 +4946,7 @@ function wpds_home_calculator_process_submission($post) {
 	$message = "Поступила заявка из калькулятора:\n\n";
 	$message .= "Имя: {$name}\n";
 	$message .= "Телефон: {$phone}\n\n";
+	$message .= "Описание задачи:\n{$task}\n\n";
 	$message .= "Тип сайта: {$service_title}\n";
 	$message .= "Базовая стоимость: " . number_format_i18n($base_price, 0) . " ₽\n";
 	$message .= "Выбранные услуги:\n";
