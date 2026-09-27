@@ -446,6 +446,12 @@ function scf_process_submission($post) {
             return ['ok' => false, 'message' => 'Некорректный e-mail.'];
         }
         $contact = $email;
+    } elseif ($contact_type === 'phone') {
+        $phone_digits = preg_replace('/\D+/', '', $contact);
+
+        if (!preg_match('/^[0-9+()\-\s.]+$/u', $contact) || strlen($phone_digits) < 10 || strlen($phone_digits) > 15) {
+            return ['ok' => false, 'message' => 'Введите корректный номер телефона.'];
+        }
     } else {
         if (mb_strlen($contact) < 3) {
             return ['ok' => false, 'message' => 'Контакт слишком короткий.'];
