@@ -320,28 +320,34 @@ if (!function_exists('wpds_case_terms')) {
 				<p>Оставьте нам заявку и наш менеджер свяжется с вами для обсуждения</p>
 			</div>
 
-			<form class="wpds-case-cta__form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+			<form class="wpds-case-cta__form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" data-ajax-url="<?php echo esc_url(admin_url('admin-ajax.php')); ?>" novalidate>
 				<input type="hidden" name="action" value="smart_contact_form_submit">
 				<input type="hidden" name="_scf_nonce" value="<?php echo esc_attr(wp_create_nonce('smart_contact_form_submit')); ?>">
+				<input type="hidden" name="_scf_time" value="<?php echo esc_attr(wpds_form_time_token('smart_contact_form')); ?>">
+				<input type="hidden" name="contact_type" value="phone">
+				<input type="hidden" name="task" value="<?php echo esc_attr(sprintf('Заявка со страницы кейса «%s»', get_the_title($post_id))); ?>">
 				<input type="text" name="website" value="" tabindex="-1" autocomplete="off" aria-hidden="true" class="wpds-case-cta__hp">
 
 				<label class="wpds-case-cta__field">
-					<span class="screen-reader-text">Ваше имя</span>
-					<input type="text" name="name" placeholder="Ваше имя *" autocomplete="name" required>
+					<span class="wpds-case-cta__label">Ваше имя</span>
+					<input type="text" name="name" placeholder="Как к вам обращаться" autocomplete="name" required>
 				</label>
 
 				<label class="wpds-case-cta__field wpds-case-cta__field--phone">
-					<span class="wpds-case-cta__country" aria-hidden="true">🇧🇾⌄</span>
-					<span class="screen-reader-text">Ваш номер</span>
-					<input type="tel" name="contact" placeholder="Ваш номер *" autocomplete="tel" required>
+					<span class="wpds-case-cta__label">Номер телефона</span>
+					<input type="tel" name="contact" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" maxlength="18" aria-describedby="wpds-case-phone-hint" required>
+					<span class="wpds-case-cta__hint" id="wpds-case-phone-hint">Только цифры — форматирование добавится автоматически</span>
 				</label>
 
-				<button class="wpds-case-cta__submit" type="submit">Отправить</button>
+				<button class="wpds-case-cta__submit" type="submit"><span>Обсудить проект</span><span aria-hidden="true">→</span></button>
 
 				<label class="wpds-case-cta__agree">
-					<input type="checkbox" checked required>
-					<span>Даю согласие на <a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>">обработку персональных данных</a></span>
+					<input type="checkbox" name="agree" value="1" required>
+					<span class="wpds-case-cta__check" aria-hidden="true"></span>
+					<span>Согласен на <a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>">обработку персональных данных</a></span>
 				</label>
+
+				<div class="wpds-case-cta__notice" role="status" aria-live="polite"></div>
 			</form>
 		</div>
 	</section>
@@ -800,15 +806,28 @@ if (!function_exists('wpds_case_terms')) {
 .wpds-case-cta__text, .wpds-case-cta__form { position: relative; z-index: 1; }
 .wpds-case-cta__text h2 { margin: 0 0 16px; font-size: clamp(26px, 2.2vw, 36px); line-height: 1.15; font-weight: 800; }
 .wpds-case-cta__text p { max-width: 440px; margin: 0; font-size: 16px; line-height: 1.65; }
-.wpds-case-cta__form { display: grid; grid-template-columns: minmax(190px, 1fr) minmax(190px, 1fr) minmax(140px, .56fr); gap: 14px; align-items: center; }
+.wpds-case-cta__form { display: grid; grid-template-columns: minmax(190px, 1fr) minmax(190px, 1fr) minmax(170px, .62fr); gap: 12px; align-items: end; }
 .wpds-case-cta__hp { position: absolute !important; left: -9999px; opacity: 0; width: 1px; height: 1px; }
-.wpds-case-cta__field { display: flex; align-items: center; min-height: 54px; border-radius: 999px; background: #fff; color: #061b34; overflow: hidden; }
-.wpds-case-cta__field input { width: 100%; border: 0; outline: 0; padding: 0 22px; background: transparent; color: #061b34; font-size: 15px; }
-.wpds-case-cta__country { align-self: stretch; display: inline-flex; align-items: center; justify-content: center; min-width: 84px; border-radius: 999px; background: #f1f5fa; color: #6b7280; font-size: 16px; }
-.wpds-case-cta__submit { min-height: 54px; border: 0; border-radius: 999px; background: #fff; color: #2d55d8; font-size: 16px; font-weight: 800; cursor: pointer; }
-.wpds-case-cta__agree { grid-column: 1 / 3; display: flex; align-items: center; gap: 10px; margin-top: 0; color: rgba(255,255,255,.92); font-size: 13px; line-height: 1.35; }
-.wpds-case-cta__agree input { width: 18px; height: 18px; accent-color: #fff; }
+.wpds-case-cta__field { position: relative; display: flex; flex-direction: column; justify-content: center; min-height: 66px; padding: 10px 18px 9px; border: 1px solid rgba(255,255,255,.42); border-radius: 12px; background: rgba(255,255,255,.96); color: #061b34; transition: border-color .2s ease, box-shadow .2s ease; }
+.wpds-case-cta__field:focus-within { border-color: #fff; box-shadow: 0 0 0 3px rgba(255,255,255,.2); }
+.wpds-case-cta__label { color: #66738e; font-size: 11px; line-height: 1.2; font-weight: 700; }
+.wpds-case-cta__field input { width: 100%; min-width: 0; border: 0; outline: 0; padding: 4px 0 0; background: transparent; color: #061b34; font: inherit; font-size: 15px; font-weight: 650; }
+.wpds-case-cta__field input::placeholder { color: #8b95a8; opacity: 1; font-weight: 500; }
+.wpds-case-cta__hint { position: absolute; top: calc(100% + 5px); left: 4px; display: none; color: rgba(255,255,255,.85); font-size: 11px; white-space: nowrap; }
+.wpds-case-cta__field--phone:focus-within .wpds-case-cta__hint { display: block; }
+.wpds-case-cta__submit { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 66px; padding: 0 20px; border: 0; border-radius: 12px; background: #fff; color: #214ed2; font-size: 15px; font-weight: 800; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease; }
+.wpds-case-cta__submit:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(5,25,78,.22); }
+.wpds-case-cta__submit:disabled { opacity: .65; cursor: wait; transform: none; }
+.wpds-case-cta__agree { grid-column: 1 / 3; position: relative; display: flex; align-items: flex-start; gap: 9px; margin-top: 5px; color: rgba(255,255,255,.92); font-size: 13px; line-height: 1.4; cursor: pointer; }
+.wpds-case-cta__agree input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.wpds-case-cta__check { display: inline-flex; flex: 0 0 20px; width: 20px; height: 20px; align-items: center; justify-content: center; border: 1.5px solid rgba(255,255,255,.8); border-radius: 6px; background: rgba(255,255,255,.12); transition: background .2s ease, border-color .2s ease; }
+.wpds-case-cta__agree input:checked + .wpds-case-cta__check { border-color: #fff; background: #fff; }
+.wpds-case-cta__agree input:checked + .wpds-case-cta__check:after { content: ""; width: 9px; height: 5px; margin-top: -2px; border: solid #2854d8; border-width: 0 0 2px 2px; transform: rotate(-45deg); }
+.wpds-case-cta__agree input:focus-visible + .wpds-case-cta__check { outline: 3px solid rgba(255,255,255,.35); outline-offset: 2px; }
 .wpds-case-cta__agree a { color: inherit; text-underline-offset: 3px; }
+.wpds-case-cta__notice { grid-column: 1 / -1; min-height: 20px; color: #fff; font-size: 13px; font-weight: 650; }
+.wpds-case-cta__notice:empty { display: none; }
+.wpds-case-cta__notice.is-error { color: #ffe1e1; }
 .wpds-case-related { padding: 0 0 80px; }
 .wpds-case-related__top { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
 .wpds-case-related__top h2 { margin: 0; color: #061b34; font-size: 24px; line-height: 1.25; letter-spacing: -0.01em; }
@@ -980,10 +999,6 @@ if (!function_exists('wpds_case_terms')) {
 		font-size: 15px;
 	}
 
-	.wpds-case-cta__country {
-		min-width: 92px;
-	}
-
 	.wpds-case-related__top h2 {
 		font-size: 24px;
 	}
@@ -1085,6 +1100,66 @@ if (!function_exists('wpds_case_terms')) {
 
 <script>
 (function () {
+	var form = document.querySelector('.wpds-case-cta__form');
+
+	if (form) {
+		var phone = form.querySelector('input[name="contact"]');
+		var notice = form.querySelector('.wpds-case-cta__notice');
+		var submit = form.querySelector('[type="submit"]');
+
+		var formatPhone = function (value) {
+			var digits = value.replace(/\D/g, '');
+			if (digits.charAt(0) === '8') digits = '7' + digits.slice(1);
+			if (digits.charAt(0) !== '7') digits = '7' + digits;
+			digits = digits.slice(0, 11);
+			var result = '+7';
+			if (digits.length > 1) result += ' (' + digits.slice(1, 4);
+			if (digits.length >= 4) result += ') ' + digits.slice(4, 7);
+			if (digits.length >= 7) result += '-' + digits.slice(7, 9);
+			if (digits.length >= 9) result += '-' + digits.slice(9, 11);
+			return result;
+		};
+
+		phone.addEventListener('focus', function () {
+			if (!phone.value) phone.value = '+7';
+		});
+		phone.addEventListener('input', function () {
+			phone.value = formatPhone(phone.value);
+			phone.setCustomValidity('');
+		});
+		phone.addEventListener('keydown', function (event) {
+			if (event.key.length === 1 && !/\d/.test(event.key)) event.preventDefault();
+		});
+
+		form.addEventListener('submit', function (event) {
+			var phoneDigits = phone.value.replace(/\D/g, '');
+			phone.setCustomValidity(phoneDigits.length === 11 ? '' : 'Введите номер телефона полностью.');
+			if (!form.checkValidity()) {
+				event.preventDefault();
+				form.reportValidity();
+				return;
+			}
+
+			event.preventDefault();
+			notice.classList.remove('is-error');
+			notice.textContent = 'Отправляем заявку…';
+			submit.disabled = true;
+
+			fetch(form.dataset.ajaxUrl, { method: 'POST', body: new FormData(form), credentials: 'same-origin' })
+				.then(function (response) { return response.json(); })
+				.then(function (data) {
+					if (!data.success) throw new Error(data.data && data.data.message ? data.data.message : 'Не удалось отправить заявку.');
+					notice.textContent = data.data.message;
+					form.reset();
+				})
+				.catch(function (error) {
+					notice.classList.add('is-error');
+					notice.textContent = error.message || 'Ошибка сети. Попробуйте ещё раз.';
+				})
+				.finally(function () { submit.disabled = false; });
+		});
+	}
+
 	document.addEventListener('click', function (event) {
 		var button = event.target.closest('[data-wpds-related-prev], [data-wpds-related-next]');
 
