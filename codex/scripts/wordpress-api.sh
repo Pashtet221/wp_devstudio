@@ -131,6 +131,11 @@ case "${1:-help}" in
     script_dir="$(cd "$(dirname "$0")" && pwd)"
     exec node "$script_dir/capture-media.mjs" "$@"
     ;;
+  case-capture)
+    require_arg manifest "${2:-}"
+    script_dir="$(cd "$(dirname "$0")" && pwd)"
+    exec node "$script_dir/../screenshots/capture-case.mjs" "$2"
+    ;;
   scan-links) curl_api -X POST "$API/links/scan" ;;
   replace-links)
     require_arg payload "${2:-}"
@@ -159,6 +164,7 @@ Write:
   media-sideload PAYLOAD.json
   thumbnail POST_ID ATTACHMENT_ID
   capture URL NAME [capture options]
+  case-capture MANIFEST.json
   scan-links
   replace-links PAYLOAD.json
 
