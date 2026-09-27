@@ -1,0 +1,5 @@
+# Local Codex / WordPress credentials
+codex/config/.env
+
+# Local OS/editor noise
+.DS_Store
