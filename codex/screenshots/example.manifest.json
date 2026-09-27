@@ -1,0 +1,39 @@
+{
+  "case_title": "Название проекта",
+  "post_id": 123,
+  "output": "/tmp/case-screenshots.json",
+  "items": [
+    {
+      "section": "Главная страница",
+      "url": "https://example.com/",
+      "filename": "example-home",
+      "alt": "Главная страница проекта Example",
+      "title": "Главная страница Example",
+      "full_page": true
+    },
+    {
+      "section": "Каталог",
+      "url": "https://example.com/catalog/",
+      "filename": "example-catalog",
+      "alt": "Каталог интернет-магазина Example",
+      "title": "Каталог Example",
+      "full_page": true
+    },
+    {
+      "section": "Карточка товара",
+      "url": "https://example.com/product/example-product/",
+      "selector": ".product",
+      "filename": "example-product-card",
+      "alt": "Карточка товара Example",
+      "title": "Карточка товара Example",
+      "note": "Использовать после раздела о карточке товара"
+    },
+    {
+      "section": "Мобильная версия",
+      "url": "https://example.com/",
+      "filename": "example-home-mobile",
+      "alt": "Мобильная версия главной страницы Example",
+      "mobile": true
+    }
+  ]
+}
