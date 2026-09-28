@@ -2,6 +2,7 @@
     'use strict';
 
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealFallbackDelay = 4000;
     var sectionSelector = 'section';
     var groupSelector = [
         '[class*="__grid"]',
@@ -81,6 +82,17 @@
         elements.forEach(function (element) {
             observer.observe(element);
         });
+
+        // Do not leave content hidden if the first observer callback is delayed
+        // by slow images, main-thread work, or a restored background tab.
+        window.setTimeout(function () {
+            elements.forEach(function (element) {
+                if (!element.classList.contains('is-visible')) {
+                    element.classList.add('is-visible');
+                    observer.unobserve(element);
+                }
+            });
+        }, revealFallbackDelay);
     }
 
     document.documentElement.classList.add('wpds-motion-ready');
