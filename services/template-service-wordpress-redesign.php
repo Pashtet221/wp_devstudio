@@ -7,7 +7,7 @@ defined('ABSPATH') || exit;
 
 $contact_url = home_url('/contacts/');
 $cases_url   = home_url('/cases/');
-$figma_url   = 'https://www.figma.com/design/';
+$figma_url   = 'https://www.figma.com/design/jNnqSXNfEFU1bmYvcjmbwZ/%D0%93%D0%BB%D0%B0%D0%B2%D0%BF%D0%B8%D1%80%D0%BE%D0%B3?node-id=3-2&t=xJtElEOtn0Y5dGzM-1';
 $before_image_id = 1255;
 $after_image_id  = 1254;
 $faq = [
