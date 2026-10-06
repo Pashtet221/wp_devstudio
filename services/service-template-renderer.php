@@ -60,6 +60,12 @@ if (!function_exists('wpds_render_service_template')) {
 					<p class="wpds-service-lite__lead">Опишите задачу, пришлите ссылку на сайт и желаемый результат — подготовлю план работ и оценку реализации.</p>
 					<p style="margin-top:20px"><a class="wpds-service-lite__btn" href="/contacts/">Получить консультацию</a></p>
 				</section>
+
+				<section class="wpds-service-lite__section" aria-label="Релевантные материалы">
+					<?php echo do_shortcode('[gl_related_cases_slider]'); ?>
+					<?php echo do_shortcode('[gl_related_services_slider]'); ?>
+					<?php echo do_shortcode('[gl_related_blog_slider]'); ?>
+				</section>
 			</div>
 		</main>
 		<?php
