@@ -4,769 +4,136 @@ Template Name: Услуга — Разработка интернет-магаз
 Template Post Type: service
 */
 defined('ABSPATH') || exit;
-
+wp_enqueue_style('wpds-online-store', get_template_directory_uri() . '/assets/css/online-store.css', [], filemtime(dirname(__DIR__) . '/assets/css/online-store.css'));
 get_header();
-?>
 
-<style>
-	:root {
-		--srv-bg: #f6faf7;
-		--srv-surface: rgba(255, 255, 255, 0.94);
-		--srv-heading: var(--gl-color-heading, #1A1A1A);
-		--srv-text: var(--gl-color-text, #2B2B2B);
-		--srv-subtitle: var(--gl-color-subtitle, #6B7280);
-		--srv-helper: var(--gl-color-helper, #9CA3AF);
-		--srv-line: #e4ece6;
-		--srv-accent: var(--gl-color-accent, #2cbc63);
-		--srv-accent-2: var(--gl-color-accent-2, #1ea751);
-		--srv-radius-xl: 30px;
-		--srv-radius-lg: 24px;
-		--srv-radius-md: 18px;
-		--srv-shadow: 0 18px 50px rgba(16, 24, 40, 0.06);
-		--srv-shadow-soft: 0 10px 30px rgba(16, 24, 40, 0.05);
-		--srv-container: 1280px;
-	}
-
-	.gl-service-page {
-		padding: 0 0 88px;
-		background:
-			radial-gradient(circle at top left, rgba(44, 188, 99, 0.08), transparent 26%),
-			linear-gradient(180deg, #f8fbf9 0%, #f4f7f5 100%);
-		color: var(--srv-text);
-	}
-
-	.gl-service-container {
-		max-width: var(--srv-container);
-		margin: 0 auto;
-		padding: 0 20px;
-	}
-
-	.gl-service-hero {
-		padding: 56px 0 28px;
-	}
-
-	.gl-service-hero__grid {
-		display: grid;
-		grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
-		gap: 24px;
-		align-items: stretch;
-	}
-
-	.gl-service-hero__main,
-	.gl-service-hero__side {
-		background: var(--srv-surface);
-		border: 1px solid var(--srv-line);
-		border-radius: var(--srv-radius-xl);
-		box-shadow: var(--srv-shadow);
-	}
-
-	.gl-service-hero__main {
-		padding: 38px;
-	}
-
-	.gl-service-hero__side {
-		padding: 28px;
-		display: flex;
-		flex-direction: column;
-		gap: 18px;
-	}
-
-	.gl-service-pill {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 34px;
-		padding: 0 14px;
-		border-radius: 999px;
-		background: rgba(44, 188, 99, 0.10);
-		color: var(--srv-accent-2);
-		font-size: 13px;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-		margin-bottom: 16px;
-	}
-
-	.gl-service-title {
-		margin: 0 0 16px;
-		font-size: clamp(34px, 5vw, 58px);
-		line-height: 1.02;
-		letter-spacing: -0.03em;
-		color: var(--srv-heading);
-	}
-
-	.gl-service-subtitle {
-		margin: 0 0 22px;
-		max-width: 760px;
-		font-size: 18px;
-		line-height: 1.75;
-		color: var(--srv-subtitle);
-	}
-
-	.gl-service-points {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 12px;
-		margin: 0 0 26px;
-		padding: 0;
-		list-style: none;
-	}
-
-	.gl-service-points li {
-		display: flex;
-		align-items: flex-start;
-		gap: 10px;
-		padding: 14px 16px;
-		background: #fff;
-		border: 1px solid #e9efeb;
-		border-radius: 16px;
-		box-shadow: var(--srv-shadow-soft);
-		font-size: 15px;
-		line-height: 1.55;
-	}
-
-	.gl-service-points li::before {
-		content: "";
-		flex: 0 0 10px;
-		width: 10px;
-		height: 10px;
-		margin-top: 7px;
-		border-radius: 50%;
-		background: var(--srv-accent);
-	}
-
-	.gl-service-actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 14px;
-	}
-
-	.gl-service-btn {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 48px;
-		padding: 0 20px;
-		border-radius: 12px;
-		font-size: 15px;
-		font-weight: 600;
-		line-height: 1;
-		text-decoration: none;
-		transition: .2s ease;
-	}
-
-	.gl-service-btn--primary {
-		background: var(--srv-accent);
-		color: #fff;
-		box-shadow: 0 14px 30px rgba(44, 188, 99, 0.20);
-	}
-
-	.gl-service-btn--primary:hover {
-		background: var(--srv-accent-2);
-		color: #fff;
-		transform: translateY(-1px);
-	}
-
-	.gl-service-btn--secondary {
-		background: transparent;
-		border: 1px solid var(--srv-accent);
-		color: var(--srv-accent);
-	}
-
-	.gl-service-btn--secondary:hover {
-		background: var(--srv-accent);
-		color: #fff;
-		transform: translateY(-1px);
-	}
-
-	.gl-service-side__label {
-		margin: 0;
-		font-size: 13px;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-		color: var(--srv-helper);
-	}
-
-	.gl-service-side__price {
-		margin: 0;
-		font-size: 34px;
-		line-height: 1.05;
-		font-weight: 800;
-		color: var(--srv-heading);
-	}
-
-	.gl-service-side__text {
-		margin: 0;
-		font-size: 15px;
-		line-height: 1.7;
-		color: var(--srv-subtitle);
-	}
-
-	.gl-service-side__list {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		display: grid;
-		gap: 10px;
-	}
-
-	.gl-service-side__list li {
-		padding: 13px 14px;
-		background: #f8fbf9;
-		border: 1px solid #e8efea;
-		border-radius: 14px;
-		font-size: 14px;
-		line-height: 1.55;
-	}
-
-	.gl-service-section {
-		padding: 26px 0;
-	}
-
-	.gl-service-head {
-		max-width: 820px;
-		margin: 0 0 24px;
-	}
-
-	.gl-service-head__eyebrow {
-		display: inline-flex;
-		align-items: center;
-		min-height: 32px;
-		padding: 0 12px;
-		margin-bottom: 14px;
-		border-radius: 999px;
-		background: rgba(44, 188, 99, 0.10);
-		color: var(--srv-accent-2);
-		font-size: 12px;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-	}
-
-	.gl-service-head h2 {
-		margin: 0 0 12px;
-		font-size: clamp(28px, 4vw, 42px);
-		line-height: 1.1;
-		letter-spacing: -0.02em;
-		color: var(--srv-heading);
-	}
-
-	.gl-service-head p {
-		margin: 0;
-		font-size: 17px;
-		line-height: 1.75;
-		color: var(--srv-subtitle);
-	}
-
-	.gl-service-grid-3 {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 22px;
-	}
-
-	.gl-service-grid-2 {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 22px;
-	}
-
-	.gl-service-card {
-		padding: 28px;
-		background: var(--srv-surface);
-		border: 1px solid var(--srv-line);
-		border-radius: var(--srv-radius-lg);
-		box-shadow: var(--srv-shadow-soft);
-	}
-
-	.gl-service-card h3 {
-		margin: 0 0 12px;
-		font-size: 22px;
-		line-height: 1.2;
-		color: var(--srv-heading);
-	}
-
-	.gl-service-card p {
-		margin: 0;
-		font-size: 15px;
-		line-height: 1.75;
-		color: var(--srv-subtitle);
-	}
-
-	.gl-service-list {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		display: grid;
-		gap: 12px;
-	}
-
-	.gl-service-list li {
-		position: relative;
-		padding-left: 22px;
-		font-size: 15px;
-		line-height: 1.75;
-		color: var(--srv-text);
-	}
-
-	.gl-service-list li::before {
-		content: "";
-		position: absolute;
-		top: 11px;
-		left: 0;
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background: var(--srv-accent);
-	}
-
-	.gl-service-steps {
-		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-		gap: 18px;
-	}
-
-	.gl-service-step {
-		padding: 24px;
-		background: #fff;
-		border: 1px solid #e7eee9;
-		border-radius: 22px;
-		box-shadow: var(--srv-shadow-soft);
-	}
-
-	.gl-service-step__num {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 42px;
-		height: 42px;
-		margin-bottom: 16px;
-		border-radius: 12px;
-		background: #ecfdf3;
-		color: var(--srv-accent-2);
-		font-size: 16px;
-		font-weight: 800;
-	}
-
-	.gl-service-step h3 {
-		margin: 0 0 10px;
-		font-size: 18px;
-		line-height: 1.25;
-		color: var(--srv-heading);
-	}
-
-	.gl-service-step p {
-		margin: 0;
-		font-size: 15px;
-		line-height: 1.7;
-		color: var(--srv-subtitle);
-	}
-
-	.gl-service-faq {
-		display: grid;
-		gap: 16px;
-	}
-
-	.gl-service-faq__item {
-		padding: 24px 26px;
-		background: var(--srv-surface);
-		border: 1px solid var(--srv-line);
-		border-radius: 22px;
-		box-shadow: var(--srv-shadow-soft);
-	}
-
-	.gl-service-faq__item h3 {
-		margin: 0 0 10px;
-		font-size: 19px;
-		line-height: 1.3;
-		color: var(--srv-heading);
-	}
-
-	.gl-service-faq__item p {
-		margin: 0;
-		font-size: 15px;
-		line-height: 1.75;
-		color: var(--srv-subtitle);
-	}
-
-	.gl-service-cta {
-		padding: 34px 0 0;
-	}
-
-	.gl-service-cta__box {
-		padding: 36px;
-		background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
-		border-radius: 30px;
-		box-shadow: 0 24px 60px rgba(17, 24, 39, 0.16);
-	}
-
-	.gl-service-cta__box h2 {
-		margin: 0 0 12px;
-		font-size: clamp(28px, 4vw, 40px);
-		line-height: 1.1;
-		color: #fff;
-		letter-spacing: -0.02em;
-	}
-
-	.gl-service-cta__box p {
-		margin: 0 0 22px;
-		max-width: 780px;
-		font-size: 17px;
-		line-height: 1.75;
-		color: rgba(255,255,255,0.78);
-	}
-
-	@media (max-width: 1100px) {
-		.gl-service-hero__grid,
-		.gl-service-grid-3,
-		.gl-service-steps {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-	}
-
-	@media (max-width: 767px) {
-		.gl-service-page {
-			padding-bottom: 64px;
-		}
-
-		.gl-service-hero {
-			padding-top: 38px;
-		}
-
-		.gl-service-hero__grid,
-		.gl-service-grid-3,
-		.gl-service-grid-2,
-		.gl-service-steps,
-		.gl-service-points {
-			grid-template-columns: 1fr;
-		}
-
-		.gl-service-hero__main,
-		.gl-service-hero__side,
-		.gl-service-card,
-		.gl-service-faq__item,
-		.gl-service-cta__box {
-			padding: 24px;
-		}
-
-		.gl-service-actions {
-			flex-direction: column;
-		}
-
-		.gl-service-btn {
-			width: 100%;
-		}
-	}
-</style>
-
-<main class="gl-service-page">
-	<section class="gl-service-hero">
-		<div class="gl-service-container">
-			<div class="gl-service-hero__grid">
-				<div class="gl-service-hero__main">
-					<div class="gl-service-pill">Интернет-магазины WooCommerce</div>
-					<h1 class="gl-service-title"><?php the_title(); ?></h1>
-					<p class="gl-service-subtitle">
-						Разработка интернет-магазина на WordPress и WooCommerce с удобным каталогом, понятной карточкой товара,
-						оформлением заказа и продуманной структурой под продажи. Делаю не просто сайт, а магазин,
-						который удобно развивать и дорабатывать под ваш бизнес.
-					</p>
-
-					<ul class="gl-service-points">
-						<li>Разработка магазина с нуля под ваш каталог и сценарий продаж</li>
-						<li>Удобная карточка товара, корзина и checkout без перегруза</li>
-						<li>Категории, фильтры, поиск, личный кабинет и базовая SEO-структура</li>
-						<li>Готовность к дальнейшим доработкам, интеграциям и росту проекта</li>
-					</ul>
-
-					<div class="gl-service-actions">
-						<a class="gl-service-btn gl-service-btn--primary" href="/contacts/">Обсудить интернет-магазин</a>
-						<a class="gl-service-btn gl-service-btn--secondary" href="#service-faq">Частые вопросы</a>
-					</div>
-				</div>
-
-				<div class="gl-service-hero__side">
-					<p class="gl-service-side__label">Стоимость</p>
-					<p class="gl-service-side__price">от 120 000 ₽</p>
-					<p class="gl-service-side__text">
-						Итоговая стоимость зависит от объема каталога, сложности дизайна, количества страниц,
-						функционала WooCommerce и необходимых интеграций.
-					</p>
-
-					<ul class="gl-service-side__list">
-						<li>Индивидуальная структура магазина под ваш проект</li>
-						<li>WordPress + WooCommerce + кастомная тема без перегруженных решений</li>
-						<li>Возможность расширять магазин без пересборки с нуля</li>
-						<li>Подходит для товаров, услуг, сложных карточек и нестандартной логики</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="gl-service-section">
-		<div class="gl-service-container">
-			<div class="gl-service-head">
-				<div class="gl-service-head__eyebrow">Что входит</div>
-				<h2>Разработка интернет-магазина под продажи, а не просто под красивую витрину</h2>
-				<p>
-					Продумываю структуру магазина так, чтобы покупателю было легко найти товар, понять его преимущества,
-					оформить заказ и вернуться снова. Магазин строится на WordPress и WooCommerce с учетом реальных задач бизнеса,
-					а не только базовой установки шаблона.
-				</p>
-			</div>
-
-			<div class="gl-service-grid-3">
-				<div class="gl-service-card">
-					<h3>Каталог и структура</h3>
-					<p>
-						Создание категорий, подкатегорий, фильтров, страниц каталога, навигации и логики,
-						чтобы магазин был понятным для клиента и удобным для администрирования.
-					</p>
-				</div>
-
-				<div class="gl-service-card">
-					<h3>Карточка товара и покупка</h3>
-					<p>
-						Проработка карточки товара, фото, описаний, характеристик, вариаций, связанных товаров,
-						корзины и оформления заказа с учетом реального пути клиента к покупке.
-					</p>
-				</div>
-
-				<div class="gl-service-card">
-					<h3>Функции и интеграции</h3>
-					<p>
-						Подключение оплаты, доставки, дополнительных полей, уведомлений, форм, CRM, API,
-						а также разработка нестандартного функционала под ваш магазин.
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="gl-service-section">
-		<div class="gl-service-container">
-			<div class="gl-service-head">
-				<div class="gl-service-head__eyebrow">Для кого подходит</div>
-				<h2>Когда стоит заказывать разработку интернет-магазина</h2>
-			</div>
-
-			<div class="gl-service-grid-2">
-				<div class="gl-service-card">
-					<ul class="gl-service-list">
-						<li>Нужен магазин с нуля под товары, категории и понятную структуру</li>
-						<li>Шаблонные решения не подходят под ваш товар или сценарий продаж</li>
-						<li>Нужен WooCommerce с кастомной логикой и удобным интерфейсом</li>
-						<li>Важно сразу заложить основу под SEO, рекламу и развитие проекта</li>
-					</ul>
-				</div>
-
-				<div class="gl-service-card">
-					<ul class="gl-service-list">
-						<li>Нужен магазин, который можно дальше масштабировать</li>
-						<li>Планируются интеграции с оплатой, доставкой, CRM или внешними сервисами</li>
-						<li>Нужен аккуратный магазин без перегруза лишними функциями</li>
-						<li>Важно, чтобы магазин выглядел профессионально и помогал продавать</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="gl-service-section">
-		<div class="gl-service-container">
-			<div class="gl-service-head">
-				<div class="gl-service-head__eyebrow">Этапы работы</div>
-				<h2>Как проходит разработка интернет-магазина</h2>
-				<p>
-					Сначала определяем задачи, каталог, структуру и сценарии покупки. После этого проектируем страницы,
-					собираем магазин на WordPress и WooCommerce, подключаем нужные функции и тестируем итоговую логику.
-				</p>
-			</div>
-
-			<div class="gl-service-steps">
-				<div class="gl-service-step">
-					<div class="gl-service-step__num">01</div>
-					<h3>Разбор задачи</h3>
-					<p>Понимаю, какие товары продаются, как устроен каталог, что важно для клиента и какие функции нужны магазину.</p>
-				</div>
-
-				<div class="gl-service-step">
-					<div class="gl-service-step__num">02</div>
-					<h3>Структура и логика</h3>
-					<p>Продумываю каталог, карточку товара, фильтры, корзину, checkout и ключевые экраны магазина.</p>
-				</div>
-
-				<div class="gl-service-step">
-					<div class="gl-service-step__num">03</div>
-					<h3>Разработка</h3>
-					<p>Собираю магазин на WordPress и WooCommerce, настраиваю шаблоны, функции, страницы и интеграции.</p>
-				</div>
-
-				<div class="gl-service-step">
-					<div class="gl-service-step__num">04</div>
-					<h3>Проверка и запуск</h3>
-					<p>Тестирую оформление заказа, карточки, формы, адаптивность и общую логику перед запуском проекта.</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="gl-service-section" id="service-faq">
-		<div class="gl-service-container">
-			<div class="gl-service-head">
-				<div class="gl-service-head__eyebrow">FAQ</div>
-				<h2>Частые вопросы по разработке интернет-магазина</h2>
-			</div>
-
-			<div class="gl-service-faq">
-				<div class="gl-service-faq__item">
-					<h3>На чем вы разрабатываете интернет-магазины?</h3>
-					<p>
-						Основной стек — WordPress и WooCommerce. Это гибкая база для интернет-магазина, которую можно дорабатывать,
-						расширять и адаптировать под конкретные задачи бизнеса.
-					</p>
-				</div>
-
-				<div class="gl-service-faq__item">
-					<h3>Можно ли сделать не шаблонный, а более индивидуальный магазин?</h3>
-					<p>
-						Да. Магазин можно собрать на кастомной теме или глубоко переработать под нужную структуру, карточки товара,
-						страницы каталога, фильтры и оформление заказа.
-					</p>
-				</div>
-
-				<div class="gl-service-faq__item">
-					<h3>Сколько стоит разработка интернет-магазина?</h3>
-					<p>
-						Цена зависит от объема страниц, каталога, дизайна, WooCommerce-функционала и интеграций.
-						Для более точной оценки нужно понять состав проекта и задачи магазина.
-					</p>
-				</div>
-
-				<div class="gl-service-faq__item">
-					<h3>Можно ли потом дорабатывать магазин?</h3>
-					<p>
-						Да, это одна из причин, почему WordPress и WooCommerce удобны для бизнеса. Можно добавлять новые функции,
-						изменять карточки товаров, улучшать checkout, подключать сервисы и развивать магазин поэтапно.
-					</p>
-				</div>
-			</div>
-
-			<div class="gl-service-cta">
-				<div class="gl-service-cta__box">
-					<h2>Нужен интернет-магазин, который будет не просто выглядеть, а реально продавать?</h2>
-					<p>
-						Опишите задачу, нишу, каталог и то, какой магазин вам нужен. Я предложу структуру, подход по разработке
-						и скажу, как лучше реализовать проект на WordPress и WooCommerce под ваш бизнес.
-					</p>
-
-					<div class="gl-service-actions">
-						<a class="gl-service-btn gl-service-btn--primary" href="/contacts/">Обсудить проект</a>
-						<a class="gl-service-btn gl-service-btn--secondary" href="/services/">Все услуги</a>
-					</div>
-				</div>
-				
-				
-				
-				
-				
-				
-				<section class="gl-service-section">
-	<div class="gl-service-container">
-		<div class="gl-service-head">
-			<div class="gl-service-head__eyebrow">Стоимость</div>
-			<h2>Что входит в разработку интернет-магазина</h2>
-			<p>
-				Базовая стоимость включает полный набор работ для запуска интернет-магазина:
-				структура, WooCommerce, страницы, каталог и базовый функционал. Ниже — что именно вы получаете.
-			</p>
-		</div>
-
-		<div class="gl-service-grid-2">
-			<div class="gl-service-card">
-				<h3>Основа интернет-магазина</h3>
-				<ul class="gl-service-list">
-					<li>Установка и настройка WordPress и WooCommerce</li>
-					<li>Создание структуры сайта и каталога</li>
-					<li>Главная страница, каталог, карточка товара</li>
-					<li>Корзина и оформление заказа (checkout)</li>
-					<li>Базовая адаптивность под мобильные устройства</li>
-				</ul>
-			</div>
-
-			<div class="gl-service-card">
-				<h3>Каталог и товары</h3>
-				<ul class="gl-service-list">
-					<li>Создание категорий и подкатегорий</li>
-					<li>Настройка карточки товара</li>
-					<li>Добавление тестовых товаров</li>
-					<li>Работа с вариациями (размеры, цвета и т.д.)</li>
-					<li>Базовая настройка фильтров и сортировки</li>
-				</ul>
-			</div>
-
-			<div class="gl-service-card">
-				<h3>Покупка и логика заказа</h3>
-				<ul class="gl-service-list">
-					<li>Настройка корзины и оформления заказа</li>
-					<li>Подключение онлайн-оплаты (по необходимости)</li>
-					<li>Настройка доставки (СДЭК, самовывоз и т.д.)</li>
-					<li>Письма уведомлений о заказе</li>
-					<li>Личный кабинет пользователя</li>
-				</ul>
-			</div>
-
-			<div class="gl-service-card">
-				<h3>Техническая часть</h3>
-				<ul class="gl-service-list">
-					<li>Базовая SEO-структура страниц</li>
-					<li>Чистая верстка без перегруженных шаблонов</li>
-					<li>Подготовка к дальнейшим доработкам</li>
-					<li>Настройка админки под удобную работу</li>
-					<li>Проверка перед запуском</li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="gl-service-includes-note">
-			<p>
-				Каждый проект может отличаться по объему. Если нужен расширенный функционал,
-				интеграции или сложная логика — это рассчитывается отдельно после разбора задачи.
-			</p>
-		</div>
-	</div>
-</section>
-				
-<style>
-	.gl-service-includes-note {
-	margin-top: 28px;
-	padding: 20px 24px;
-	background: #f8fbf9;
-	border: 1px solid #e6efe9;
-	border-radius: 18px;
-	font-size: 15px;
-	line-height: 1.7;
-	color: var(--gl-color-subtitle, #6b7280);
+$project_details = [
+    'redizajn-internet-magazina-gelikon-s-perenosom-s-opencart-na-woocommerce' => [
+        'name' => 'Gelikon', 'niche' => 'Электроника и цифровые устройства',
+        'role' => 'Редизайн и миграция',
+        'task' => 'Обновить работающий магазин и перенести его с OpenCart на WooCommerce.',
+        'works' => ['Новая кастомная тема WordPress', 'Перенос каталога и изображений', 'Доработка карточки товара и оформления заказа'],
+    ],
+    'altertool-internet-magazin-instrumenta-na-woodmart' => [
+        'name' => 'AlterTool', 'niche' => 'Инструменты для строительства и ремонта',
+        'role' => 'Разработка на готовой теме WoodMart',
+        'task' => 'Собрать магазин инструмента с понятным каталогом и последовательным сценарием покупки.',
+        'works' => ['Настройка и адаптация WoodMart', 'Каталог, поиск и фильтрация', 'Карточки товаров и оформление заказа'],
+    ],
+];
+$article_details = [
+    'skolko-stoit-internet-magazin-na-woocommerce-v-2026-realnye-czeny' => 'Из чего складывается бюджет магазина и как дизайн, каталог и интеграции влияют на оценку.',
+    'woodmart-ili-kastomnaya-tema-dlya-internet-magazina' => 'Как соотнести возможности готовой темы и индивидуальной разработки с задачами бизнеса.',
+];
+$projects = [];
+$articles = [];
+if (function_exists('get_field')) {
+    foreach ((array) get_field('service_related_cases', get_the_ID()) as $selected) {
+        $project = get_post(is_object($selected) ? $selected->ID : $selected);
+        if (!$project || $project->post_type !== 'case' || $project->post_status !== 'publish' || !isset($project_details[$project->post_name])) { continue; }
+        $projects[] = ['post' => $project, 'details' => $project_details[$project->post_name]];
+    }
+    foreach ((array) get_field('service_related_posts', get_the_ID()) as $selected) {
+        $article = get_post(is_object($selected) ? $selected->ID : $selected);
+        if (!$article || $article->post_type !== 'post' || $article->post_status !== 'publish' || !isset($article_details[$article->post_name])) { continue; }
+        $articles[] = $article;
+        if (count($articles) === 3) { break; }
+    }
 }
-</style>
-	
-<div class="gl-service-actions" style="margin-top:20px;">
-	<a class="gl-service-btn gl-service-btn--primary" href="/contacts/">
-		Рассчитать стоимость магазина
-	</a>
-</div>
-				
-				
-
-				<?php echo do_shortcode('[gl_related_cases_slider]'); ?>
-
-				<?php echo do_shortcode('[gl_related_services_slider]'); ?>
-
-				<?php echo do_shortcode('[gl_related_blog_slider title="Полезные статьи по интернет-магазинам" button_text="Смотреть статьи" button_url="/blog/"]'); ?>
-			</div>
-		</div>
-	</section>
+$render_project_image = static function ($project, $hero = false) {
+    $image_id = get_post_thumbnail_id($project->ID);
+    if (!$image_id) { return; }
+    echo wp_get_attachment_image($image_id, 'large', false, [
+        'alt' => get_the_title($project->ID),
+        'loading' => $hero ? 'eager' : 'lazy',
+        'fetchpriority' => $hero ? 'high' : 'auto',
+        'decoding' => 'async',
+        'sizes' => $hero ? '(max-width: 900px) 100vw, 50vw' : '(max-width: 650px) 100vw, 50vw',
+    ]);
+};
+$woodmart = get_page_by_path('internet-magazin-na-woodmart', OBJECT, 'service');
+$woodmart_url = $woodmart && $woodmart->post_status === 'publish' ? get_permalink($woodmart) : home_url('/services/');
+?>
+<main class="wpds-shop">
+<section class="ws-hero" aria-labelledby="shop-title"><div class="ws-container">
+    <nav class="ws-breadcrumbs" aria-label="Хлебные крошки"><a href="<?php echo esc_url(home_url('/')); ?>">Главная</a><span aria-hidden="true">/</span><a href="<?php echo esc_url(home_url('/services/')); ?>">Услуги</a><span aria-hidden="true">/</span><span aria-current="page">Разработка интернет-магазина</span></nav>
+    <div class="ws-hero-grid"><div>
+        <p class="ws-kicker">WordPress · WooCommerce</p>
+        <h1 id="shop-title">Разработка интернет-магазинов на WordPress и WooCommerce</h1>
+        <p class="ws-lead">Создаём магазины с удобным каталогом, понятными карточками товаров и оформлением заказа. Подключаем оплату, доставку и необходимые интеграции, настраиваем управление товарами и заказами.</p>
+        <p class="ws-price">от 120 000 ₽</p>
+        <p class="ws-price-note">Точная стоимость зависит от дизайна, состава страниц, каталога и интеграций. Объём работ и смета согласуются до начала разработки.</p>
+        <div class="ws-actions"><a class="ws-button" href="#shop-contact">Обсудить магазин</a><a class="ws-link" href="<?php echo $projects ? '#shop-projects' : esc_url(home_url('/cases/')); ?>">Смотреть проекты</a></div>
+        <ul class="ws-facts"><li>Прямое общение с разработчиком</li><li>Поэтапная работа и оплата</li><li>Возможность развития после запуска</li></ul>
+    </div>
+    <?php if ($projects) : $hero_project = $projects[0]; ?>
+    <figure class="ws-visual"><a href="<?php echo esc_url(get_permalink($hero_project['post'])); ?>"><?php $render_project_image($hero_project['post'], true); ?></a><figcaption><strong><?php echo esc_html($hero_project['details']['name']); ?></strong><span><?php echo esc_html($hero_project['details']['role']); ?></span></figcaption></figure>
+    <?php endif; ?>
+    </div>
+</div></section>
+<?php if ($projects) : ?>
+<section class="ws-section" id="shop-projects" aria-labelledby="projects-title"><div class="ws-container">
+    <p class="ws-kicker">Реальные проекты</p><h2 id="projects-title">Магазины, над которыми мы работали</h2>
+    <div class="ws-projects"><?php foreach ($projects as $item) : ?>
+        <article class="ws-project"><a class="ws-project-image" href="<?php echo esc_url(get_permalink($item['post'])); ?>"><?php $render_project_image($item['post']); ?></a><div class="ws-project-body">
+            <p class="ws-kicker"><?php echo esc_html($item['details']['role']); ?></p><h3><?php echo esc_html($item['details']['name']); ?></h3><p class="ws-niche"><?php echo esc_html($item['details']['niche']); ?></p><p><?php echo esc_html($item['details']['task']); ?></p>
+            <ul><?php foreach ($item['details']['works'] as $work) : ?><li><?php echo esc_html($work); ?></li><?php endforeach; ?></ul>
+            <a class="ws-link" href="<?php echo esc_url(get_permalink($item['post'])); ?>">Смотреть кейс <span aria-hidden="true">↗</span></a>
+        </div></article>
+    <?php endforeach; ?></div>
+</div></section>
+<?php endif; ?>
+<section class="ws-section ws-soft" id="shop-scope" aria-labelledby="scope-title"><div class="ws-container">
+    <p class="ws-kicker">Состав проекта</p><h2 id="scope-title">Что входит в разработку магазина</h2>
+    <p class="ws-intro">Основа проекта — WordPress и WooCommerce, структура магазина и основные сценарии покупки. Комплектацию определяем под ваш каталог и фиксируем до начала работ.</p>
+    <div class="ws-scope-layout"><ol class="ws-scope-list">
+        <li><h3>Структура и интерфейс</h3><p>Главная, каталог и категории, карточка товара, корзина, оформление заказа и личный кабинет.</p></li>
+        <li><h3>Каталог</h3><p>Категории и характеристики, вариации товаров, базовая фильтрация и сортировка. Для проверки настройки добавляются тестовые товары.</p></li>
+        <li><h3>Покупка</h3><p>Оформление заказа, письма-уведомления, подключение согласованных способов оплаты и доставки.</p></li>
+        <li><h3>Управление</h3><p>Работа с товарами, ценами, остатками и заказами средствами WooCommerce; редактирование контента согласованных страниц.</p></li>
+        <li><h3>Подготовка к запуску</h3><p>Адаптивность, базовая техническая SEO-подготовка и проверка ключевых сценариев — от выбора товара до оформления заказа.</p></li>
+    </ol><aside class="ws-card ws-estimate"><p class="ws-kicker">Стартовая стоимость</p><p class="ws-price">от 120 000 ₽</p><h3>Дополнительно по задаче</h3><ul><li>Массовый импорт и перенос данных</li><li>Сложные интеграции CRM, ERP и API</li><li>Индивидуальная система скидок</li><li>Нестандартные кабинеты и бизнес-процессы</li><li>Расширенная автоматизация</li></ul><p>Точный состав подключения оплаты, доставки, наполнения и интеграций фиксируется в смете проекта.</p><a class="ws-link" href="<?php echo esc_url(home_url('/prices/')); ?>">Посмотреть действующий прайс</a></aside></div>
+</div></section>
+<section class="ws-section" aria-labelledby="approach-title"><div class="ws-container">
+    <p class="ws-kicker">Выбор подхода</p><h2 id="approach-title">Готовая тема или индивидуальная разработка</h2>
+    <div class="ws-grid ws-grid-two"><article class="ws-card"><span class="ws-number">01</span><h3>Магазин на готовой теме</h3><p>Подходит, когда функционал и визуальная основа темы соответствуют задаче. Дизайн адаптируется под бренд, настраивается магазин, необходимые изменения оцениваются отдельно.</p><p>Пример такого подхода — AlterTool на WoodMart.</p><a class="ws-link" href="<?php echo esc_url($woodmart_url); ?>">Разработка на WoodMart</a></article>
+    <article class="ws-card"><span class="ws-number">02</span><h3>Магазин на кастомной теме</h3><p>Подходит, когда нужен индивидуальный интерфейс, особая структура или нестандартные сценарии. Тема разрабатывается под согласованные макеты и функции.</p><p>В Gelikon новая кастомная тема стала частью редизайна и миграции.</p><a class="ws-link" href="#shop-contact">Обсудить индивидуальный проект</a></article></div>
+    <p class="ws-note">Выбор зависит от задач, ограничений и состава проекта. Стоимость варианта на готовой теме оценивается в рамках отдельной услуги.</p>
+</div></section>
+<section class="ws-section ws-dark" aria-labelledby="features-title"><div class="ws-container"><p class="ws-kicker">Возможности магазина</p><h2 id="features-title">Функционал под ваш каталог и процессы</h2>
+    <div class="ws-grid ws-grid-three">
+    <?php foreach ([
+        ['Поиск и фильтрация', 'Помогаем покупателю сузить выбор по категориям и важным характеристикам товара.'],
+        ['Вариативные товары', 'Объединяем размеры, цвета и другие варианты в одной карточке с понятным выбором.'],
+        ['Оформление заказа', 'Выстраиваем последовательный путь покупки и согласуем необходимые поля.'],
+        ['Оплата и доставка', 'Подключаем согласованные способы, чтобы покупатель мог выбрать подходящий вариант.'],
+        ['Импорт и обновление данных', 'По отдельному согласованию настраиваем загрузку товаров, цен и остатков из ваших источников.'],
+        ['Индивидуальные правила', 'По задаче реализуем скидки, особые кабинеты и другие сценарии, которых нет в базовых настройках.'],
+    ] as $feature) : ?><article class="ws-feature"><h3><?php echo esc_html($feature[0]); ?></h3><p><?php echo esc_html($feature[1]); ?></p></article><?php endforeach; ?>
+    </div>
+</div></section>
+<section class="ws-section" aria-labelledby="process-title"><div class="ws-container"><p class="ws-kicker">От задачи до запуска</p><h2 id="process-title">Как проходит разработка</h2>
+    <ol class="ws-steps"><li><h3>Задача и оценка</h3><p>Изучаем каталог, нужные функции и ограничения. Вы согласуете состав работ, смету и этапы.</p></li><li><h3>Структура и дизайн</h3><p>Прорабатываем страницы и путь покупателя. Вы согласуете структуру, макеты или адаптацию выбранной темы.</p></li><li><h3>Разработка и подключения</h3><p>Собираем магазин и согласованные интеграции. Показываем промежуточный результат для проверки деталей.</p></li><li><h3>Проверка и запуск</h3><p>Проверяем каталог, покупку и управление. Вы получаете результат для приёмки по согласованному составу проекта.</p></li></ol>
+    <p class="ws-note">Сроки зависят от готовности материалов, количества шаблонов, сложности функций и интеграций. Сроки и этапы фиксируются после определения состава проекта.</p>
+</div></section>
+<section class="ws-section ws-soft" aria-labelledby="start-title"><div class="ws-container ws-split"><div><p class="ws-kicker">Подготовка</p><h2 id="start-title">Что нужно для старта</h2><p class="ws-intro">Можно обратиться без готового ТЗ — сначала уточним задачу и состав необходимых материалов.</p></div><ul class="ws-checks"><li>Что продаёт компания и как устроен каталог.</li><li>Примеры сайтов, которые близки по структуре или подаче.</li><li>Необходимые способы оплаты и доставки.</li><li>Требования к интеграциям и обмену данными.</li><li>Тексты, фотографии, дизайн или данные каталога, если они уже есть.</li></ul></div></section>
+<section class="ws-section" aria-labelledby="after-title"><div class="ws-container ws-split"><div><p class="ws-kicker">Передача и развитие</p><h2 id="after-title">После запуска</h2><p class="ws-intro">Магазин можно развивать по мере появления новых задач.</p></div><div><p>Товарами и заказами можно управлять через WordPress и WooCommerce. Порядок передачи доступа и материалов, а также необходимость инструкции или обучения фиксируем в составе проекта.</p><p>Замечания к согласованному результату разбираем отдельно от запросов на новые возможности. Дальнейшие доработки и регулярное сопровождение согласуются отдельно.</p></div></div></section>
+<section class="ws-section ws-soft" id="service-faq" aria-labelledby="faq-title"><div class="ws-container ws-faq"><div><p class="ws-kicker">Перед заказом</p><h2 id="faq-title">Частые вопросы</h2></div><div>
+    <?php foreach ([
+        ['Что входит в стоимость от 120 000 ₽?', 'Стартовый состав — структура магазина, настройка WordPress и WooCommerce, основные страницы, каталог и базовый сценарий покупки. Точный состав подключения оплаты, доставки, наполнения и интеграций фиксируется в смете проекта.'],
+        ['Нужен ли готовый дизайн?', 'Можно прийти с готовыми макетами или без них. Сначала определим подход: адаптация готовой темы или индивидуальная разработка, затем согласуем необходимые материалы и состав дизайна.'],
+        ['Можно ли перенести товары из существующего магазина?', 'Да, перенос возможен. До оценки изучаем источник данных, структуру каталога и изображения. Объём и стоимость миграции согласуются отдельно.'],
+        ['Можно ли подключить нужные оплату и доставку?', 'Сначала проверяем доступные модули и требования сервисов. Способы подключения, ограничения и состав работ фиксируем в смете. Нестандартная интеграция оценивается отдельно.'],
+        ['Кто наполняет магазин товарами?', 'В базовой настройке используются тестовые товары. Кто готовит материалы и выполняет дальнейшее наполнение или массовый импорт, определяем до начала работ.'],
+        ['Можно ли запустить проект поэтапно?', 'Да. Определяем основной сценарий для первого запуска и отдельно согласуем последующие этапы, их состав и оплату.'],
+        ['Что происходит после запуска?', 'Передаём согласованный результат. Порядок передачи материалов и необходимость инструкции или обучения определяем в составе проекта. Новые функции и регулярное сопровождение обсуждаются отдельно.'],
+    ] as $faq) : ?><details><summary><?php echo esc_html($faq[0]); ?></summary><p><?php echo esc_html($faq[1]); ?></p></details><?php endforeach; ?>
+</div></div></section>
+<?php if ($articles) : ?>
+<section class="ws-section" aria-labelledby="articles-title"><div class="ws-container"><p class="ws-kicker">Разобраться до старта</p><h2 id="articles-title">Полезные материалы</h2><div class="ws-grid ws-grid-two">
+    <?php foreach ($articles as $article) : ?><article class="ws-article"><h3><a href="<?php echo esc_url(get_permalink($article)); ?>"><?php echo esc_html(get_the_title($article)); ?></a></h3><p><?php echo esc_html($article_details[$article->post_name]); ?></p><a class="ws-link" href="<?php echo esc_url(get_permalink($article)); ?>">Читать статью</a></article><?php endforeach; ?>
+</div></div></section>
+<?php endif; ?>
+<section class="ws-section ws-contact" id="shop-contact" aria-labelledby="contact-title"><div class="ws-container ws-contact-grid"><div><p class="ws-kicker">Следующий шаг</p><h2 id="contact-title">Обсудим ваш интернет-магазин</h2><p class="ws-intro">Расскажите, что планируете продавать, какие функции нужны и есть ли готовый сайт или макет. Уточним детали и предложим подход к разработке.</p><div class="ws-contact-links"><a href="https://t.me/+79250404189">Написать в Telegram</a><a href="mailto:info@wpdevstudio.ru">info@wpdevstudio.ru</a></div></div><div class="ws-contact-form"><?php echo do_shortcode('[smart_contact_form]'); ?></div></div></section>
 </main>
-
 <?php get_footer(); ?>
