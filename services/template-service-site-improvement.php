@@ -4,686 +4,128 @@ Template Name: Услуга — Доработка сайта
 Template Post Type: service
 */
 defined('ABSPATH') || exit;
-
+wp_enqueue_style('wpds-site-improvement', get_template_directory_uri() . '/assets/css/site-improvement.css', [], filemtime(dirname(__DIR__) . '/assets/css/site-improvement.css'));
 get_header();
+
+$card_article_slug = 'kastomnaya-kartochka-tovara-woocommerce-kak-sozdavalas-stranicza-tovara-dlya-internet-magazina-gelikon';
+$card_article = get_page_by_path($card_article_slug, OBJECT, 'post');
+if (!$card_article || $card_article->post_status !== 'publish') { $card_article = null; }
+$example_details = [
+    'redizajn-internet-magazina-gelikon-s-perenosom-s-opencart-na-woocommerce' => [
+        'name' => 'Gelikon', 'title' => 'Индивидуальная карточка товара',
+        'task' => 'Стандартная структура WooCommerce не подходила под подачу товара и управление контентом.',
+        'work' => 'Переработаны галерея и секции карточки: описание, характеристики, информационные блоки и элементы покупки. Предусмотрено редактирование через админку.',
+        'scenario' => 'Покупатель может изучить изображения и характеристики в одной карточке и перейти к покупке, в том числе со смартфона.',
+        'source' => $card_article,
+    ],
+    'altertool-internet-magazin-instrumenta-na-woodmart' => [
+        'name' => 'AlterTool', 'title' => 'Корзина и оформление заказа',
+        'task' => 'Настроить последовательный сценарий покупки в магазине инструмента на WooCommerce и WoodMart.',
+        'work' => 'Настроены корзина и оформление заказа; формы и элементы интерфейса приведены к стилю магазина. Проверены основные пользовательские сценарии.',
+        'scenario' => 'Покупатель может добавить товар, изменить количество, проверить состав корзины и перейти к оформлению заказа.',
+        'source' => null,
+    ],
+];
+$article_details = [
+    'dorabotka-woocommerce-magazina' => 'Какие изменения помогают развивать работающий магазин и как определить состав нужной доработки.',
+    $card_article_slug => 'Разбор кастомной карточки Gelikon: структура, галерея, адаптивность и управление содержимым.',
+    'pochemu-tehnicheskoe-zadanie-zashchishchaet-byudzhet-zakazchika' => 'Как описание задачи и критерии приёмки помогают согласовать результат и границы работ.',
+];
+$examples = [];
+$articles = [];
+if (function_exists('get_field')) {
+    foreach ((array) get_field('service_related_cases', get_the_ID()) as $selected) {
+        $project = get_post(is_object($selected) ? $selected->ID : $selected);
+        if (!$project || $project->post_type !== 'case' || $project->post_status !== 'publish' || !isset($example_details[$project->post_name])) { continue; }
+        $details = $example_details[$project->post_name];
+        $examples[] = ['post' => $project, 'details' => $details, 'source' => $details['source'] ?: $project];
+    }
+    foreach ((array) get_field('service_related_posts', get_the_ID()) as $selected) {
+        $article = get_post(is_object($selected) ? $selected->ID : $selected);
+        if (!$article || $article->post_type !== 'post' || $article->post_status !== 'publish' || !isset($article_details[$article->post_name])) { continue; }
+        $articles[] = $article;
+        if (count($articles) === 3) { break; }
+    }
+}
+$render_image = static function ($source, $hero = false) {
+    $image_id = get_post_thumbnail_id($source->ID);
+    if (!$image_id) { return; }
+    echo wp_get_attachment_image($image_id, 'large', false, [
+        'alt' => get_the_title($source->ID), 'loading' => $hero ? 'eager' : 'lazy',
+        'fetchpriority' => $hero ? 'high' : 'auto', 'decoding' => 'async',
+        'sizes' => '(max-width: 900px) 100vw, 50vw',
+    ]);
+};
+$service_url = static function ($slug) {
+    $service = get_page_by_path($slug, OBJECT, 'service');
+    return $service && $service->post_status === 'publish' ? get_permalink($service) : home_url('/services/');
+};
+$api_url = $service_url('integracziya-api-v-wordpress');
+$import_url = $service_url('import-tovarov-v-woocommerce');
+$errors_url = $service_url('ispravlenie-oshibok-wordpress');
+$support_url = $service_url('tehnicheskaya-podderzhka-sajta-na-wordpress-i-woocommerce');
+$redesign_url = $service_url('redizajn-sajta-na-wordpress');
 ?>
-
-<style>
-	:root {
-		--srv-bg: #f6faf7;
-		--srv-surface: rgba(255, 255, 255, 0.94);
-		--srv-heading: var(--gl-color-heading, #1A1A1A);
-		--srv-text: var(--gl-color-text, #2B2B2B);
-		--srv-subtitle: var(--gl-color-subtitle, #6B7280);
-		--srv-helper: var(--gl-color-helper, #9CA3AF);
-		--srv-line: #e4ece6;
-		--srv-accent: var(--gl-color-accent, #2cbc63);
-		--srv-accent-2: var(--gl-color-accent-2, #1ea751);
-		--srv-radius-xl: 30px;
-		--srv-radius-lg: 24px;
-		--srv-radius-md: 18px;
-		--srv-shadow: 0 18px 50px rgba(16, 24, 40, 0.06);
-		--srv-shadow-soft: 0 10px 30px rgba(16, 24, 40, 0.05);
-		--srv-container: 1280px;
-	}
-
-	.gl-service-page {
-		padding: 0 0 88px;
-		background:
-			radial-gradient(circle at top left, rgba(44, 188, 99, 0.08), transparent 26%),
-			linear-gradient(180deg, #f8fbf9 0%, #f4f7f5 100%);
-		color: var(--srv-text);
-	}
-
-	.gl-service-container {
-		max-width: var(--srv-container);
-		margin: 0 auto;
-		padding: 0 20px;
-	}
-
-	.gl-service-hero {
-		padding: 56px 0 28px;
-	}
-
-	.gl-service-hero__grid {
-		display: grid;
-		grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
-		gap: 24px;
-		align-items: stretch;
-	}
-
-	.gl-service-hero__main,
-	.gl-service-hero__side {
-		background: var(--srv-surface);
-		border: 1px solid var(--srv-line);
-		border-radius: var(--srv-radius-xl);
-		box-shadow: var(--srv-shadow);
-	}
-
-	.gl-service-hero__main {
-		padding: 38px;
-	}
-
-	.gl-service-hero__side {
-		padding: 28px;
-		display: flex;
-		flex-direction: column;
-		gap: 18px;
-	}
-
-	.gl-service-pill {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 34px;
-		padding: 0 14px;
-		border-radius: 999px;
-		background: rgba(44, 188, 99, 0.10);
-		color: var(--srv-accent-2);
-		font-size: 13px;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-		margin-bottom: 16px;
-	}
-
-	.gl-service-title {
-		margin: 0 0 16px;
-		font-size: clamp(34px, 5vw, 58px);
-		line-height: 1.02;
-		letter-spacing: -0.03em;
-		color: var(--srv-heading);
-	}
-
-	.gl-service-subtitle {
-		margin: 0 0 22px;
-		max-width: 760px;
-		font-size: 18px;
-		line-height: 1.75;
-		color: var(--srv-subtitle);
-	}
-
-	.gl-service-points {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 12px;
-		margin: 0 0 26px;
-		padding: 0;
-		list-style: none;
-	}
-
-	.gl-service-points li {
-		display: flex;
-		align-items: flex-start;
-		gap: 10px;
-		padding: 14px 16px;
-		background: #fff;
-		border: 1px solid #e9efeb;
-		border-radius: 16px;
-		box-shadow: var(--srv-shadow-soft);
-		font-size: 15px;
-		line-height: 1.55;
-	}
-
-	.gl-service-points li::before {
-		content: "";
-		flex: 0 0 10px;
-		width: 10px;
-		height: 10px;
-		margin-top: 7px;
-		border-radius: 50%;
-		background: var(--srv-accent);
-	}
-
-	.gl-service-actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 14px;
-	}
-
-	.gl-service-btn {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 48px;
-		padding: 0 20px;
-		border-radius: 12px;
-		font-size: 15px;
-		font-weight: 600;
-		line-height: 1;
-		text-decoration: none;
-		transition: .2s ease;
-	}
-
-	.gl-service-btn--primary {
-		background: var(--srv-accent);
-		color: #fff;
-		box-shadow: 0 14px 30px rgba(44, 188, 99, 0.20);
-	}
-
-	.gl-service-btn--primary:hover {
-		background: var(--srv-accent-2);
-		color: #fff;
-		transform: translateY(-1px);
-	}
-
-	.gl-service-btn--secondary {
-		background: transparent;
-		border: 1px solid var(--srv-accent);
-		color: var(--srv-accent);
-	}
-
-	.gl-service-btn--secondary:hover {
-		background: var(--srv-accent);
-		color: #fff;
-		transform: translateY(-1px);
-	}
-
-	.gl-service-side__label {
-		margin: 0;
-		font-size: 13px;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-		color: var(--srv-helper);
-	}
-
-	.gl-service-side__price {
-		margin: 0;
-		font-size: 34px;
-		line-height: 1.05;
-		font-weight: 800;
-		color: var(--srv-heading);
-	}
-
-	.gl-service-side__text {
-		margin: 0;
-		font-size: 15px;
-		line-height: 1.7;
-		color: var(--srv-subtitle);
-	}
-
-	.gl-service-side__list {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		display: grid;
-		gap: 10px;
-	}
-
-	.gl-service-side__list li {
-		padding: 13px 14px;
-		background: #f8fbf9;
-		border: 1px solid #e8efea;
-		border-radius: 14px;
-		font-size: 14px;
-		line-height: 1.55;
-	}
-
-	.gl-service-section {
-		padding: 26px 0;
-	}
-
-	.gl-service-head {
-		max-width: 820px;
-		margin: 0 0 24px;
-	}
-
-	.gl-service-head__eyebrow {
-		display: inline-flex;
-		align-items: center;
-		min-height: 32px;
-		padding: 0 12px;
-		margin-bottom: 14px;
-		border-radius: 999px;
-		background: rgba(44, 188, 99, 0.10);
-		color: var(--srv-accent-2);
-		font-size: 12px;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-	}
-
-	.gl-service-head h2 {
-		margin: 0 0 12px;
-		font-size: clamp(28px, 4vw, 42px);
-		line-height: 1.1;
-		letter-spacing: -0.02em;
-		color: var(--srv-heading);
-	}
-
-	.gl-service-head p {
-		margin: 0;
-		font-size: 17px;
-		line-height: 1.75;
-		color: var(--srv-subtitle);
-	}
-
-	.gl-service-grid-3 {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 22px;
-	}
-
-	.gl-service-grid-2 {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 22px;
-	}
-
-	.gl-service-card {
-		padding: 28px;
-		background: var(--srv-surface);
-		border: 1px solid var(--srv-line);
-		border-radius: var(--srv-radius-lg);
-		box-shadow: var(--srv-shadow-soft);
-	}
-
-	.gl-service-card h3 {
-		margin: 0 0 12px;
-		font-size: 22px;
-		line-height: 1.2;
-		color: var(--srv-heading);
-	}
-
-	.gl-service-card p {
-		margin: 0;
-		font-size: 15px;
-		line-height: 1.75;
-		color: var(--srv-subtitle);
-	}
-
-	.gl-service-list {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		display: grid;
-		gap: 12px;
-	}
-
-	.gl-service-list li {
-		position: relative;
-		padding-left: 22px;
-		font-size: 15px;
-		line-height: 1.75;
-		color: var(--srv-text);
-	}
-
-	.gl-service-list li::before {
-		content: "";
-		position: absolute;
-		top: 11px;
-		left: 0;
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background: var(--srv-accent);
-	}
-
-	.gl-service-steps {
-		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-		gap: 18px;
-	}
-
-	.gl-service-step {
-		padding: 24px;
-		background: #fff;
-		border: 1px solid #e7eee9;
-		border-radius: 22px;
-		box-shadow: var(--srv-shadow-soft);
-	}
-
-	.gl-service-step__num {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 42px;
-		height: 42px;
-		margin-bottom: 16px;
-		border-radius: 12px;
-		background: #ecfdf3;
-		color: var(--srv-accent-2);
-		font-size: 16px;
-		font-weight: 800;
-	}
-
-	.gl-service-step h3 {
-		margin: 0 0 10px;
-		font-size: 18px;
-		line-height: 1.25;
-		color: var(--srv-heading);
-	}
-
-	.gl-service-step p {
-		margin: 0;
-		font-size: 15px;
-		line-height: 1.7;
-		color: var(--srv-subtitle);
-	}
-
-	.gl-service-faq {
-		display: grid;
-		gap: 16px;
-	}
-
-	.gl-service-faq__item {
-		padding: 24px 26px;
-		background: var(--srv-surface);
-		border: 1px solid var(--srv-line);
-		border-radius: 22px;
-		box-shadow: var(--srv-shadow-soft);
-	}
-
-	.gl-service-faq__item h3 {
-		margin: 0 0 10px;
-		font-size: 19px;
-		line-height: 1.3;
-		color: var(--srv-heading);
-	}
-
-	.gl-service-faq__item p {
-		margin: 0;
-		font-size: 15px;
-		line-height: 1.75;
-		color: var(--srv-subtitle);
-	}
-
-	.gl-service-cta {
-		padding: 34px 0 0;
-	}
-
-	.gl-service-cta__box {
-		padding: 36px;
-		background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
-		border-radius: 30px;
-		box-shadow: 0 24px 60px rgba(17, 24, 39, 0.16);
-	}
-
-	.gl-service-cta__box h2 {
-		margin: 0 0 12px;
-		font-size: clamp(28px, 4vw, 40px);
-		line-height: 1.1;
-		color: #fff;
-		letter-spacing: -0.02em;
-	}
-
-	.gl-service-cta__box p {
-		margin: 0 0 22px;
-		max-width: 780px;
-		font-size: 17px;
-		line-height: 1.75;
-		color: rgba(255,255,255,0.78);
-	}
-
-	@media (max-width: 1100px) {
-		.gl-service-hero__grid,
-		.gl-service-grid-3,
-		.gl-service-steps {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-	}
-
-	@media (max-width: 767px) {
-		.gl-service-page {
-			padding-bottom: 64px;
-		}
-
-		.gl-service-hero {
-			padding-top: 38px;
-		}
-
-		.gl-service-hero__grid,
-		.gl-service-grid-3,
-		.gl-service-grid-2,
-		.gl-service-steps,
-		.gl-service-points {
-			grid-template-columns: 1fr;
-		}
-
-		.gl-service-hero__main,
-		.gl-service-hero__side,
-		.gl-service-card,
-		.gl-service-faq__item,
-		.gl-service-cta__box {
-			padding: 24px;
-		}
-
-		.gl-service-actions {
-			flex-direction: column;
-		}
-
-		.gl-service-btn {
-			width: 100%;
-		}
-	}
-</style>
-
-<main class="gl-service-page">
-	<section class="gl-service-hero">
-		<div class="gl-service-container">
-			<div class="gl-service-hero__grid">
-				<div class="gl-service-hero__main">
-					<div class="gl-service-pill">Услуги WordPress</div>
-					<h1 class="gl-service-title"><?php the_title(); ?></h1>
-					<p class="gl-service-subtitle">
-						Доработка сайта на WordPress и WooCommerce под ваши задачи без полной переделки проекта.
-						Исправляю ошибки, добавляю новый функционал, улучшаю структуру страниц, интерфейс и логику работы сайта.
-					</p>
-
-					<ul class="gl-service-points">
-						<li>Доработка существующего сайта без разработки с нуля</li>
-						<li>Правки верстки, логики и пользовательского сценария</li>
-						<li>Улучшение WooCommerce, корзины, checkout и личного кабинета</li>
-						<li>Интеграции, формы, фильтры, AJAX и кастомные функции</li>
-					</ul>
-
-					<div class="gl-service-actions">
-						<a class="gl-service-btn gl-service-btn--primary" href="/contacts/">Обсудить задачу</a>
-						<a class="gl-service-btn gl-service-btn--secondary" href="#service-faq">Частые вопросы</a>
-					</div>
-				</div>
-
-				<div class="gl-service-hero__side">
-					<p class="gl-service-side__label">Стоимость</p>
-					<p class="gl-service-side__price">от 5 000 ₽</p>
-					<p class="gl-service-side__text">
-						Небольшие правки можно оценить быстро. Более сложные доработки рассчитываются по объему, логике и времени реализации.
-					</p>
-
-					<ul class="gl-service-side__list">
-						<li>Быстрый разбор задачи и оценка объема работ</li>
-						<li>Работа с WordPress, WooCommerce и кастомными темами</li>
-						<li>Аккуратная доработка без лишней перегрузки проекта</li>
-						<li>Поддержка как небольших правок, так и сложных задач</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="gl-service-section">
-		<div class="gl-service-container">
-			<div class="gl-service-head">
-				<div class="gl-service-head__eyebrow">Что можно доработать</div>
-				<h2>Работаю с точечными правками и комплексными доработками сайта</h2>
-				<p>
-					Если сайт уже работает, но в нем не хватает нужных функций, неудобно оформлять заказ,
-					плохо продумана карточка товара или нужно переработать отдельные блоки, всё это можно доработать
-					без полной переделки проекта.
-				</p>
-			</div>
-
-			<div class="gl-service-grid-3">
-				<div class="gl-service-card">
-					<h3>Верстка и блоки страниц</h3>
-					<p>
-						Доработка внешнего вида, адаптивности, структуры секций, карточек, таблиц, форм,
-						контентных блоков и отдельных частей сайта с учетом текущего дизайна.
-					</p>
-				</div>
-
-				<div class="gl-service-card">
-					<h3>WooCommerce и карточка товара</h3>
-					<p>
-						Изменение карточки товара, галереи, вариаций, корзины, checkout, личного кабинета,
-						статусов, писем, дополнительных полей и общей логики покупки.
-					</p>
-				</div>
-
-				<div class="gl-service-card">
-					<h3>Интеграции и кастомный функционал</h3>
-					<p>
-						Подключение API, служб доставки, форм заявок, кастомных фильтров, автозаполнения,
-						AJAX-функций, нестандартных блоков и бизнес-логики под задачи проекта.
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="gl-service-section">
-		<div class="gl-service-container">
-			<div class="gl-service-head">
-				<div class="gl-service-head__eyebrow">Когда это актуально</div>
-				<h2>В каких случаях нужна доработка сайта</h2>
-			</div>
-
-			<div class="gl-service-grid-2">
-				<div class="gl-service-card">
-					<ul class="gl-service-list">
-						<li>Сайт уже сделан, но работает не так, как нужно бизнесу</li>
-						<li>Нужно добавить новые функции без полной переработки проекта</li>
-						<li>Не устраивает стандартный WooCommerce и нужна кастомизация</li>
-						<li>Нужно исправить ошибки после предыдущего разработчика</li>
-					</ul>
-				</div>
-
-				<div class="gl-service-card">
-					<ul class="gl-service-list">
-						<li>Нужно улучшить интерфейс, корзину, checkout или карточку товара</li>
-						<li>Появилась задача подключить внешний сервис или API</li>
-						<li>Нужно аккуратно доработать тему под текущий дизайн</li>
-						<li>Нужны технические правки, ускорение и оптимизация работы сайта</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="gl-service-section">
-		<div class="gl-service-container">
-			<div class="gl-service-head">
-				<div class="gl-service-head__eyebrow">Как проходит работа</div>
-				<h2>Понятный процесс без лишней путаницы</h2>
-				<p>
-					Сначала разбираю задачу и смотрю, как устроен текущий проект. После этого предлагаю способ реализации,
-					оценку и последовательность доработок.
-				</p>
-			</div>
-
-			<div class="gl-service-steps">
-				<div class="gl-service-step">
-					<div class="gl-service-step__num">01</div>
-					<h3>Разбор задачи</h3>
-					<p>Изучаю, что нужно изменить, какие есть ограничения и как лучше внедрить доработку без лишнего риска.</p>
-				</div>
-
-				<div class="gl-service-step">
-					<div class="gl-service-step__num">02</div>
-					<h3>Оценка и план</h3>
-					<p>Определяю объем работ, стоимость и порядок внедрения, чтобы доработка не ломала текущую структуру сайта.</p>
-				</div>
-
-				<div class="gl-service-step">
-					<div class="gl-service-step__num">03</div>
-					<h3>Реализация</h3>
-					<p>Вношу изменения в тему, WooCommerce, шаблоны, функционал или плагинную часть проекта в зависимости от задачи.</p>
-				</div>
-
-				<div class="gl-service-step">
-					<div class="gl-service-step__num">04</div>
-					<h3>Проверка результата</h3>
-					<p>Тестирую итог, проверяю отображение, логику и удобство использования, чтобы результат был рабочим и понятным.</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="gl-service-section" id="service-faq">
-		<div class="gl-service-container">
-			<div class="gl-service-head">
-				<div class="gl-service-head__eyebrow">FAQ</div>
-				<h2>Частые вопросы по доработке сайта</h2>
-			</div>
-
-			<div class="gl-service-faq">
-				<div class="gl-service-faq__item">
-					<h3>Можно ли доработать уже готовый сайт, а не делать новый?</h3>
-					<p>
-						Да, в большинстве случаев доработка существующего сайта — это более разумный путь, если основа уже работает.
-						Можно улучшить отдельные блоки, добавить нужные функции и переработать проблемные части проекта.
-					</p>
-				</div>
-
-				<div class="gl-service-faq__item">
-					<h3>Работаете ли вы с чужими темами и проектами после другого разработчика?</h3>
-					<p>
-						Да, если проект технически позволяет вносить изменения. Перед началом смотрю, как устроена тема,
-						какие плагины используются и насколько безопасно внедрять новые функции.
-					</p>
-				</div>
-
-				<div class="gl-service-faq__item">
-					<h3>Сколько стоит доработка сайта на WordPress?</h3>
-					<p>
-						Стоимость зависит от сложности задачи. Небольшие правки оцениваются отдельно, а более крупные доработки —
-						по объему работ, количеству изменений и логике внедрения.
-					</p>
-				</div>
-
-				<div class="gl-service-faq__item">
-					<h3>Можно ли доработать WooCommerce: checkout, карточку товара, фильтры?</h3>
-					<p>
-						Да, это одна из самых частых задач. Можно изменить оформление и логику покупки, добавить нужные поля,
-						переработать карточку товара, фильтрацию, корзину и этап оформления заказа.
-					</p>
-				</div>
-			</div>
-
-			<div class="gl-service-cta">
-				<div class="gl-service-cta__box">
-					<h2>Нужно доработать сайт на WordPress или WooCommerce?</h2>
-					<p>
-						Опиши задачу, что именно не устраивает в текущем сайте и какой результат нужен.
-						Я посмотрю проект, предложу способ реализации и скажу, как лучше внедрить доработку без лишней переделки.
-					</p>
-
-					<div class="gl-service-actions">
-						<a class="gl-service-btn gl-service-btn--primary" href="/contacts/">Отправить задачу</a>
-						<a class="gl-service-btn gl-service-btn--secondary" href="/services/">Все услуги</a>
-					</div>
-				</div>
-			</div>
-			
-			
-			
-			
-			<?php echo do_shortcode('[gl_related_cases_slider]'); ?>
-
-				<?php echo do_shortcode('[gl_related_services_slider]'); ?>
-			
-			
-			
-			
-			<?php echo do_shortcode('[gl_related_blog_slider]'); ?>
-			
-			
-			
-			
-			
-		</div>
-	</section>
+<main class="wpds-improve">
+<section class="wi-hero" aria-labelledby="improve-title"><div class="wi-container">
+    <nav class="wi-breadcrumbs" aria-label="Хлебные крошки"><a href="<?php echo esc_url(home_url('/')); ?>">Главная</a><span aria-hidden="true">/</span><a href="<?php echo esc_url(home_url('/services/')); ?>">Услуги</a><span aria-hidden="true">/</span><span aria-current="page">Доработка сайта</span></nav>
+    <div class="wi-hero-grid"><div><p class="wi-kicker">Развитие существующих сайтов</p><h1 id="improve-title">Доработка сайтов на WordPress и WooCommerce</h1>
+        <p class="wi-lead">Исправляем ошибки, добавляем функционал и улучшаем работающие сайты. Перерабатываем каталог, карточки товаров и оформление заказа, подключаем сервисы и автоматизируем повторяющиеся задачи.</p>
+        <p class="wi-price">от 5 000 ₽</p><p class="wi-price-note">Стоимость зависит от задачи и состояния текущего проекта. Состав работ и порядок оплаты согласуются до начала реализации.</p>
+        <div class="wi-actions"><a class="wi-button" href="#improve-contact">Отправить задачу</a><a class="wi-link" href="#improve-tasks">Что можно доработать</a></div>
+        <ul class="wi-facts"><li>Прямое общение с разработчиком</li><li>Оценка после изучения задачи</li><li>Проверка изменений перед внедрением</li></ul>
+    </div>
+    <?php if ($card_article && get_post_thumbnail_id($card_article->ID)) : ?><figure class="wi-visual"><a href="<?php echo esc_url(get_permalink($card_article)); ?>"><?php $render_image($card_article, true); ?></a><figcaption><strong>Gelikon · карточка товара</strong><span>Кастомная структура, галерея и управление контентом</span></figcaption></figure><?php endif; ?>
+    </div>
+</div></section>
+<section class="wi-section" id="improve-tasks" aria-labelledby="tasks-title"><div class="wi-container"><p class="wi-kicker">От проблемы к задаче</p><h2 id="tasks-title">Что можно доработать</h2><div class="wi-grid wi-grid-three">
+    <?php foreach ([
+        ['Каталог и карточка товара', 'Фильтры, поиск, характеристики, вариации, галерея, дополнительные блоки и элементы покупки.', $card_article ? get_permalink($card_article) : '', 'Пример карточки товара'],
+        ['Корзина и оформление заказа', 'Поля и проверки, отображение доставки, доступность способов оплаты и дополнительные данные заказа.', '#improve-examples', 'Пример оформления заказа'],
+        ['Интеграции и обмен данными', 'Подключение внешних API, CRM, служб доставки и других сервисов с учётом требований проекта.', $api_url, 'Подробнее об API-интеграциях'],
+        ['Импорт и автоматизация', 'Загрузка товаров, обновление цен и остатков, выгрузки и фоновые задачи.', $import_url, 'Подробнее об импорте'],
+        ['Страницы и управление контентом', 'Новые блоки и шаблоны, ACF-поля, адаптивная вёрстка и редактирование через админку.', '', ''],
+        ['Ошибки и совместимость', 'Диагностика конфликтов темы и плагинов, ошибок форм, AJAX и отдельных пользовательских сценариев.', $errors_url, 'Подробнее об исправлении ошибок'],
+    ] as $task) : ?><article class="wi-card"><h3><?php echo esc_html($task[0]); ?></h3><p><?php echo esc_html($task[1]); ?></p><?php if ($task[2] && ($task[2] !== '#improve-examples' || $examples)) : ?><a class="wi-link" href="<?php echo esc_url($task[2]); ?>"><?php echo esc_html($task[3]); ?></a><?php endif; ?></article><?php endforeach; ?>
+</div></div></section>
+<?php if ($examples) : ?>
+<section class="wi-section wi-soft" id="improve-examples" aria-labelledby="examples-title"><div class="wi-container"><p class="wi-kicker">Конкретный функционал</p><h2 id="examples-title">Примеры решённых задач</h2><div class="wi-projects">
+    <?php foreach ($examples as $item) : ?><article class="wi-project"><a class="wi-project-image" href="<?php echo esc_url(get_permalink($item['source'])); ?>"><?php $render_image($item['source']); ?></a><div class="wi-project-body"><p class="wi-kicker"><?php echo esc_html($item['details']['name']); ?></p><h3><?php echo esc_html($item['details']['title']); ?></h3><dl class="wi-example-copy"><div><dt>Исходная задача</dt><dd><?php echo esc_html($item['details']['task']); ?></dd></div><div><dt>Что реализовано</dt><dd><?php echo esc_html($item['details']['work']); ?></dd></div><div><dt>Доступный сценарий</dt><dd><?php echo esc_html($item['details']['scenario']); ?></dd></div></dl><a class="wi-link" href="<?php echo esc_url(get_permalink($item['source'])); ?>">Подробнее о реализации</a></div></article><?php endforeach; ?>
+</div></div></section>
+<?php endif; ?>
+<section class="wi-section" aria-labelledby="process-title"><div class="wi-container"><p class="wi-kicker">Работа с текущим кодом</p><h2 id="process-title">Как вносим изменения в работающий проект</h2><ol class="wi-steps">
+    <li><h3>Изучаем текущую реализацию</h3><p>Разбираемся в теме, плагинах, существующем функционале и ограничениях проекта.</p></li>
+    <li><h3>Согласуем решение</h3><p>Определяем, что меняем, какой результат ожидается и какие сценарии нужно сохранить.</p></li>
+    <li><h3>Готовим и проверяем изменения</h3><p>Используем тестовую копию или другой подходящий способ проверки с учётом возможностей проекта.</p></li>
+    <li><h3>Внедряем и проверяем результат</h3><p>Заранее определяем способ возврата изменений. После внедрения проверяем затронутые сценарии.</p></li>
+</ol><p class="wi-note">Способ проверки и порядок внедрения определяем для конкретного сайта. Ограничения работающего проекта обсуждаем до реализации.</p></div></section>
+<section class="wi-section wi-dark" aria-labelledby="estimate-title"><div class="wi-container"><p class="wi-kicker">Сначала состав работ</p><h2 id="estimate-title">Как оценивается доработка</h2><div class="wi-grid wi-grid-three">
+    <article class="wi-feature"><h3>Задача понятна по описанию</h3><p>Можно предварительно определить состав работ и бюджет. Детали уточняем перед началом реализации.</p></article>
+    <article class="wi-feature"><h3>Сначала нужно найти причину</h3><p>При ошибке или неизвестном состоянии кода может потребоваться отдельная диагностика. Её необходимость и стоимость согласуются заранее.</p></article>
+    <article class="wi-feature"><h3>Нужна крупная доработка</h3><p>Формируем состав работ и при необходимости разделяем реализацию на этапы с отдельными результатами.</p></article>
+</div><p class="wi-intro">На оценку влияют сложность функции, состояние темы и плагинов, интеграции, количество затронутых сценариев и необходимые проверки.</p><a class="wi-link" href="<?php echo esc_url(home_url('/prices/')); ?>">Посмотреть действующий прайс</a></div></section>
+<section class="wi-section" aria-labelledby="format-title"><div class="wi-container"><p class="wi-kicker">Выбор формата</p><h2 id="format-title">Какой формат подойдёт вашему проекту</h2><div class="wi-grid wi-grid-three">
+    <article class="wi-card"><span class="wi-number">01</span><h3>Отдельная доработка</h3><p>Известная функция или конкретное изменение в существующем сайте.</p><a class="wi-link" href="#improve-contact">Отправить задачу</a></article>
+    <article class="wi-card"><span class="wi-number">02</span><h3>Техническая поддержка</h3><p>Регулярные задачи и сопровождение в согласованном объёме.</p><a class="wi-link" href="<?php echo esc_url($support_url); ?>">Подробнее о поддержке</a></article>
+    <article class="wi-card"><span class="wi-number">03</span><h3>Редизайн или переработка</h3><p>Изменения затрагивают значительную часть интерфейса или архитектуры.</p><a class="wi-link" href="<?php echo esc_url($redesign_url); ?>">Подробнее о редизайне</a></article>
+</div><p class="wi-note">Подход определяется после изучения сайта. Полная переделка нужна не для каждой задачи.</p></div></section>
+<section class="wi-section wi-soft" aria-labelledby="prepare-title"><div class="wi-container wi-split"><div><p class="wi-kicker">Для предварительной оценки</p><h2 id="prepare-title">Что поможет быстрее разобраться в задаче</h2><p class="wi-intro">Можно обратиться без готового технического задания — сначала уточним задачу.</p><p>Если для работы потребуются доступы, порядок их предоставления согласуется отдельно.</p></div><ul class="wi-checks"><li>Ссылка на сайт.</li><li>Что происходит сейчас.</li><li>Какой результат нужен.</li><li>Скриншот, видео или пример.</li><li>Условия воспроизведения ошибки.</li><li>Важный срок, если он есть.</li></ul></div></section>
+<section class="wi-section" id="service-faq" aria-labelledby="faq-title"><div class="wi-container wi-faq"><div><p class="wi-kicker">Перед обращением</p><h2 id="faq-title">Частые вопросы</h2></div><div>
+    <?php foreach ([
+        ['Можно ли доработать сайт после другого разработчика?', 'Да. Сначала изучаем существующую тему, плагины и реализацию нужного сценария. После этого согласуем решение и состав работ.'],
+        ['Можно ли заказать одну небольшую задачу?', 'Да. Можно обратиться с отдельной правкой или новой функцией. Для оценки нужны описание задачи и исходные данные.'],
+        ['Обязательно ли переделывать весь сайт?', 'Нет. Сначала проверяем, можно ли решить задачу в текущем проекте. Более крупную переработку обсуждаем только при наличии технических оснований.'],
+        ['Как определяется стоимость?', 'Оценка зависит от сложности функции, состояния кода, интеграций и необходимых проверок. Состав работ и порядок оплаты согласуются до реализации.'],
+        ['Почему иногда сначала нужна диагностика?', 'Одинаковая ошибка может иметь разные причины. Изучение текущей реализации помогает определить объём исправления. Необходимость и стоимость диагностики согласуются заранее.'],
+        ['Можно ли работать поэтапно?', 'Да. Для крупной задачи можно согласовать этапы с понятным составом и проверяемым результатом.'],
+        ['Можно ли продолжить сотрудничество после выполнения задачи?', 'Да. Новые доработки или регулярное сопровождение согласуются отдельно с учётом потребностей проекта.'],
+    ] as $faq) : ?><details><summary><?php echo esc_html($faq[0]); ?></summary><p><?php echo esc_html($faq[1]); ?></p></details><?php endforeach; ?>
+</div></div></section>
+<?php if ($articles) : ?>
+<section class="wi-section wi-soft" aria-labelledby="articles-title"><div class="wi-container"><p class="wi-kicker">Разобраться в задаче</p><h2 id="articles-title">Полезные материалы</h2><div class="wi-grid wi-grid-three">
+    <?php foreach ($articles as $article) : ?><article class="wi-article"><h3><a href="<?php echo esc_url(get_permalink($article)); ?>"><?php echo esc_html(get_the_title($article)); ?></a></h3><p><?php echo esc_html($article_details[$article->post_name]); ?></p><a class="wi-link" href="<?php echo esc_url(get_permalink($article)); ?>">Читать статью</a></article><?php endforeach; ?>
+</div></div></section>
+<?php endif; ?>
+<section class="wi-section wi-contact" id="improve-contact" aria-labelledby="contact-title"><div class="wi-container wi-contact-grid"><div><p class="wi-kicker">Следующий шаг</p><h2 id="contact-title">Расскажите, что нужно изменить на сайте</h2><p class="wi-intro">Пришлите ссылку и коротко опишите задачу. Изучим исходные данные, уточним детали и предложим следующий шаг.</p><div class="wi-contact-links"><a href="https://t.me/+79250404189">Написать в Telegram</a><a href="mailto:info@wpdevstudio.ru">info@wpdevstudio.ru</a></div></div><div class="wi-contact-form"><?php echo do_shortcode('[smart_contact_form]'); ?></div></div></section>
 </main>
-
 <?php get_footer(); ?>
