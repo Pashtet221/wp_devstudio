@@ -23,13 +23,27 @@ get_header(); ?>
 </section>
 
 <section class="wps-about-section"><div class="container"><div class="wps-about-grid">
-  <div class="wps-about-block"><span class="wps-about-kicker">Как устроена студия</span><h2 class="wps-about-title">Небольшая команда под конкретную задачу</h2><p>Проект не проходит через менеджеров, которые теряют детали. Вы общаетесь со специалистом, участвующим в разработке. Если нужны дизайн, тексты или дополнительная экспертиза, подключаем проверенных исполнителей и сохраняем единый контроль качества.</p></div>
+  <div class="wps-about-block"><span class="wps-about-kicker">Как устроена студия</span><h2 class="wps-about-title">Небольшая команда под конкретную задачу</h2><p>Проект не проходит через менеджеров, которые теряют детали. За разработку отвечает Павел, за UX/UI-дизайн — Елена. Вы общаетесь напрямую со специалистами, работающими над проектом. При необходимости подключаем дополнительных исполнителей под согласованные задачи.</p></div>
   <div class="wps-about-note">
     <div class="wps-about-note__item"><strong>Без конвейера</strong><p>Берём ограниченное число проектов, чтобы разбираться в каждом.</p></div>
     <div class="wps-about-note__item"><strong>Без технической воды</strong><p>Объясняем решения человеческим языком и показываем результат.</p></div>
     <div class="wps-about-note__item"><strong>С ответственностью</strong><p>Не исчезаем после оплаты и доводим согласованный объём до запуска.</p></div>
   </div>
 </div></div></section>
+
+<section class="wps-about-section wps-about-team" aria-labelledby="about-team-title"><div class="container">
+  <div class="wps-section-head"><span class="wps-about-kicker">Люди за проектом</span><h2 class="wps-about-title" id="about-team-title">Разработка и дизайн в одной команде</h2><p class="wps-about-subtitle">От пользовательского сценария и макета до работающего сайта. Роли и состав участия специалистов определяем под задачу проекта.</p></div>
+  <div class="wps-about-team__grid">
+    <article class="wps-about-team__person" aria-labelledby="about-pavel-title">
+      <div class="wps-about-team__photo"><?php echo wp_get_attachment_image(1291, 'large', false, ['alt' => 'Павел — разработчик WordPress и WooCommerce', 'loading' => 'lazy', 'decoding' => 'async', 'sizes' => '(max-width: 550px) calc(100vw - 80px), 200px']); ?></div>
+      <div class="wps-about-team__bio"><h3 id="about-pavel-title">Павел</h3><p class="wps-about-team__role">WordPress / WooCommerce Developer</p><p>Разрабатываю интернет-магазины и сайты с индивидуальным дизайном и нестандартным функционалом. Отвечаю за архитектуру, разработку, интеграции и техническую реализацию проектов.</p><p class="wps-about-team__skills"><strong>Опыт и специализация</strong><span>WordPress, WooCommerce, PHP, JavaScript, ACF, REST API.</span></p><a class="wps-about-team__link" href="https://www.linkedin.com/in/pavel-damut-142181288" target="_blank" rel="noopener noreferrer" aria-label="Профиль Павла в LinkedIn — откроется в новой вкладке">LinkedIn <span aria-hidden="true">↗</span></a></div>
+    </article>
+    <article class="wps-about-team__person" aria-labelledby="about-elena-title">
+      <div class="wps-about-team__photo"><?php echo wp_get_attachment_image(1293, 'large', false, ['alt' => 'Елена — UX/UI-дизайнер', 'loading' => 'lazy', 'decoding' => 'async', 'sizes' => '(max-width: 550px) calc(100vw - 80px), 200px']); ?></div>
+      <div class="wps-about-team__bio"><h3 id="about-elena-title">Елена</h3><p class="wps-about-team__role">UX/UI-дизайнер</p><p>Проектирую пользовательские сценарии и интерфейсы сайтов и интернет-магазинов. Работаю над структурой страниц, визуальной иерархией и макетами для разных устройств, чтобы подготовить дизайн к разработке.</p><p class="wps-about-team__skills"><strong>Специализация</strong><span>UX/UI, структура страниц, прототипирование, дизайн интерфейсов и адаптивные макеты.</span></p></div>
+    </article>
+  </div>
+</div></section>
 
 <section class="wps-about-section wps-about-section--dark"><div class="container">
   <div class="wps-section-head"><span class="wps-about-kicker">Что делаем</span><h2 class="wps-about-title">Запускаем новое и улучшаем работающее</h2><p class="wps-about-subtitle">От лендинга до магазина с интеграциями — без лишнего функционала и с запасом для развития.</p></div>
@@ -506,6 +520,21 @@ get_header(); ?>
     flex-direction: column;
   }
 }
+.wps-about-team{background:#f5f6f8}
+.wps-about-team .wps-about-team__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.wps-about-team .wps-about-team__person{display:grid;grid-template-columns:minmax(140px,180px) minmax(0,1fr);align-items:start;gap:24px;padding:28px;border:1px solid #e3e5e9;border-radius:24px;background:#fff;min-width:0;box-sizing:border-box}
+.wps-about-team .wps-about-team__photo{overflow:hidden;border-radius:16px;aspect-ratio:1;background:#111315}
+.wps-about-team .wps-about-team__photo img{display:block;width:100%;height:100%;object-fit:cover}
+.wps-about-team .wps-about-team__bio{min-width:0}
+.wps-about-team .wps-about-team__bio h3{margin:0 0 8px;font-size:28px;line-height:1.2;letter-spacing:-.025em;color:#181818}
+.wps-about-team .wps-about-team__bio p{margin:0 0 18px;font-size:16px;line-height:1.7}
+.wps-about-team .wps-about-team__bio .wps-about-team__role{color:#b91c1c;font-size:14px;font-weight:700;line-height:1.5}
+.wps-about-team .wps-about-team__skills{display:grid;gap:5px}
+.wps-about-team .wps-about-team__skills strong{color:#181818;font-weight:600}
+.wps-about-team .wps-about-team__link{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:#181818;font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.wps-about-team .wps-about-team__link:focus-visible{outline:3px solid #2563eb;outline-offset:4px}
+@media(max-width:1199px){.wps-about-team .wps-about-team__grid{grid-template-columns:1fr}.wps-about-team .wps-about-team__person{grid-template-columns:200px minmax(0,1fr)}}
+@media(max-width:550px){.wps-about-team .wps-about-team__person{grid-template-columns:1fr;padding:22px;gap:22px}.wps-about-team .wps-about-team__photo{width:100%;max-width:320px}.wps-about-team .wps-about-team__grid{gap:22px}}
 </style>
 
 <?php get_footer(); ?>
