@@ -162,7 +162,7 @@ do_action('woocommerce_before_single_product');
 		</div>
 
 		<section class="pluginFinalCta">
-			<div><span>Нужен этот плагин на вашем сайте?</span><h2>Установлю и настрою <?php echo esc_html($product_name); ?></h2><p>Расскажите о сайте — отвечу, проверю совместимость и назову точную стоимость.</p></div>
+			<div><span>Нужен этот плагин на вашем сайте?</span><p class="pluginFinalCta__title">Установлю и настрою <?php echo esc_html($product_name); ?></p><p>Расскажите о сайте — отвечу, проверю совместимость и назову точную стоимость.</p></div>
 			<button class="pluginButton pluginButton--light js-plugin-order-open" type="button">Оставить заявку</button>
 		</section>
 	</div>

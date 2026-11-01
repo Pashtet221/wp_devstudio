@@ -108,7 +108,7 @@
             <section class="postCta" id="postCta" aria-label="Форма заявки">
               <div class="postCta__inner">
                 <div class="postCta__text">
-                  <h3 class="postCta__title">Хотите обсудить проект?</h3>
+                  <p class="postCta__title">Хотите обсудить проект?</p>
                   <p class="postCta__desc">
                     Напишите задачу — предложим решение, сроки и этапы. Без воды.
                   </p>
@@ -126,7 +126,7 @@
               if ($related && $related->have_posts()) :
             ?>
               <section class="postRelated" aria-label="Похожие материалы">
-                <h3 class="postRelated__title">Похожие материалы</h3>
+                <h2 class="postRelated__title">Похожие материалы</h2>
                 <div class="postRelated__grid">
                   <?php while ($related->have_posts()) : $related->the_post(); ?>
                     <a class="postCard" href="<?php the_permalink(); ?>">

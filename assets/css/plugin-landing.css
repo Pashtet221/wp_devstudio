@@ -35,7 +35,8 @@
 .pluginSection__number{position:absolute;top:69px;left:0;color:#6f7a87;font-size:12px}
 .pluginSection>h2{margin:0 0 32px;padding-left:46px;font-size:clamp(28px,3vw,42px);letter-spacing:-.035em}
 .pluginProse{color:#c5ccd5;font-size:17px;line-height:1.75}
-.pluginProse h2,.pluginProse h3{color:#fff}
+.pluginProse h2,.pluginProse h3,.pluginProse h4,.pluginProse h5,.pluginProse h6{color:#fff}
+.pluginProse h4{font-size:18px;line-height:1.4;margin:22px 0 12px}
 .pluginProse a{color:#ff777e}
 .pluginProse img{max-width:100%;height:auto}
 .pluginProse ul{padding-left:22px}
@@ -71,7 +72,7 @@
 .pluginRelated b{font-size:15px}
 .pluginFinalCta{display:flex;align-items:center;justify-content:space-between;gap:40px;margin-top:40px;padding:50px;border-radius:24px;background:var(--pl-red)}
 .pluginFinalCta span{font-size:13px;font-weight:700;text-transform:uppercase}
-.pluginFinalCta h2{max-width:750px;margin:12px 0;font-size:clamp(28px,4vw,48px);line-height:1.08}
+.pluginFinalCta .pluginFinalCta__title{opacity:1;font-weight:600;color:inherit;max-width:750px;margin:12px 0;font-size:clamp(28px,4vw,48px);line-height:1.08}
 .pluginFinalCta p{margin:0;opacity:.85}
 .pluginFinalCta .pluginButton{width:auto;min-width:210px}
 .pluginButton--light{background:#fff;color:#151b22}

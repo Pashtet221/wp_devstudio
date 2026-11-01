@@ -71,11 +71,11 @@ $plugins_query = new WP_Query([
 							</a>
 						<?php endif; ?>
 
-						<h3>
+						<h2>
 							<a href="<?php echo esc_url($product_link); ?>">
 								<?php echo esc_html($product_title); ?>
 							</a>
-						</h3>
+						</h2>
 
 						<?php if (!empty($short_desc)) : ?>
 							<div class="plugin-desc">
@@ -103,7 +103,7 @@ $plugins_query = new WP_Query([
 			<?php else : ?>
 
 				<article class="plugin-card plugin-card--soon">
-					<h3>Плагины скоро появятся</h3>
+					<h2>Плагины скоро появятся</h2>
 					<p class="plugin-desc">
 						Сейчас каталог наполняется.
 					</p>
@@ -204,19 +204,19 @@ $plugins_query = new WP_Query([
 	transform:scale(1.04);
 }
 
-.plugin-card h3{
+.plugin-card h2{
 	margin:0 0 8px;
 	font-size:20px;
 	line-height:1.25;
 	color:var(--text);
 }
 
-.plugin-card h3 a{
+.plugin-card h2 a{
 	color:inherit;
 	text-decoration:none;
 }
 
-.plugin-card h3 a:hover{
+.plugin-card h2 a:hover{
 	color:#fff;
 }
 

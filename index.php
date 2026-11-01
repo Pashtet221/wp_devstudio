@@ -4,6 +4,11 @@
  * Используется, если нет более специфичных шаблонов
  */
 
+if (!is_singular()) {
+    require __DIR__ . '/archive.php';
+    return;
+}
+
 get_header();
 ?>
 
