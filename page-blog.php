@@ -2,46 +2,20 @@
 /*
 Template Name: Блог (архив)
 */
-get_header();
+require_once __DIR__ . '/includes/collection-navigation.php';
 
 /**
  * Параметры
  */
-$paged = max(1, (int) get_query_var('paged'));
+$paged = max(1, (int) get_query_var('paged'), (int) get_query_var('page'), isset($_GET['paged']) ? absint($_GET['paged']) : 1);
 
 $selected_cat = isset($_GET['cat']) ? (int) $_GET['cat'] : 0;
 $search_q_raw = isset($_GET['s']) ? (string) $_GET['s'] : '';
 $search_q     = sanitize_text_field($search_q_raw);
 
-/**
- * (Опционально) Нормализация URL: убираем пустые параметры, мусор и т.п.
- * Если не хочешь редиректы — закомментируй блок.
- */
-$base_url = get_permalink();
-$qs = [];
-if ($selected_cat > 0) $qs['cat'] = $selected_cat;
-if ($search_q !== '') $qs['s'] = $search_q;
-if ($paged > 1) $qs['paged'] = $paged;
-
-$canonical_url = $base_url;
-if (!empty($qs)) {
-  $canonical_url = add_query_arg($qs, $base_url);
-}
-
-// если пришли с мусорными параметрами — редиректим на нормальный канонический URL
-$current_url = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-$current_url_no_hash = preg_replace('~#.*$~', '', $current_url);
-
-if (wp_doing_ajax() === false) {
-  // сравниваем без отличий типа &amp; и т.п.
-  $normalized_current = esc_url_raw($current_url_no_hash);
-  $normalized_canonical = esc_url_raw($canonical_url);
-
-  if ($normalized_current && $normalized_canonical && $normalized_current !== $normalized_canonical) {
-    wp_safe_redirect($normalized_canonical, 301);
-    exit;
-  }
-}
+$base_url = get_permalink(get_queried_object_id());
+$filters = ['cat' => $selected_cat ?: null, 's' => $search_q];
+$canonical_url = wpds_collection_url($base_url, $paged, $filters);
 
 /**
  * WP_Query
@@ -73,45 +47,12 @@ function wpds_reading_time($post_id): string {
   return $mins . ' min read';
 }
 
-/**
- * SEO: canonical + robots + rel prev/next
- * (Через wp_head, чтобы работало без правок header.php)
- */
-add_action('wp_head', function() use ($canonical_url, $paged, $q, $selected_cat, $search_q) {
-  // Canonical
-  echo '<link rel="canonical" href="' . esc_url($canonical_url) . "\" />\n";
-
-  // Для фильтров/поиска обычно лучше noindex, чтобы не плодить тонны страниц в индексе
-  // (Если ты ХОЧЕШЬ индексировать категории/поиск — убери этот блок или сделай условие мягче)
-  if ($selected_cat || $search_q) {
-    echo "<meta name=\"robots\" content=\"noindex,follow\" />\n";
-  }
-
-  // rel prev/next для пагинации
-  $total = (int) $q->max_num_pages;
-
-  if ($total > 1) {
-    if ($paged > 1) {
-      $prev_url = add_query_arg(array_filter([
-        'cat'   => $selected_cat ?: null,
-        's'     => $search_q ?: null,
-        'paged' => ($paged - 1) > 1 ? ($paged - 1) : null,
-      ]), get_permalink());
-
-      echo '<link rel="prev" href="' . esc_url($prev_url) . "\" />\n";
-    }
-
-    if ($paged < $total) {
-      $next_url = add_query_arg(array_filter([
-        'cat'   => $selected_cat ?: null,
-        's'     => $search_q ?: null,
-        'paged' => $paged + 1,
-      ]), get_permalink());
-
-      echo '<link rel="next" href="' . esc_url($next_url) . "\" />\n";
-    }
-  }
-}, 1);
+wpds_collection_seo(
+  $canonical_url, (bool) ($selected_cat || $search_q),
+  $paged > 1 ? wpds_collection_url($base_url, $paged - 1, $filters) : '',
+  $paged < (int) $q->max_num_pages ? wpds_collection_url($base_url, $paged + 1, $filters) : ''
+);
+get_header();
 ?>
 
 <main class="wpds-blog" itemscope itemtype="https://schema.org/CollectionPage">
@@ -261,6 +202,8 @@ add_action('wp_head', function() use ($canonical_url, $paged, $q, $selected_cat,
 
         <?php
           $pagination = paginate_links([
+            'base'      => wpds_collection_pagination($base_url, $filters)['base'],
+            'format'    => wpds_collection_pagination($base_url, $filters)['format'],
             'total'     => $q->max_num_pages,
             'current'   => $paged,
             'type'      => 'array',

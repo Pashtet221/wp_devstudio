@@ -2,20 +2,20 @@
 /**
  * Template Name: Кейсы (архив)
  */
-get_header();
+require_once __DIR__ . '/includes/collection-navigation.php';
 
 /**
  * НАСТРОЙКИ (под себя)
  */
 $post_type = 'case';        // CPT кейсов
-$tax       = 'case_cat';    // таксономия категорий кейсов
+$tax       = 'category';    // таксономия категорий кейсов
 
 /**
  * Фильтры из URL
  */
 $active_term = isset($_GET['cat']) ? sanitize_text_field((string) $_GET['cat']) : '';
 $search      = isset($_GET['q'])   ? sanitize_text_field((string) $_GET['q'])   : '';
-$paged       = max(1, (int) get_query_var('paged'));
+$paged       = max(1, (int) get_query_var('paged'), (int) get_query_var('page'), isset($_GET['paged']) ? absint($_GET['paged']) : 1);
 
 /**
  * Тянем категории
@@ -54,85 +54,25 @@ $q = new WP_Query($args);
  * Хелпер: ссылка без мусора (с сохранением нужных параметров)
  */
 function wpds_cases_url(array $params = []): string {
-  $base = get_permalink();
-
-  $current = [];
-  if (!empty($_GET['cat'])) $current['cat'] = sanitize_text_field((string) $_GET['cat']);
-  if (!empty($_GET['q']))   $current['q']   = sanitize_text_field((string) $_GET['q']);
-  if (!empty($_GET['paged'])) $current['paged'] = max(1, (int) $_GET['paged']);
-
+  $current = [
+    'cat' => isset($_GET['cat']) ? sanitize_text_field((string) $_GET['cat']) : '',
+    'q' => isset($_GET['q']) ? sanitize_text_field((string) $_GET['q']) : '',
+    'paged' => max(1, (int) get_query_var('paged'), isset($_GET['paged']) ? absint($_GET['paged']) : 1),
+  ];
   $merged = array_merge($current, $params);
-
-  // удалить пустые / null / 0 paged
-  foreach ($merged as $k => $v) {
-    if ($v === '' || $v === null) unset($merged[$k]);
-  }
-  if (isset($merged['paged']) && (int)$merged['paged'] <= 1) unset($merged['paged']);
-
-  return !empty($merged) ? add_query_arg($merged, $base) : $base;
+  $page = max(1, (int) $merged['paged']);
+  unset($merged['paged']);
+  return wpds_collection_url(get_permalink(get_queried_object_id()), $page, $merged);
 }
-
-/**
- * SEO: canonical + robots + rel prev/next + (опционально) 301 нормализация URL
- */
-$base_url = get_permalink();
-
-$qs = [];
-if ($active_term !== '') $qs['cat'] = $active_term;
-if ($search !== '')      $qs['q']   = $search;
-if ($paged > 1)          $qs['paged'] = $paged;
-
-$canonical_url = !empty($qs) ? add_query_arg($qs, $base_url) : $base_url;
-
-// (Опционально) 301 редирект на нормализованный URL без мусора
-$current_url = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-$current_url = preg_replace('~#.*$~', '', $current_url);
-
-if (!wp_doing_ajax()) {
-  $normalized_current   = esc_url_raw($current_url);
-  $normalized_canonical = esc_url_raw($canonical_url);
-
-  if ($normalized_current && $normalized_canonical && $normalized_current !== $normalized_canonical) {
-    wp_safe_redirect($normalized_canonical, 301);
-    exit;
-  }
-}
-
-add_action('wp_head', function() use ($canonical_url, $paged, $q, $active_term, $search, $base_url) {
-  // canonical
-  echo '<link rel="canonical" href="' . esc_url($canonical_url) . "\" />\n";
-
-  // Обычно фильтры/поиск (GET) лучше noindex, чтобы не плодить дубли.
-  // Если хочешь индексировать фильтрованные страницы — убери это условие.
-  if ($active_term !== '' || $search !== '') {
-    echo "<meta name=\"robots\" content=\"noindex,follow\" />\n";
-  }
-
-  // prev/next
-  $total = (int) $q->max_num_pages;
-
-  if ($total > 1) {
-    if ($paged > 1) {
-      $prev_args = [];
-      if ($active_term !== '') $prev_args['cat'] = $active_term;
-      if ($search !== '')      $prev_args['q']   = $search;
-      if (($paged - 1) > 1)    $prev_args['paged'] = $paged - 1;
-
-      $prev_url = !empty($prev_args) ? add_query_arg($prev_args, $base_url) : $base_url;
-      echo '<link rel="prev" href="' . esc_url($prev_url) . "\" />\n";
-    }
-
-    if ($paged < $total) {
-      $next_args = [];
-      if ($active_term !== '') $next_args['cat'] = $active_term;
-      if ($search !== '')      $next_args['q']   = $search;
-      $next_args['paged']      = $paged + 1;
-
-      $next_url = add_query_arg($next_args, $base_url);
-      echo '<link rel="next" href="' . esc_url($next_url) . "\" />\n";
-    }
-  }
-}, 1);
+$base_url = get_permalink(get_queried_object_id());
+$filters = ['cat' => $active_term, 'q' => $search];
+$canonical_url = wpds_collection_url($base_url, $paged, $filters);
+wpds_collection_seo(
+  $canonical_url, $active_term !== '' || $search !== '',
+  $paged > 1 ? wpds_collection_url($base_url, $paged - 1, $filters) : '',
+  $paged < (int) $q->max_num_pages ? wpds_collection_url($base_url, $paged + 1, $filters) : ''
+);
+get_header();
 ?>
 
 <section class="wpds-cases" itemscope itemtype="https://schema.org/CollectionPage">
@@ -240,9 +180,9 @@ add_action('wp_head', function() use ($canonical_url, $paged, $q, $active_term, 
                 </div>
               <?php endif; ?>
 
-              <h3 class="wpds-card__title" itemprop="name">
+              <h2 class="wpds-card__title" itemprop="name">
                 <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-              </h3>
+              </h2>
 
               <?php if ($excerpt): ?>
                 <p class="wpds-card__text" itemprop="description"><?php echo esc_html($excerpt); ?></p>
@@ -262,6 +202,8 @@ add_action('wp_head', function() use ($canonical_url, $paged, $q, $active_term, 
 
       <?php
         $pagination = paginate_links([
+          'base'      => wpds_collection_pagination($base_url, $filters)['base'],
+            'format'    => wpds_collection_pagination($base_url, $filters)['format'],
           'total'     => $q->max_num_pages,
           'current'   => $paged,
           'type'      => 'array',
@@ -280,7 +222,7 @@ add_action('wp_head', function() use ($canonical_url, $paged, $q, $active_term, 
 
     <?php else: ?>
       <div class="wpds-empty">
-        <h3>Ничего не найдено</h3>
+        <h2>Ничего не найдено</h2>
         <p>Попробуйте изменить фильтр или запрос.</p>
         <a class="wpds-btn wpds-btn--ghost" href="<?php echo esc_url(get_permalink()); ?>">Сбросить</a>
       </div>
