@@ -1,7 +1,6 @@
 <?php
 /**
- * Подключение только CSS для главной страницы.
- * JS из исходного сайта убран, чтобы не вызывал client-side error.
+ * Общие стили и скрипты темы WPDevStudio.
  */
 
 function itb_company_asset_version($relative_path) {
@@ -156,50 +155,6 @@ add_filter('big_image_size_threshold', '__return_false');
  * comment form, WooCommerce reviews, REST API and XML-RPC requests.
  */
 add_filter('pre_option_comment_registration', '__return_true');
-
-
-
-
-function itb_company_page_has_swiper() {
-    return is_front_page() || is_page_template('template-front-page.php');
-}
-
-function itb_company_assets() {
-    if (! itb_company_page_has_swiper()) {
-        return;
-    }
-
-    wp_enqueue_style(
-        'swiper',
-        'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css',
-        [],
-        '9'
-    );
-
-    wp_enqueue_script(
-        'swiper',
-        'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js',
-        [],
-        '9',
-        true
-    );
-
-    if (file_exists(get_stylesheet_directory() . '/assets/js/main-services-slider.js')) {
-        wp_enqueue_script(
-            'itb-main-services-slider',
-            get_stylesheet_directory_uri() . '/assets/js/main-services-slider.js',
-            ['swiper'],
-            itb_company_asset_version('assets/js/main-services-slider.js'),
-            true
-        );
-    }
-}
-add_action( 'wp_enqueue_scripts', 'itb_company_assets' );
-
-
-
-
-
 
 
 
@@ -2585,7 +2540,7 @@ add_shortcode('ds_bottom_form', function($atts){
                 decoding="async"
                 height="591"
                 loading="lazy"
-                src="https://itb-company.com/_next/static/media/bottom-form-img.8bacb852.svg"
+                src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bottom-form-img.8bacb852.svg'); ?>"
                 style="color:transparent"
                 width="592"
             />
